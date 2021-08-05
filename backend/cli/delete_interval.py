@@ -1,5 +1,5 @@
 import db
-from convert_time import local_to_utc,utc_to_local
+from convert_time import local_to_utc, utc_to_local
 
 
 def delete_interval(params):
