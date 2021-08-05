@@ -10,12 +10,12 @@ import re
 def createParser():
     """создает парсер,подпарсер с аргументами командной строки"""
     parser = argparse.ArgumentParser(
-                        description="reads commands and arguments",
-                        prog = "calendar")
-    parser.add_argument('--path', '-p', default='db/main_db.sqlite', help = "the path to the database. Default: main_db.sqlite")
+        description="reads commands and arguments",
+        prog="calendar")
+    parser.add_argument('--path', '-p', default='db/main_db.sqlite', help="the path to the database. Default: main_db.sqlite")
     subparsers = parser.add_subparsers(dest='command',
-                                        title = "Used commands",
-                                        description='Commands to be taken as the first parameter %(prog)s')
+                                       title="Used commands",
+                                       description='Commands to be taken as the first parameter %(prog)s')
 
     add_interval = subparsers.add_parser('add_interval')
     add_interval.add_argument('start', help="start of added interval: YYYY-MM-DDThh:mm")
@@ -59,9 +59,9 @@ def correctness_commands(params):
          add_interval       start end        ->  YYYY-MM-DDThh:mm  YYYY-MM-DDThh:mm
          delete_interval    start end        ->  YYYY-MM-DDThh:mm  YYYY-MM-DDThh:mm
          delete_day         date             ->  YYYY-MM-DD
-         get_slots          [-w] [-d] [-f]   ->  week & day: YYYY-MM-DD, 
+         get_slots          [-w] [-d] [-f]   ->  week & day: YYYY-MM-DD,
                                                  filter: 'free' or 'booking'.
-         delete_all         no args          ->  delete all free slots         
+         delete_all         no args          ->  delete all free slots
         """)
 
 
@@ -115,7 +115,9 @@ def regular_filter(x):
 
 def regular_start_end(x):
     """регулярка для проверки формата start и end[YYYY-MM-DDThh:mm]"""
-    pattern = r'^([0-9]{4}[-]?((0[13-9]|1[012])[-]?(0[1-9]|[12][0-9]|30)|(0[13578]|1[02])[-]?31|02[-]?(0[1-9]|1[0-9]|2[0-8]))|([0-9]{2}(([2468][048]|[02468][48])|[13579][26])|([13579][26]|[02468][048])00)[-]?02[-]?29)[T](0[0-9]|1[0-9]|2[0-3])[:]([0-5]{1}[0-9]{1})$'
+    pattern = r'^([0-9]{4}[-]?((0[13-9]|1[012])[-]?(0[1-9]|[12][0-9]|30)|(0[13578]|1[02])[-]?31|02[-]?(0[1-9]|1[' \
+              r'0-9]|2[0-8]))|([0-9]{2}(([2468][048]|[02468][48])|[13579][26])|([13579][26]|[02468][048])00)[-]?02[' \
+              r'-]?29)[T](0[0-9]|1[0-9]|2[0-3])[:]([0-5]{1}[0-9]{1})$ '
     if re.match(pattern, x):
         return True
     else:
@@ -125,7 +127,9 @@ def regular_start_end(x):
 
 def regular_day(x):
     """регулярка для проверки формата date[YYYY-MM-DD]"""
-    pattern = r'^([0-9]{4}[-]?((0[13-9]|1[012])[-]?(0[1-9]|[12][0-9]|30)|(0[13578]|1[02])[-]?31|02[-]?(0[1-9]|1[0-9]|2[0-8]))|([0-9]{2}(([2468][048]|[02468][48])|[13579][26])|([13579][26]|[02468][048])00)[-]?02[-]?29)$'
+    pattern = r'^([0-9]{4}[-]?((0[13-9]|1[012])[-]?(0[1-9]|[12][0-9]|30)|(0[13578]|1[02])[-]?31|02[-]?(0[1-9]|1[' \
+              r'0-9]|2[0-8]))|([0-9]{2}(([2468][048]|[02468][48])|[13579][26])|([13579][26]|[02468][048])00)[-]?02[' \
+              r'-]?29)$ '
     if re.match(pattern, x):
         return True
     else:

@@ -34,8 +34,7 @@ def get_slots(params):
             assert len(interval_tuple) == 1
             interval = interval_tuple[0]
             lst_of_intervals.append(utc_to_local(interval))
-        lst_collapse_intervals = list(collapse_intervals(lst_of_intervals))
-        lst_collapse_intervals.sort()
+        lst_collapse_intervals = sorted(collapse_intervals(lst_of_intervals))
         for collapse_interval in lst_collapse_intervals:
             print(collapse_interval)
         return lst_collapse_intervals
@@ -49,8 +48,7 @@ def get_slots(params):
             assert len(interval_tuple) == 1
             interval = interval_tuple[0]
             lst_of_intervals.append(utc_to_local(interval))
-        lst_collapse_intervals = list(collapse_intervals(lst_of_intervals))
-        lst_collapse_intervals.sort()
+        lst_collapse_intervals = sorted(collapse_intervals(lst_of_intervals))
         for collapse_interval in lst_collapse_intervals:
             print(collapse_interval)
         return lst_collapse_intervals
