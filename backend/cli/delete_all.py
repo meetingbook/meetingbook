@@ -7,3 +7,4 @@ def delete_all(params):
         cur = con.cursor()
 
         cur.execute("DELETE FROM Slots WHERE booking_id is null")
+        print("All free slots removed")

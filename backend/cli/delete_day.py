@@ -1,5 +1,5 @@
 import db
-from convert_time import local_to_utc
+from convert_time import local_to_utc, utc_to_local,utc_to_local_format
 from datetime import timedelta
 
 
@@ -14,4 +14,5 @@ def delete_day(params):
         cur.execute("DELETE" + QUERY + "is null", [params_start, params_end])
         cur.execute("SELECT start_interval" + QUERY + "NOT null", [params_start, params_end])
         for result in cur:
-            print("""Can't delete booked interval: {}""".format(result))
+            result = result[0]
+            print("""Can't delete booked interval: {}""".format(utc_to_local(result)))
