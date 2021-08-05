@@ -10,7 +10,7 @@ In order to autoformat your code you can use `bin/auto_format.py`.
 
 ## Tests
 
-In order to run tests go to the root folder and run:
+In order to run tests go to the `backend` folder and run:
 
 ```bash
 python3 -m pytest
