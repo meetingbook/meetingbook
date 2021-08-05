@@ -1,0 +1,3 @@
+flask
+flake8
+pytest
