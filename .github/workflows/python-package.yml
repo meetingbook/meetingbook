@@ -31,4 +31,4 @@ jobs:
         flake8 . --exit-zero --max-complexity=10
     - name: Test with pytest
       run: |
-        pytest
+        python3 -m pytest

@@ -1,8 +1,8 @@
 from types import SimpleNamespace
-import delete_all
-from .func_for_test_db import clean_table_slots, create_test_table, get_test_slots, convert_from_utc_test
-import add_interval
+from backend.tools.func_for_test_db import clean_table_slots, create_test_table, get_test_slots, convert_from_utc_test
 import pytest
+
+from backend.cli import add_interval, delete_all
 
 
 @pytest.fixture(scope='module')

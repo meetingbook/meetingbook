@@ -1,10 +1,11 @@
 import argparse
-import get_slots as gs
-import delete_day as dd
-import delete_interval as di
-import add_interval as ai
-import delete_all as da
+from backend.cli import delete_day as dd
+from backend.cli import delete_interval as di
+from backend.cli import add_interval as ai
+from backend.cli import delete_all as da
 import re
+
+from backend.cli import get_slots
 
 
 def createParser():
@@ -86,7 +87,7 @@ def check_format_get_slots(params):
     if (check_day_and_week(params.week) is False) or (check_day_and_week(params.day) is False) or (check_filter(params) is False):
         print("assert: YYYY-MM-DD")
     else:
-        gs.get_slots(params)
+        get_slots.get_slots(params)
 
 
 def check_day_and_week(params):
