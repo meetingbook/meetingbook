@@ -1,8 +1,10 @@
-#!/Usr/bin/env python
+#!/usr/bin/env python
+
 import argparse
-import db
-from convert_time import local_to_utc
+from backend.cli import db
 from datetime import timedelta
+
+from backend.cli.convert_time import local_to_utc
 
 
 def createParser():

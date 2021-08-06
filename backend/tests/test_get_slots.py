@@ -1,11 +1,10 @@
 from types import SimpleNamespace
-import get_slots
-from convert_time import local_to_utc
-from .func_for_test_db import clean_table_slots, create_test_table
+from backend.tools.func_for_test_db import clean_table_slots, create_test_table
 import pytest
-import db
+from backend.cli import db, add_interval, get_slots
 from datetime import timedelta
-import add_interval
+
+from backend.cli.convert_time import local_to_utc
 
 
 @pytest.fixture(scope='module')

@@ -1,5 +1,6 @@
-import comand_line_parser
 import pytest
+
+from backend.cli import comand_line_parser
 
 
 @pytest.mark.parametrize("date", [("2021-01-02T11:00"),
