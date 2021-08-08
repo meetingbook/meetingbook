@@ -15,3 +15,11 @@ In order to run tests go to the `backend` folder and run:
 ```bash
 python3 -m pytest
 ```
+
+## Run server
+
+From `backend` run:
+
+```bash
+python server/app.py
+```
