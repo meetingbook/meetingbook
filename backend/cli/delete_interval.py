@@ -2,7 +2,6 @@ from backend.cli import db
 from backend.cli.convert_time import local_to_utc, utc_to_local
 
 
-
 def delete_interval(params):
     """удаляем интервал"""
     params_start = local_to_utc(params.start)
