@@ -1,6 +1,6 @@
 from backend.cli import db
 from datetime import timedelta
-from backend.cli.convert_time import local_to_utc
+from backend.cli.convert_time import local_to_utc, utc_to_local
 
 
 def delete_day(params):
