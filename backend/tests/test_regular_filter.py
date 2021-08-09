@@ -1,4 +1,4 @@
-import comand_line_parser
+from backend.cli import comand_line_parser
 import pytest
 
 

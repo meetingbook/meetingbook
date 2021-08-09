@@ -14,7 +14,7 @@ files = list(
         list(Path(dir_path).rglob("*.py"))
         )
 )
-
+print('Starting autoformat files...')
 # filter out virtual env directories
 py_files = list(
     filter(
@@ -22,3 +22,4 @@ py_files = list(
         files))
 for file in py_files:
     system("autopep8 --in-place --aggressive --aggressive {0}".format(file))
+print('Autoformat is finished successfully.')

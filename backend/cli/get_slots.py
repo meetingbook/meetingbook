@@ -1,6 +1,7 @@
-import db
-from convert_time import utc_to_local, local_to_utc, collapse_intervals
+from backend.cli import db
 from datetime import timedelta
+
+from backend.cli.convert_time import local_to_utc, utc_to_local, collapse_intervals
 
 
 def get_intervals_from_db(params_path, params_filter, params_start, params_end):

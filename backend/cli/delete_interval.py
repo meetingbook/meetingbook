@@ -1,5 +1,6 @@
-import db
-from convert_time import local_to_utc, utc_to_local
+from backend.cli import db
+from backend.cli.convert_time import local_to_utc
+
 
 
 def delete_interval(params):
