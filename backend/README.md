@@ -11,8 +11,8 @@ In order to autoformat your code you can use `bin/auto_format.py`.
 ## Tests
 
 In order to run tests:
-1. go to the `backend` folder 
-   2. run command
+1. go to the `backend` folder
+2. run command
 ```bash
 export PYTHONPATH=<path to directory>/meetingbook/backend
 ```
