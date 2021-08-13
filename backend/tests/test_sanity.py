@@ -2,7 +2,6 @@ import subprocess
 import sys
 import os
 
-import pytest
 
 PYTHON_BINARY = sys.executable
 
