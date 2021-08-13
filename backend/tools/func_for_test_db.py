@@ -1,4 +1,4 @@
-from backend.cli import db, convert_time
+from cli import db, convert_time
 
 
 def create_test_table(params):

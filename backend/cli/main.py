@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-import comand_line_parser as par
-from backend.cli import db
+import cli.comand_line_parser as par
+from cli import db
 
 parser = par.createParser()
 params = parser.parse_args()

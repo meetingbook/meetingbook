@@ -1,11 +1,11 @@
 import argparse
-from backend.cli import delete_day as dd
-from backend.cli import delete_interval as di
-from backend.cli import add_interval as ai
-from backend.cli import delete_all as da
+from cli import delete_day as dd
+from cli import delete_interval as di
+from cli import add_interval as ai
+from cli import delete_all as da
 import re
 
-from backend.cli import get_slots
+from cli import get_slots
 
 
 def createParser():

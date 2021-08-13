@@ -1,6 +1,6 @@
-from backend.cli import db
+from cli import db
 from datetime import timedelta
-from backend.cli.convert_time import local_to_utc, utc_to_local_format
+from cli.convert_time import local_to_utc, utc_to_local_format
 
 
 def add_interval(params):
