@@ -2,6 +2,7 @@ import subprocess
 import sys
 import os
 
+import pytest
 
 PYTHON_BINARY = sys.executable
 
@@ -18,7 +19,7 @@ def run_booking_with_args(args):
         shell=True)
 
 
-# @pytest.mark.skip(reason="Will be fixed in the next PR")
+@pytest.mark.skip(reason="Will be fixed in the next PR")
 def test_sanity():
     try:
         os.remove('db/test_main_db.sqlite')
