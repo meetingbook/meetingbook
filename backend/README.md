@@ -12,9 +12,9 @@ In order to autoformat your code you can use `bin/auto_format.py`.
 
 In order to run tests:
 1. go to the `backend` folder
-2. run command
+2. run command in terminal or Git bash
 ```bash
-export PYTHONPATH=<path to directory>/meetingbook/backend
+export PYTHONPATH="$PWD"
 ```
 3. run pytest
 ```bash
@@ -26,5 +26,12 @@ python3 -m pytest
 From `backend` run:
 
 ```bash
-python server/app.py
+python3 server/app.py
+```
+
+## Run CLI command
+From `backend` run:
+
+```bash
+python3 -m cli
 ```
