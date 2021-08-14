@@ -8,27 +8,40 @@ def get_and_print_collapse_intervals_from_db(params_path, params_filter, params_
     lst_of_intervals = []
     with db.create_connection(params_path) as con:
         cur = con.cursor()
-
-        QUERY = " start_interval FROM Slots WHERE (?) <= start_interval AND (?) > start_interval "
-
+        QUERY = " WHERE (?) <= start_interval AND (?) > start_interval "
+        JOIN_QUERY = " JOIN BookingInfo ON Slots.booking_id = BookingInfo.id "
         if params_filter:
             if params_filter == "free":
-                SELECT_QUERY = "SELECT" + QUERY + "AND booking_id is null"
+                SELECT_QUERY = "SELECT start_interval FROM Slots" + QUERY + "AND booking_id is null"
                 cur.execute(SELECT_QUERY, [params_start, params_end])
+                for interval_tuple in cur:
+                    assert len(interval_tuple) == 1
+                    interval = interval_tuple[0]
+                    lst_of_intervals.append(utc_to_local(interval))
+                lst_collapse_intervals = sorted(collapse_intervals(lst_of_intervals))
+                for collapse_interval in lst_collapse_intervals:
+                    print(collapse_interval)
+                return lst_collapse_intervals
             else:
-                SELECT_QUERY = "SELECT" + QUERY + "AND booking_id NOT null"
+                SELECT_QUERY = "SELECT start_interval, name, email, topic FROM Slots INNER " + JOIN_QUERY + QUERY \
+                               + "ORDER BY email"
                 cur.execute(SELECT_QUERY, [params_start, params_end])
+                for interval_tuple in cur:
+                    print(interval_tuple)
         else:
-            SELECT_QUERY = "SELECT" + QUERY
+            SELECT_QUERY = "SELECT start_interval, name, email, topic FROM Slots LEFT" + JOIN_QUERY + QUERY \
+                           + "ORDER BY email"
             cur.execute(SELECT_QUERY, [params_start, params_end])
-        for interval_tuple in cur:
-            assert len(interval_tuple) == 1
-            interval = interval_tuple[0]
-            lst_of_intervals.append(utc_to_local(interval))
-        lst_collapse_intervals = sorted(collapse_intervals(lst_of_intervals))
-        for collapse_interval in lst_collapse_intervals:
-            print(collapse_interval)
-        return lst_collapse_intervals
+            for interval_tuple in cur:
+                print(interval_tuple)
+        # for interval_tuple in cur:
+        #     assert len(interval_tuple) == 1
+        #     interval = interval_tuple[0]
+        #     lst_of_intervals.append(utc_to_local(interval))
+        # lst_collapse_intervals = sorted(collapse_intervals(lst_of_intervals))
+        # for collapse_interval in lst_collapse_intervals:
+        #     print(collapse_interval)
+        # return lst_collapse_intervals
 
 
 def get_slots(params):
