@@ -1,5 +1,5 @@
 import pytest
-from flask import Flask, json, jsonify
+from flask import json
 import server.app as ap
 
 
