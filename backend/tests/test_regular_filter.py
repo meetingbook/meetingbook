@@ -1,15 +1,16 @@
-from backend.cli import comand_line_parser
 import pytest
+
+from cli.parser import regular_filter
 
 
 @pytest.mark.parametrize("filter", [("free"),
                                     ("booking")])
 def test_regular_filter_true(filter):
-    assert comand_line_parser.regular_filter(filter) is True
+    assert regular_filter(filter) is True
 
 
 @pytest.mark.parametrize("filter", [("123"),
                                     ("bear"),
                                     ("!@#$%^&*()_+?><,./")])
 def test_regular_filter_false(filter):
-    assert comand_line_parser.regular_filter(filter) is False
+    assert regular_filter(filter) is False
