@@ -1,11 +1,12 @@
-from backend.cli import comand_line_parser
 import pytest
+
+from cli.parser import regular_day
 
 
 @pytest.mark.parametrize("date", [("2021-01-02"),
                                   ("2020-10-15")])
 def test_regular_day_positive(date):
-    assert comand_line_parser.regular_day(date) is True
+    assert regular_day(date) is True
 
 
 @pytest.mark.parametrize("date", [("2021-13-02"),
@@ -13,4 +14,4 @@ def test_regular_day_positive(date):
                                   ("2021-01-0"),
                                   ("2021-02-30")])
 def test_regular_day_negative(date):
-    assert comand_line_parser.regular_day(date) is False
+    assert regular_day(date) is False

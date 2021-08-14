@@ -4,7 +4,7 @@ import argparse
 from backend.cli import db
 from datetime import timedelta
 
-from backend.cli.convert_time import local_to_utc
+from cli.db.convert_time import local_to_utc
 
 
 def createParser():

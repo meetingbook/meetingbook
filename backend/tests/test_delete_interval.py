@@ -1,6 +1,6 @@
 from types import SimpleNamespace
 from backend.tools.func_for_test_db import clean_table_slots, create_test_table, get_test_slots, convert_from_utc_test
-from backend.cli import add_interval as ai, delete_interval
+from cli.db import add_interval as ai, delete_interval
 import pytest
 
 
