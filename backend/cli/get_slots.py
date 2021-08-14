@@ -10,7 +10,7 @@ def get_and_print_collapse_intervals_from_db(params_path, params_filter, params_
     with db.create_connection(params_path) as con:
         cur = con.cursor()
 
-        SELECT_QUERY = "SELECT start_interval FROM Slots WHERE (?) <= start_interval AND (?) >= start_interval "
+        SELECT_QUERY = "SELECT start_interval FROM Slots WHERE (?) <= start_interval AND (?) > start_interval "
 
         if params_filter:
             if params_filter == "free":
