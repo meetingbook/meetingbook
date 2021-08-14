@@ -14,5 +14,6 @@ def test_index_context(response_get):
     data = json.loads(response_get.data)
     assert ap.msg_hello == data
 
+
 def test_index(response_get):
     assert response_get.status_code == 200
