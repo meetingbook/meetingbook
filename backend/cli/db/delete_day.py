@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from cli import db
 from datetime import timedelta
-from cli.db.convert_time import local_to_utc,tuple_to_list
+from cli.db.convert_time import local_to_utc, tuple_to_list
 
 
 def delete_day(params):
@@ -18,4 +18,3 @@ def delete_day(params):
         # for result in cur:
         #     result = result[0]
         #     print("""Can't delete booked interval: {}""".format(utc_to_local(result)))
-       

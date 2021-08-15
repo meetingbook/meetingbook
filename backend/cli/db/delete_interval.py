@@ -1,5 +1,5 @@
 from cli import db
-from cli.db.convert_time import local_to_utc,tuple_to_list
+from cli.db.convert_time import local_to_utc, tuple_to_list
 
 
 def delete_interval(params):

@@ -52,5 +52,5 @@ def collapse_intervals(lst):
 
 def tuple_to_list(cur):
     for result in cur:
-                result = result[0]
-                print("""Can't delete booked interval: {}""".format(utc_to_local(result)))
+        result = result[0]
+        print("""Can't delete booked interval: {}""".format(utc_to_local(result)))
