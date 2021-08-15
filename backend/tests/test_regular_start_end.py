@@ -1,12 +1,12 @@
 import pytest
 
-from backend.cli import comand_line_parser
+from cli.parser import regular_start_end
 
 
 @pytest.mark.parametrize("date", [("2021-01-02T11:00"),
                                   ("2020-10-15T09:15")])
 def test_regular_start_end_positive(date):
-    assert comand_line_parser.regular_start_end(date) is True
+    assert regular_start_end(date) is True
 
 
 @pytest.mark.parametrize("date", [("2021-13-02T11:00"),
@@ -16,4 +16,4 @@ def test_regular_start_end_positive(date):
                                   ("2021-01-02T11:0"),
                                   ("2021-02-30T11:00")])
 def test_regular_start_end_negative(date):
-    assert comand_line_parser.regular_start_end(date) is False
+    assert regular_start_end(date) is False

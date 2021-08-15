@@ -1,4 +1,6 @@
-from backend.cli import db
+#!/usr/bin/env python3
+
+from cli import db
 
 
 def delete_all(params):
