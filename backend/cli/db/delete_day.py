@@ -15,6 +15,3 @@ def delete_day(params):
         cur.execute("DELETE" + QUERY + "is null", [params_start, params_end])
         cur.execute("SELECT start_interval" + QUERY + "NOT null", [params_start, params_end])
         tuple_to_list(cur)
-        # for result in cur:
-        #     result = result[0]
-        #     print("""Can't delete booked interval: {}""".format(utc_to_local(result)))
