@@ -50,7 +50,7 @@ def collapse_intervals(lst):
         yield single_interval
 
 
-def tuple_to_list(cur):
+def print_convert_time(cur):
     for result in cur:
         result = result[0]
         print("""Can't delete booked interval: {}""".format(utc_to_local(result)))
