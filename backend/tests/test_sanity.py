@@ -18,10 +18,6 @@ def run_booking_with_args(args):
         shell=True)
 
 
-def time_in_utc_then_in_local(x):
-    return utc_to_local(str(local_to_utc(x)))
-
-
 def test_sanity():
     try:
         os.remove('db/test_main_db.sqlite')
@@ -30,7 +26,7 @@ def test_sanity():
 
     assert run_with_args("add_interval 2021-05-03T10:00 2021-05-10T11:15") == b""
     assert run_booking_with_args("2021-05-03T10:15 2021-05-03T10:45 testName test@test -t tteesstt") == b""
-    assert run_with_args("get_slots -d 2021-05-03") == b'2021-05-03 10:00:00 - 2021-05-04 00:15:00\r\n'
+    assert run_with_args("get_slots -d 2021-05-03") == b"2021-05-03 10:00:00 - 2021-05-04 00:15:00\r\n"
     assert run_with_args("get_slots -d 2021-05-03 -f booking") == b"2021-05-03 10:15:00 - 2021-05-03 10:45:00\r\n"
     assert run_with_args(
         "get_slots -d 2021-05-03 -f free") == b'''2021-05-03 10:00:00 - 2021-05-03 10:15:00\r\n2021-05-03 10:45:00 - 2021-05-04 00:15:00\r\n'''
