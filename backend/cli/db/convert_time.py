@@ -48,3 +48,9 @@ def collapse_intervals(lst):
     for single_dt in single_lst:
         single_interval = ("""{} - {}""".format(single_dt, single_dt + timedelta(minutes=15)))
         yield single_interval
+
+
+def print_convert_time(cur):
+    for result in cur:
+        result = result[0]
+        print("""Can't delete booked interval: {}""".format(utc_to_local(result)))
