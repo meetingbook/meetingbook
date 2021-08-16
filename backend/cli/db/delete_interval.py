@@ -1,5 +1,5 @@
 from cli import db
-from cli.db.convert_time import local_to_utc, tuple_to_list
+from cli.db.convert_time import local_to_utc, print_convert_time
 
 
 def delete_interval(params):
@@ -13,7 +13,7 @@ def delete_interval(params):
 
             cur.execute("DELETE" + QUERY + "is null", [params_start, params_end])
             cur.execute("SELECT start_interval" + QUERY + "NOT null", [params_start, params_end])
-            tuple_to_list(cur)
+            print_convert_time(cur)
 
     else:
         print('Введите интервал кратный 15 минутам')
