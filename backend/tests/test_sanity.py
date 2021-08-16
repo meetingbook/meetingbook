@@ -1,7 +1,6 @@
 import subprocess
 import sys
 import os
-from cli.db.convert_time import utc_to_local, local_to_utc
 
 PYTHON_BINARY = sys.executable
 
