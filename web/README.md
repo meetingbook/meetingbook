@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- Node 14
+- Node 12
 - NPM 6
 - VS Code
 
