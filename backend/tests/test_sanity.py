@@ -8,13 +8,13 @@ PYTHON_BINARY = sys.executable
 def run_with_args(args):
     return subprocess.check_output(
         "{} cli -p db/test_main_db.sqlite {}".format(PYTHON_BINARY, args),
-        shell=True,universal_newlines=True)
+        shell=True, universal_newlines=True)
 
 
 def run_booking_with_args(args):
     return subprocess.check_output(
         "{} tools/test-tool.py {}".format(PYTHON_BINARY, args),
-        shell=True,universal_newlines=True)
+        shell=True, universal_newlines=True)
 
 
 def test_sanity():
