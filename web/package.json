@@ -20,7 +20,7 @@
     "url": "git@github.com:meetingbook/meetingbook.git"
   },
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint . && stylelint '**/*.css'",
     "lint:fix": "eslint --quiet --fix .",
     "format": "prettier --write . --ignore-path .gitignore",
     "test": "jest --coverage",
@@ -42,7 +42,9 @@
     "eslint-plugin-prettier": "^3.4.0",
     "ghooks": "^2.0.4",
     "jest": "^27.0.6",
-    "prettier": "^2.3.2"
+    "prettier": "^2.3.2",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^22.0.0"
   },
   "config": {
     "ghooks": {
