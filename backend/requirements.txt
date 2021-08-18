@@ -2,3 +2,4 @@ flask
 flake8
 pytest
 autopep8
+flask-httpauth
