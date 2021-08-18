@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
 
-from admin import admin_page
+from server.admin import admin_page
 
 app = Flask(__name__)
 app.register_blueprint(admin_page)

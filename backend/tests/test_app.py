@@ -12,7 +12,7 @@ def response_get():
 
 def test_index_context(response_get):
     data = json.loads(response_get.data)
-    assert ap.msg_hello == data
+    assert data["greeting"] == "Hello World"
 
 
 def test_index(response_get):
