@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, make_response, Blueprint
+from flask import jsonify, make_response, Blueprint
 from flask_httpauth import HTTPBasicAuth
 
 admin_page = Blueprint('admin_page', __name__)
