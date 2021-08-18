@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
-from backend.cli import db
+from cli import db
 from datetime import timedelta
 
 from cli.db.convert_time import local_to_utc
