@@ -3,7 +3,6 @@ from server.hello_json import msg_hello
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////meetingbook/backend/db/main_db.sqlite'
 db = SQLAlchemy(app)
@@ -35,7 +34,7 @@ class Slots(db.Model):
 
 @app.route("/", methods=["GET"])
 def index():
-    return jsonify(hello=msg_hello)
+    return jsonify(msg_hello)
 
 
 if __name__ == "__main__":
