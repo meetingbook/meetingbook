@@ -11,26 +11,26 @@ migrate = Migrate(app, db)
 
 
 class AdminInfo(db.Model):
-    __tablename__ = 'admin_info'
+    __tablename__ = 'AdminInfo'
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(50), unique=True)
-    psw = db.Column(db.String(500))
+    email = db.Column(db.String(50), unique=True, nullable=False)
+    psw = db.Column(db.String(500), nullable=False)
 
 
 class BookingInfo(db.Model):
-    __tablename__ = 'booking_info'
+    __tablename__ = 'BookingInfo'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50))
-    email = db.Column(db.String(500))
+    name = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(500), nullable=False)
     topic = db.Column(db.String(500))
     slots_inf = db.relationship('Slots', backref='info', lazy='dynamic')
 
 
 class Slots(db.Model):
-    __tablename__ = 'slots'
+    __tablename__ = 'Slots'
     id = db.Column(db.Integer, primary_key=True)
-    start_interval = db.Column(db.String(50), unique=True)
-    booking_id = db.Column(db.Integer, db.ForeignKey('booking_info.id'))
+    start_interval = db.Column(db.String(50), unique=True, nullable=False)
+    booking_id = db.Column(db.Integer, db.ForeignKey('BookingInfo.id'))
 
 
 @app.route("/", methods=["GET"])

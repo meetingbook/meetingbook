@@ -1,13 +1,13 @@
 Single-database configuration for Flask.
 
- - Install flask-migrate:
+- Install flask-migrate:
 		`pip install flask-migrate`
 
  - If you don't have a repository created:
 		`flask db init`
-		
+
  - Creates a migration script:
 		`flask db migrate`
-		
+
  - Apply changes to the database:
 		`flask db upgrade`
