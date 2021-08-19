@@ -1,8 +1,8 @@
 Single-database configuration for Flask.
 
-- Install flask-migrate:
-		`pip install flask-migrate`
-
+ - Provide the "FLASK_APP" environment variable:
+		`export FLASK_APP=server/app.py`
+		
  - If you don't have a repository created:
 		`flask db init`
 
@@ -11,3 +11,4 @@ Single-database configuration for Flask.
 
  - Apply changes to the database:
 		`flask db upgrade`
+	
