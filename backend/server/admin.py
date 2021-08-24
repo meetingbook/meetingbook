@@ -5,7 +5,7 @@ admin_page = Blueprint('admin_page', __name__)
 auth = HTTPBasicAuth()
 
 
-@admin_page.route("/admin")
+@admin_page.route("/admin", methods=['GET'])
 @auth.login_required
 def admin():
     return {'message': 'OK'}
