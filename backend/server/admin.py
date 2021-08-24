@@ -8,7 +8,7 @@ auth = HTTPBasicAuth()
 @admin_page.route("/admin")
 @auth.login_required
 def admin():
-    return "OK"
+    return {'message': 'OK'}
 
 
 @auth.get_password
