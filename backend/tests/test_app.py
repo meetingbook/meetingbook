@@ -4,7 +4,6 @@ import server.app as app
 from flask import json
 
 
-
 @pytest.fixture(scope='module')
 def response_get():
     with app.app.test_client() as con:
