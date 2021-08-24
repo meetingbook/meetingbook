@@ -1,6 +1,6 @@
 [flake8]
 max-line-length = 150
-exclude = .venv,venv
+exclude = .venv,venv,migrations
 count = true
 show-source = true
 statistics = true

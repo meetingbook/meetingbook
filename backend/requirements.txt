@@ -4,3 +4,6 @@ pytest
 autopep8
 flask-httpauth
 flask.testing
+flask-migrate
+flask-sqlalchemy
+

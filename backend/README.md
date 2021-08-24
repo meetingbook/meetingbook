@@ -62,3 +62,6 @@ In order to run tests:
     python -m pytest
     ```
 
+## Migration
+
+For working with migrations see the README in folder:  `meetingbook/backend/migration/README.md`
