@@ -1,0 +1,145 @@
+swagger: "2.0"
+info:
+  description: "MeetingBook is a standalone Calendly like application to manage appointments and share them with guests so that they can book the appointment."
+  version: "1.0.0"  
+  title: "MeetingBook"
+  license:
+    name: "MIT"
+    url: "https://opensource.org/licenses/MIT"
+externalDocs:
+  description: "Project Source"
+  url: "https://github.com/meetingbook/meetingbook"
+host: "localhost:5000"
+basePath: "/"
+schemes:
+- "https"
+- "http"
+securityDefinitions:
+  basic_auth:
+    type: basic
+paths:
+  /admin:
+    get:
+      description: Test API endpoint
+      parameters:
+        - in: header
+          name: Authorization
+          type: string
+          required: true
+          description: |
+            Authorization header contains the Basic word followed by a space 
+            and a base64-encoded username:password string.
+            For example, a header containing the "admin" and "Pyth0n" credentials would be encoded as "Authorization: Basic YWRtaW46UHl0aDBu"
+      security:
+        - basic_auth: []
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Successful admin request"
+  /login:
+    get:
+      parameters:
+        - in: header
+          name: Authorization
+          type: string
+          required: true
+          description: |
+            Authorization header contains the Basic word followed by a space 
+            and a base64-encoded username:password string.
+            For example, a header containing the demo and p@55w0rd credentials 
+            would be encoded as "Authorization: Basic ZGVtbzpwQDU1dzByZA=="
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Successful login"
+        "401":
+          description: "Unauthorized"
+  /schedule:
+    get:
+      responses:
+        "200":
+          description: "successful login"
+      security:
+        - basic_auth: []
+definitions:
+  Admin:
+    type: "object"
+    required:
+      - id
+      - email
+      - password
+      - avatar
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      email:
+        type: "string"
+      password:
+        type: "string"
+        description: "Hashed and salted password"
+      avatar:
+        type: "string"
+        format: "base64"
+        description: "Admins avatar"
+  Slot:
+    type: "object"
+    required:
+      - id
+      - start
+      - end
+      - status
+      - booking_id
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      start:
+        type: "string"
+        format: "date-time"
+        description: "Start of the slot. Defined as Datetime string in ISO 8601 https://en.wikipedia.org/wiki/ISO_8601"
+      end:
+        type: "string"
+        format: "date-time"
+        description: "End of the slot. Defined as Datetime string in ISO 8601 https://en.wikipedia.org/wiki/ISO_8601"
+      status:
+        type: "string"
+        enum:
+        - "booked"
+        - "available"
+        description: "Status of a slot"
+      booking_id: 
+        type: "integer"
+        format: "int64"
+        description: "ID reference to booking"
+  Booking:
+    type: "object"
+    required:
+      - id
+      - guest_name
+      - guest_email
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      guest_name:
+        type: "string"
+        description: "Guest name who makes a booking"
+      guest_email:
+        type: "string"
+        description: "Guest email who makes a booking"
+      topic:
+        type: "string"
+        description: "Topic to discuss"
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
