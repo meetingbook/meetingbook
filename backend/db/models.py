@@ -24,6 +24,3 @@ class Slots(db.Model):
     end_interval = db.Column(db.String(50), unique=True, nullable=False)
     booking_id = db.Column(db.Integer, db.ForeignKey('BookingInfo.id'))
     admin_id = db.Column(db.Integer, db.ForeignKey('AdminInfo.id'))
-
-
-
