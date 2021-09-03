@@ -8,7 +8,7 @@ from flask_migrate import Migrate
 import os
 
 
-app = Flask(__name__, static_url_path='/api/')
+app = Flask(__name__)
 app.register_blueprint(admin_page)
 app.register_blueprint(swaggerui_blueprint)
 
