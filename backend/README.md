@@ -64,4 +64,11 @@ In order to run tests:
 
 ## Migration
 
-For working with migrations see the README in folder:  `meetingbook/backend/migration/README.md`
+For working with migrations see the README in folder: `meetingbook/backend/migration/README.md`
+
+
+## Documentation API
+
+API documentation is available at ```.../api/docs```
+For example: 
+The server is running locally the path is: ```http://localhost:5000/api/docs/```

@@ -1,13 +1,16 @@
 from flask import Flask, jsonify
 from server.hello_json import msg_hello
 from server.admin import admin_page
+from server.swagger_ui import swaggerui_blueprint
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+
 import os
 
 
 app = Flask(__name__)
 app.register_blueprint(admin_page)
+app.register_blueprint(swaggerui_blueprint)
 
 basedir = os.path.abspath(os.path.dirname("db/"))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'main_db.sqlite')
