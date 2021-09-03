@@ -94,7 +94,7 @@ paths:
         "200":
           description: "Successful operation"
           schema:
-            $ref: "#/definitions/Slot"
+            $ref: "#/definitions/Schedule"
         "400":
           description: "Bad Request"
         "401":
@@ -117,6 +117,13 @@ paths:
           schema:
             $ref: "#/definitions/Booking"
 definitions:
+  Schedule:
+    type: "object"
+    properties:
+      slots:
+        type: array
+        items:
+          $ref: "#/definitions/Slot"
   Admin:
     type: "object"
     required:
