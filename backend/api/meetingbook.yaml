@@ -101,7 +101,7 @@ paths:
           description: "Unauthorized"
       security:
         - basic_auth: []
-  /booking_id:
+  /booking:
     get:
       parameters:
         - in: query
@@ -109,7 +109,7 @@ paths:
           type: string
           description: |
             Receives the `"booking_id"` of the booked slot, and sends a response with information about users booked this slot(name, email, topic)
-          
+              `/booking?booking_id=123`
           required: true  
       responses:
         "200":
