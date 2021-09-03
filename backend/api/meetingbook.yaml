@@ -104,7 +104,7 @@ paths:
   /booking:
     get:
       parameters:
-        - in: query
+        - in: path
           name: booking_id
           type: string
           description: |
