@@ -90,12 +90,6 @@ paths:
           description: |
             To get slots for a given day.
             `/schedule?admin_id=12&day=2021-01-01`
-        - in: query
-          name: booking_id
-          type: string
-          description: |
-            GET to get information about guest which booked slots. FE automatically sends this request when opening a booked slot.
-            `/schedule?admin_id=12&booking_id=24`
       responses:
         "200":
           description: "Successful operation"
@@ -105,10 +99,23 @@ paths:
           description: "Bad Request"
         "401":
           description: "Unauthorized"
-          
       security:
         - basic_auth: []
-      
+  /booking_id:
+    get:
+      parameters:
+        - in: query
+          name: booking_id
+          type: string
+          description: |
+            Receives the `"booking_id"` of the booked slot, and sends a response with information about users booked this slot(name, email, topic)
+          
+          required: true  
+      responses:
+        "200":
+          description: "Successful request"
+          schema:
+            $ref: "#/definitions/Booking"
 definitions:
   Admin:
     type: "object"
