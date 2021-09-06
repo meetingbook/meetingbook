@@ -6,4 +6,3 @@ class AdminInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(50), unique=True, nullable=False)
     psw = db.Column(db.String(500), nullable=False)
-

@@ -1,5 +1,4 @@
 import pytest
-import base64
 import server as app
 from flask import json
 from server.index import msg_hello
@@ -19,5 +18,3 @@ def test_index_context(response_get):
 
 def test_index(response_get):
     assert response_get.status_code == 200
-
-
