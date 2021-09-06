@@ -53,7 +53,7 @@ def correctness_commands(params):
 
     else:
         print("""Input command!:
-        ./manage.py [-p][--path] <command> <arguments>
+        ./main.py [-p][--path] <command> <arguments>
         Command:           Arguments:           Format:
          add_interval       start end        ->  YYYY-MM-DDThh:mm  YYYY-MM-DDThh:mm
          delete_interval    start end        ->  YYYY-MM-DDThh:mm  YYYY-MM-DDThh:mm
