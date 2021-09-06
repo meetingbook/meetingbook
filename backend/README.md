@@ -21,7 +21,7 @@ If you want to run a backend API:
 3. activate virtual env
 4. run:
     ```bash
-    python server/app.py
+    python server/
     ```
 
 ### Run CLI command
