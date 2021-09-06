@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Login page</title>
+    <link
+      href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  </head>
+  <body class="mdc-typography">
+    <h1  class="mdc-typography--headline1">Login</h1>
+    <label class="mdc-text-field mdc-text-field--outlined">
+      <span class="mdc-notched-outline">
+        <span class="mdc-notched-outline__leading"></span>
+        <span class="mdc-notched-outline__notch">
+          <span class="mdc-floating-label" id="my-label-id">E-mail</span>
+        </span>
+        <span class="mdc-notched-outline__trailing"></span>
+      </span>
+      <input type="email" class="mdc-text-field__input" aria-labelledby="my-label-id">
+    </label><br>
+    <label class="mdc-text-field mdc-text-field--outlined">
+      <span class="mdc-notched-outline">
+        <span class="mdc-notched-outline__leading"></span>
+        <span class="mdc-notched-outline__notch">
+          <span class="mdc-floating-label" id="my-label-id">Password</span>
+        </span>
+        <span class="mdc-notched-outline__trailing"></span>
+      </span>
+      <input type="password" class="mdc-text-field__input" aria-labelledby="my-label-id">
+    </label><br>
+    <button class="mdc-button mdc-button--raised">
+      <span class="mdc-button__label">LOGIN</span>
+    </button>
+  </body>
+</html>
+
