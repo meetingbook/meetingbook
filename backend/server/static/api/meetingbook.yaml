@@ -60,14 +60,6 @@ paths:
     get:
       parameters:
         - in: query
-          name: admin_id
-          type: string
-          required: true
-          description: |
-            Admin id. The id of the administrator who is sending the request:
-            `/schedule?admin_id=123` + at least one of another parametrs(`filter,
-            week, day`)
-        - in: query
           name: filter
           type: string
           description: |
