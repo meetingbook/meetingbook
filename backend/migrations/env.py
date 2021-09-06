@@ -7,12 +7,8 @@ from flask import current_app
 
 from alembic import context
 
-from db.models import admin_info, booking_info, slots
-
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
-from sqlalchemy import MetaData
-
 config = context.config
 
 # Interpret the config file for Python logging.
@@ -24,22 +20,11 @@ logger = logging.getLogger('alembic.env')
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-
-
-def combine_metadata(*args):
-    m = MetaData()
-    for metadata in args:
-        for t in metadata.tables.values():
-            t.tometadata(m)
-    return m
-
-
 config.set_main_option(
     'sqlalchemy.url',
     str(current_app.extensions['migrate'].db.get_engine().url).replace(
         '%', '%%'))
-target_metadata = combine_metadata(booking_info.db.metadata, admin_info.db.metadata, slots.db.metadata)
-
+target_metadata = current_app.extensions['migrate'].db.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
