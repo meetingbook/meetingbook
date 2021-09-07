@@ -64,24 +64,24 @@ paths:
           type: string
           description: |
             Filter "free or booking". 
-            To get **free** slots: `/schedule?admin_id=123&filter="status=free"` 
+            To get **free** slots: `/schedule/filter=status="free"` 
             
-            To get **booked** slots: `/schedule?admin_id=123&filter="status=booking"`
+            To get **booked** slots: `/schedule/filter=status="booking"`
         - in: query
           name: week
           type: string
           description: |
             To get slots for a given week.
-            `/schedule?admin_id=12&week=2021-01-01`
+            `/schedule/week=2021-01-01`
             
             To get booking slots for a given week.
-            `/schedule?admin_id=123&week=2021-01-01&filter="status=booking"`
+            `/schedule/week=2021-01-01&filter=status="booking"`
         - in: query
           name: day
           type: string
           description: |
             To get slots for a given day.
-            `/schedule?admin_id=12&day=2021-01-01`
+            `/schedule/day=2021-01-01`
       responses:
         "200":
           description: "Successful operation"
