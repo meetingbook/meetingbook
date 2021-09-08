@@ -15,8 +15,8 @@ Go to `backend` folder and install:
 	`pip3 install -r requirements.txt`
 
 5. Provide the `FLASK_APP` environment variable:
-	`export FLASK_APP=server/app.py` or
-	`set FLASK_APP=server/app.py`
+	`export FLASK_APP=server/` or
+	`set FLASK_APP=server/`
 
 6. Create a database:
 		`flask db upgrade`

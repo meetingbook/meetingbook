@@ -1,51 +1,24 @@
-from flask import Flask, jsonify
-from server.hello_json import msg_hello
-from server.admin import admin_page
-from server.swagger_ui import swaggerui_blueprint
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
 from flask_migrate import Migrate
 
-import os
+from config import config_settings
+from db.models import db
+from server.index import index_page
+from server.admin import admin_page
+from server.swagger_ui import swaggerui_blueprint
+
+migrate = Migrate()
 
 
-app = Flask(__name__)
-app.register_blueprint(admin_page)
-app.register_blueprint(swaggerui_blueprint)
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object(config_settings['development'])
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    db.init_app(app)
+    migrate.init_app(app, db)
 
-basedir = os.path.abspath(os.path.dirname("db/"))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'main_db.sqlite')
+    app.register_blueprint(index_page)
+    app.register_blueprint(admin_page)
+    app.register_blueprint(swaggerui_blueprint)
 
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
-
-
-class AdminInfo(db.Model):
-    __tablename__ = 'AdminInfo'
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(50), unique=True, nullable=False)
-    psw = db.Column(db.String(500), nullable=False)
-
-
-class BookingInfo(db.Model):
-    __tablename__ = 'BookingInfo'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), nullable=False)
-    email = db.Column(db.String(500), nullable=False)
-    topic = db.Column(db.String(500))
-    slots_inf = db.relationship('Slots', backref='info', lazy='dynamic')
-
-
-class Slots(db.Model):
-    __tablename__ = 'Slots'
-    id = db.Column(db.Integer, primary_key=True)
-    start_interval = db.Column(db.String(50), unique=True, nullable=False)
-    booking_id = db.Column(db.Integer, db.ForeignKey('BookingInfo.id'))
-
-
-@app.route("/", methods=["GET"])
-def index():
-    return jsonify(msg_hello)
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
+    return app

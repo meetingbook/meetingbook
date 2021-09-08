@@ -58,12 +58,64 @@ paths:
           description: "Unauthorized"
   /schedule:
     get:
+      parameters:
+        - in: query
+          name: filter
+          type: string
+          description: |
+            Filter "free or booking". 
+            To get **free** slots: `/schedule/filter=status="free"` 
+            
+            To get **booked** slots: `/schedule/filter=status="booking"`
+        - in: query
+          name: week
+          type: string
+          description: |
+            To get slots for a given week.
+            `/schedule/week=2021-01-01`
+            
+            To get booking slots for a given week.
+            `/schedule/week=2021-01-01&filter=status="booking"`
+        - in: query
+          name: day
+          type: string
+          description: |
+            To get slots for a given day.
+            `/schedule/day=2021-01-01`
       responses:
         "200":
-          description: "successful login"
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/Schedule"
+        "400":
+          description: "Bad Request"
+        "401":
+          description: "Unauthorized"
       security:
         - basic_auth: []
+  /bookings/{booking_id}:
+    get:
+      parameters:
+        - in: path
+          name: booking_id
+          type: string
+          description: |
+            Receives the `"booking_id"` of the booked slot, and sends a response with information about users booked this slot(name, email, topic)
+              `/booking/{booking_id}`
+          required: true  
+      responses:
+        "200":
+          description: "Successful request"
+          schema:
+            $ref: "#/definitions/Booking"
 definitions:
+  Schedule:
+    type: "object"
+    properties:
+      slots:
+        type: array
+        items:
+          $ref: "#/definitions/Slot"
   Admin:
     type: "object"
     required:
