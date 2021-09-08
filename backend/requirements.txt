@@ -7,3 +7,4 @@ flask.testing
 flask-migrate
 flask-sqlalchemy
 flask-swagger-ui
+bcrypt
