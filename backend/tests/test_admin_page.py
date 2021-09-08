@@ -1,23 +1,5 @@
-import pytest
 import base64
-import server.app as app
-from flask import json
-
-
-@pytest.fixture(scope='module')
-def response_get():
-    with app.app.test_client() as con:
-        resp = con.get('/')
-        yield resp
-
-
-def test_index_context(response_get):
-    data = json.loads(response_get.data)
-    assert app.msg_hello == data
-
-
-def test_index(response_get):
-    assert response_get.status_code == 200
+import server as app
 
 
 def test_admin_login_failed():

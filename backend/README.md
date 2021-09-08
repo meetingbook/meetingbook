@@ -21,7 +21,9 @@ If you want to run a backend API:
 3. activate virtual env
 4. run:
     ```bash
-    python server/app.py
+    export FLASK_APP=server/
+    flask run
+   
     ```
 
 ### Run CLI command
