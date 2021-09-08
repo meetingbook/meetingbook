@@ -6,6 +6,7 @@ from db.models import db
 from server.index import index_page
 from server.admin import admin_page
 from server.swagger_ui import swaggerui_blueprint
+from server.schedule_get import schedule_get
 
 migrate = Migrate()
 
@@ -20,5 +21,6 @@ def create_app():
     app.register_blueprint(index_page)
     app.register_blueprint(admin_page)
     app.register_blueprint(swaggerui_blueprint)
+    app.register_blueprint(schedule_get)
 
     return app
