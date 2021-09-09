@@ -8,3 +8,7 @@ flask-migrate
 flask-sqlalchemy
 flask-swagger-ui
 bcrypt
+marshmallow-sqlalchemy
+flask-marshmallow
+
+

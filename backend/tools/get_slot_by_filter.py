@@ -1,4 +1,4 @@
-from db.models import Slots
+from db.models import Slots, SlotsShema
 
 
 def get_slot_by_filter(filter):
@@ -6,7 +6,11 @@ def get_slot_by_filter(filter):
     """
     if filter == "booking":
         booking_slots = Slots.query.filter(Slots.booking_id).all()
-        return booking_slots
+        slots_shema = SlotsShema(many=True)
+        output = slots_shema.dump(booking_slots)
+        return output
     elif filter == "available":
         booking_slots = Slots.query.filter(Slots.booking_id.is_(None)).all()
-        return booking_slots
+        slots_shema = SlotsShema(many=True)
+        output = slots_shema.dump(booking_slots)
+        return output

@@ -1,4 +1,4 @@
-from db.models import Slots
+from db.models import Slots, SlotsShema
 
 
 def get_slot_in_week(date):
