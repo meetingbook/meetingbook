@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify
-from tools.get_slot_by_filter import get_slot_by_filter
-from tools.get_slot_in_week import get_slot_in_week
-from tools.get_slot_in_day import get_slot_in_day
+from tools.get_slots_by_filter import get_slots_by_filter
+from tools.get_slots_in_week import get_slots_in_week
+from tools.get_slots_in_day import get_slots_in_day
 from tools.get_slots_in_week_by_filter import get_slots_in_week_by_filter
 from tools.get_slots_in_day_by_filter import get_slots_in_day_by_filter
 
@@ -14,21 +14,21 @@ def slot_by_filter(filter):
     """ Filter: booked or available.
         Return JSON with <filter> slots.
     """
-    return jsonify(get_slot_by_filter(filter))
+    return jsonify(get_slots_by_filter(filter))
 
 
 @schedule_get.route("/schedule/week=<date>", methods=['GET'])
 def slot_in_week(date):
     """ Return JSON slots for the week starting from <date>
     """
-    return jsonify(get_slot_in_week(date))
+    return jsonify(get_slots_in_week(date))
 
 
 @schedule_get.route("/schedule/day=<date>", methods=['GET'])
 def slot_in_day(date):
     """ Return JSON of slots for the day <date>
     """
-    return jsonify(get_slot_in_day(date))
+    return jsonify(get_slots_in_day(date))
 
 
 @schedule_get.route("/schedule/week=<date>&filter=<filter>", methods=['GET'])

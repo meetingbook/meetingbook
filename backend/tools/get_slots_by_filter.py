@@ -1,7 +1,7 @@
 from db.models import Slots, SlotsShema
 
 
-def get_slot_by_filter(filter):
+def get_slots_by_filter(filter):
     """Return list of slots with <filter>
     """
     if filter == "booking":
