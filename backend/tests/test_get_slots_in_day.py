@@ -19,11 +19,15 @@ def test_get_slots_in_day():
     booking_inf_email = "@test"
     json = [
         {
+            "admin_id": None,
+            "booking_id": 1,
             "start_interval": "2021-02-03T10:00",
             "id": 1,
             "end_interval": "2021-02-03T12:00"
         },
         {
+            "admin_id": None,
+            "booking_id": None,
             "start_interval": "2021-02-03T13:00",
             "id": 2,
             "end_interval": "2021-02-03T15:00"

@@ -35,13 +35,30 @@ class Slots(db.Model):
 class AdminInfoShema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = AdminInfo
+        load_instance = True
+    id = ma.auto_field()
+    email = ma.auto_field()
+    psw = ma.auto_field()
+    slots = ma.auto_field()
 
 
 class BookingInfoShema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = BookingInfo
+        load_instance = True
+    id = ma.auto_field()
+    name = ma.auto_field()
+    email = ma.auto_field()
+    topic = ma.auto_field()
+    slots_inf = ma.auto_field()
 
 
 class SlotsShema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Slots
+        load_instance = True
+    id = ma.auto_field()
+    start_interval = ma.auto_field()
+    end_interval = ma.auto_field()
+    booking_id = ma.auto_field()
+    admin_id = ma.auto_field()
