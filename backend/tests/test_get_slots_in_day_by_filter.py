@@ -4,6 +4,10 @@ import db.models as models
 
 
 def test_get_slots_in_day_by_booking_empty():
+    try: 
+        models.Slots.query.delete()
+    except:
+        create_test_app_with_db()
     create_test_app_with_db()
     booking_slots = get_slots_in_day_by_filter("2021-03-02", "booking")
     assert booking_slots == []

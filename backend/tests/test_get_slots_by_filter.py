@@ -4,7 +4,10 @@ import db.models as models
 
 
 def test_get_slots_by_booking_empty():
-    create_test_app_with_db()
+    try: 
+        models.Slots.query.delete()
+    except:
+        create_test_app_with_db()
     booking_slots = get_slots_by_filter("booking")
     assert booking_slots == []
 
