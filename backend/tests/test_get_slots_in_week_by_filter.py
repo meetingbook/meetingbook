@@ -4,9 +4,9 @@ import db.models as models
 
 
 def test_get_slots_in_week_by_booking_empty():
-    try: 
+    try:
         models.Slots.query.delete()
-    except:
+    except Exception:
         create_test_app_with_db()
     create_test_app_with_db()
     booking_slots = get_slots_in_week_by_filter("2021-03-02", "booking")

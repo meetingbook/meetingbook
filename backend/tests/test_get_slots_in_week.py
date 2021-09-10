@@ -6,7 +6,7 @@ import db.models as models
 def test_get_slots_in_week_empty():
     try:
         models.Slots.query.delete()
-    except:
+    except Exception:
         create_test_app_with_db()
     create_test_app_with_db()
     slots = get_slots_in_week("2021-03-02")

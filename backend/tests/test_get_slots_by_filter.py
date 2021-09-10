@@ -4,9 +4,9 @@ import db.models as models
 
 
 def test_get_slots_by_booking_empty():
-    try: 
+    try:
         models.Slots.query.delete()
-    except:
+    except Exception:
         create_test_app_with_db()
     booking_slots = get_slots_by_filter("booking")
     assert booking_slots == []
