@@ -11,4 +11,5 @@ def test_get_log_psw_from_db():
     models.db.session.add(test_admin)
     models.db.session.commit()
     psw_from_db = get_psw_from_db(log)
+    models.AdminInfo.query.delete()
     assert psw_from_db == psw
