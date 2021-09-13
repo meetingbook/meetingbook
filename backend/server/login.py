@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint
 from flask_httpauth import HTTPBasicAuth
 from tools.func_for_psw import check_psw
 from tools.work_with_db import get_psw_from_db
