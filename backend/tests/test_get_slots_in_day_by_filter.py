@@ -4,10 +4,6 @@ import db.models as models
 
 
 def test_get_slots_in_day_by_booking_empty():
-    try:
-        models.Slots.query.delete()
-    except Exception:
-        create_test_app_with_db()
     create_test_app_with_db()
     booking_slots = get_slots_in_day_by_filter("2021-03-02", "booking")
     assert booking_slots == []
@@ -61,3 +57,4 @@ def test_get_slots_in_day_by_available():
     models.db.session.commit()
     booking_slots = get_slots_in_day_by_filter("2021-02-03", "available")
     assert booking_slots == json
+    models.Slots.query.delete()

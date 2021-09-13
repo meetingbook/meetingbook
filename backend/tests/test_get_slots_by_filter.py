@@ -4,10 +4,7 @@ import db.models as models
 
 
 def test_get_slots_by_booking_empty():
-    try:
-        models.Slots.query.delete()
-    except Exception:
-        create_test_app_with_db()
+    create_test_app_with_db()
     booking_slots = get_slots_by_filter("booking")
     assert booking_slots == []
 
@@ -60,3 +57,4 @@ def test_get_slots_by_available():
     models.db.session.commit()
     booking_slots = get_slots_by_filter("available")
     assert booking_slots == json
+    models.Slots.query.delete()
