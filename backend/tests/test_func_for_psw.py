@@ -1,4 +1,3 @@
-import bcrypt
 from tools.func_for_psw import check_psw, get_log_psw_from_header, prepare_psw_for_db
 
 
