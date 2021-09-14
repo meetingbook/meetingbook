@@ -1,11 +1,11 @@
 from tools.create_db_for_tests import create_test_app_with_db
-from tools.get_slots_in_day_by_filter import get_slots_in_day_by_filter
+from tools.get_slots_from_db_for_schedule import get_slots_from_db_for_schedule
 import db.models as models
 
 
 def test_get_slots_in_day_by_booking_empty():
     create_test_app_with_db()
-    booking_slots = get_slots_in_day_by_filter("2021-03-02", "booking")
+    booking_slots = get_slots_from_db_for_schedule("2021-03-02", "booking", 1)
     assert booking_slots == []
 
 
@@ -31,12 +31,12 @@ def test_get_slots_in_day_by_booking():
     models.db.session.add(slots)
     models.db.session.commit()
 
-    booking_slots = get_slots_in_day_by_filter("2021-02-03", "booking")
+    booking_slots = get_slots_from_db_for_schedule("2021-02-03", "booking", 1)
     assert booking_slots == json
 
 
 def test_get_slots_in_day_by_available_empty():
-    available_slots = get_slots_in_day_by_filter("2021-02-03", "available")
+    available_slots = get_slots_from_db_for_schedule("2021-02-03", "available", 1)
     assert available_slots == []
 
 
@@ -55,6 +55,6 @@ def test_get_slots_in_day_by_available():
     slots = models.Slots(start_interval=start_interval, end_interval=end_interval)
     models.db.session.add(slots)
     models.db.session.commit()
-    booking_slots = get_slots_in_day_by_filter("2021-02-03", "available")
+    booking_slots = get_slots_from_db_for_schedule("2021-02-03", "available", 1)
     assert booking_slots == json
     models.Slots.query.delete()

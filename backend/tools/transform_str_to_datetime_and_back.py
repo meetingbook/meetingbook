@@ -2,7 +2,7 @@ from datetime import datetime
 
 
 def transform_string_to_datetime(date):
-    date = datetime.strptime(date, '%Y-%m-%d')  # transform string to datetime object
+    date = datetime.fromisoformat(date)  # transform string to datetime object
     return date
 
 

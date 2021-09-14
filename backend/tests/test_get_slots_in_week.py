@@ -1,11 +1,11 @@
 from tools.create_db_for_tests import create_test_app_with_db
-from tools.get_slots_in_week import get_slots_in_week
+from tools.get_slots_from_db_for_schedule import get_slots_from_db_for_schedule
 import db.models as models
 
 
 def test_get_slots_in_week_empty():
     create_test_app_with_db()
-    slots = get_slots_in_week("2021-03-02")
+    slots = get_slots_from_db_for_schedule("2021-03-02", filter=None, days=7)
     assert slots == []
 
 
@@ -41,6 +41,6 @@ def test_get_slots_in_week():
     models.db.session.add(second_slots)
     models.db.session.commit()
 
-    booking_slots = get_slots_in_week("2021-02-03")
+    booking_slots = get_slots_from_db_for_schedule("2021-02-03", filter=None, days=7)
     assert booking_slots == json
     models.Slots.query.delete()
