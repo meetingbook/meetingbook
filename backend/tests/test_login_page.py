@@ -1,40 +1,38 @@
 import base64
+import pytest
 
 from tools.func_for_psw import prepare_psw_for_db
 import db.models as models
 from tools.create_db_for_tests import create_test_app_with_db
 
 
-def test_login_failed():
-
-    # Arrange
+@pytest.fixture(scope='module')
+def app_for_test():
     app_for_test = create_test_app_with_db()
     test_app = app_for_test.test_client()
-
-    # Act
-    response = test_app.get("/login/")
-
-    # Assert
-    assert response.status == '401 UNAUTHORIZED'
+    yield test_app
+    models.AdminInfo.query.delete()
 
 
-def test_login_successful():
-
-    # Arrange
+def test_login(app_for_test):
     log = 'admin'
     psw = 'Pyth0n'
+    incorrect_psw = "Incorrect_psw"
+    unauthorized_log = 'unknown_log'
     prepared_psw = prepare_psw_for_db(psw)
-    app_for_test = create_test_app_with_db()
     test_admin = models.AdminInfo(email=log, psw=prepared_psw)
     models.db.session.add(test_admin)
     models.db.session.commit()
-    test_app = app_for_test.test_client()
     valid_credentials = base64.b64encode(f'{log}:{psw}'.encode()).decode('utf-8')
+    invalid_psw_credentials = base64.b64encode(f'{log}:{incorrect_psw}'.encode()).decode('utf-8')
+    unauthorized_credentials = base64.b64encode(f'{unauthorized_log}:{psw}'.encode()).decode('utf-8')
 
-    # Act
-    response = test_app.get("/login/", headers={'Authorization': 'Basic ' + valid_credentials})
+    response1 = app_for_test.get("/login/", headers={'Authorization': 'Basic ' + valid_credentials})
+    response2 = app_for_test.get("/login/")
+    response3 = app_for_test.get("/login/", headers={'Authorization': 'Basic ' + invalid_psw_credentials})
+    response4 = app_for_test.get("/login/", headers={'Authorization': 'Basic ' + unauthorized_credentials})
 
-    models.AdminInfo.query.delete()
-
-    # Assert
-    assert response.status == '200 OK'
+    assert response1.status == '200 OK'
+    assert response2.status == '401 UNAUTHORIZED'
+    assert response3.status == '401 UNAUTHORIZED'
+    assert response4.status == '401 UNAUTHORIZED'
