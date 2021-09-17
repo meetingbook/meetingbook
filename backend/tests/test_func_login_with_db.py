@@ -2,6 +2,7 @@ import pytest
 
 from tools.create_db_for_tests import create_test_app_with_db
 from tools.work_with_db import get_psw_from_db, push_email_psw_to_db
+import db.models as models
 
 
 @pytest.fixture(scope='module')
