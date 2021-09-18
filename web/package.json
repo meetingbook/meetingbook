@@ -25,8 +25,7 @@
     "format": "prettier --write . --ignore-path .gitignore",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
-    "dev": "PORT=3000 serve app",
-    "serve": "PORT=3000 serve app"
+    "dev": "PORT=3000 serve app"
   },
   "dependencies": {},
   "devDependencies": {

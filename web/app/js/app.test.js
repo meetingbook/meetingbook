@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { sum } from './app.js';
 
 describe('App Suite', () => {
@@ -5,3 +9,4 @@ describe('App Suite', () => {
     expect(sum(2, 2)).toBe(4);
   });
 });
+
