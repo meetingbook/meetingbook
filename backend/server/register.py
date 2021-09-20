@@ -1,5 +1,6 @@
-from flask import Blueprint, request, jsonify
-from tools.work_with_db import get_psw_from_db
+from flask import Blueprint, request, jsonify, redirect
+
+from domain.use_cases.admin_usecases import AdminRegister
 
 register_blueprint = Blueprint('register_blueprint', __name__)
 
@@ -9,11 +10,11 @@ def registration():
     email = request.form['email']
     psw = request.form['psw']
     psw2 = request.form['psw2']
-    try:
-        get_psw_from_db(email)
-        return jsonify({'error': 'such user already exists'})
-    except AttributeError:
-        if psw != psw2:
-            return jsonify({'error': 'Password mismatch'})
+    if psw != psw2:
+        return jsonify({'error': 'Password mismatch'})
+    AdminRegister(email, psw).admin_register()
+    return redirect('/', code=200)
+
+
 
 

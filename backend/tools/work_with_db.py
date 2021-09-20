@@ -8,6 +8,6 @@ def get_psw_from_db(email):
 
 
 def push_email_psw_to_db(email, psw):
-    test_admin = models.AdminInfo(email=email, psw=psw)
-    models.db.session.add(test_admin)
+    admin = models.AdminInfo(email=email, psw=psw)
+    models.db.session.add(admin)
     models.db.session.commit()
