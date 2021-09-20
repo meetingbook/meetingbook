@@ -10,19 +10,13 @@ def get_slots_from_db_for_schedule(date, filter, days):
     end_interval = transform_datetime_to_string(transform_string_to_datetime(date) + timedelta(days=days))
     if filter is None:
         list_of_slots = query_slots(date, end_interval)
-        slots_shema = SlotsShema(many=True)
-        output = slots_shema.dump(list_of_slots)
-        return output
     elif filter == "booking":
-        list_of_booking_slots = query_slots(date, end_interval, Slots.booking_id)
-        slots_shema = SlotsShema(many=True)
-        output = slots_shema.dump(list_of_booking_slots)
-        return output
+        list_of_slots = query_slots(date, end_interval, Slots.booking_id)
     elif filter == "available":
-        list_of_available_slots = query_slots(date, end_interval, Slots.booking_id.is_(None))
-        slots_shema = SlotsShema(many=True)
-        output = slots_shema.dump(list_of_available_slots)
-        return output
+        list_of_slots = query_slots(date, end_interval, Slots.booking_id.is_(None))
     else:
         mes = ("invalid filter parameter")
         return mes
+    slots_shema = SlotsShema(many=True)
+    output = slots_shema.dump(list_of_slots)
+    return output
