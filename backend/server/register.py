@@ -14,7 +14,3 @@ def registration():
         return jsonify({'error': 'Password mismatch'})
     AdminRegister(email, psw).admin_register()
     return redirect('/login/', code=401)
-
-
-
-
