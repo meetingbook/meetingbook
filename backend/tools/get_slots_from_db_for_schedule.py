@@ -15,8 +15,8 @@ def get_slots_from_db_for_schedule(date, filter, days):
     elif filter == "available":
         list_of_slots = query_slots(date, end_interval, Slots.booking_id.is_(None))
     else:
-        mes = ("invalid filter parameter")
-        return mes
+        message = ("invalid filter parameter")
+        return message
     slots_shema = SlotsShema(many=True)
     output = slots_shema.dump(list_of_slots)
     return output
