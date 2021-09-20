@@ -13,7 +13,7 @@ def registration():
     if psw != psw2:
         return jsonify({'error': 'Password mismatch'})
     AdminRegister(email, psw).admin_register()
-    return redirect('/', code=200)
+    return redirect('/login/', code=401)
 
 
 
