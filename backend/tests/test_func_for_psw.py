@@ -1,4 +1,3 @@
-import bcrypt
 from tools.func_for_psw import check_psw, get_log_psw_from_header, prepare_psw_for_db
 
 
@@ -10,17 +9,12 @@ def test_get_psw_from_header():
     assert log_psw[0] == 'admin'
 
 
-def test_check_psw():
-    psw1 = '123'
-    psw2 = '1234'
-    psw_from_db = bcrypt.hashpw(psw1.encode(), bcrypt.gensalt())
-    check_psw(psw1, psw_from_db)
-    assert check_psw(psw1, psw_from_db) is True
-    assert check_psw(psw2, psw_from_db) is False
-
-
-def test_prepare_psw():
-    header = 'Basic YWRtaW46UHl0aDBu'
-    psw = get_log_psw_from_header(header)[1]
-    hashed_psw = prepare_psw_for_db(header)
+def test_prepare_and_check_psw():
+    psw = 'Pyth0n'
+    psw_2 = 'psw_2'
+    hashed_psw = prepare_psw_for_db(psw)
+    hashed_psw2 = prepare_psw_for_db(psw_2)
     assert check_psw(psw, hashed_psw) is True
+    assert check_psw(psw_2, hashed_psw2) is True
+    assert check_psw(psw_2, hashed_psw) is False
+    assert check_psw(psw, hashed_psw2) is False
