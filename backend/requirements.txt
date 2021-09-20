@@ -1,14 +1,14 @@
-flask
-flake8
-pytest
-autopep8
-flask-httpauth
-flask.testing
-flask-migrate
-flask-sqlalchemy
-flask-swagger-ui
-bcrypt
-marshmallow-sqlalchemy
-flask-marshmallow
+flask == 2.0.1
+flake8 == 3.9.2
+pytest == 6.2.4
+autopep8 == 1.5.7
+flask-httpauth == 4.4.0
+flask.testing == 0.8.1
+flask-migrate == 3.1.0
+flask-sqlalchemy == 2.5.1
+flask-swagger-ui == 3.36.0
+bcrypt == 3.2.0
+marshmallow-sqlalchemy == 0.26.1
+flask-marshmallow == 0.14.0
 
 
