@@ -5,8 +5,11 @@ from config import config_settings
 from db.models import db
 from server.index import index_page
 from server.admin import admin_page
+from server.login import login_page
 from server.swagger_ui import swaggerui_blueprint
 from server.register import register_blueprint
+from server.schedule_get import schedule_get
+
 migrate = Migrate()
 
 
@@ -21,4 +24,6 @@ def create_app():
     app.register_blueprint(admin_page)
     app.register_blueprint(swaggerui_blueprint)
     app.register_blueprint(register_blueprint)
+    app.register_blueprint(schedule_get)
+    app.register_blueprint(login_page)
     return app
