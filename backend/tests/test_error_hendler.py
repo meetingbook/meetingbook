@@ -1,5 +1,6 @@
 import server as app
 import pytest
+from tools.create_db_for_tests import create_test_app_with_db
 
 
 @pytest.mark.parametrize("date", [("/schedule/week=2021-15-25&filter=booking"),
@@ -18,6 +19,7 @@ def test_status_500(date):
                                   ("/schedule/day=2021-10-25&filter=booking"),
                                   ("/schedule/day=2021-10-25&filter=available")])
 def test_status_200(date):
+    create_test_app_with_db()
     app.app.config['TESTING'] = True
     test_app = app.app.test_client()
     response = test_app.get(date)
