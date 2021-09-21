@@ -4,7 +4,6 @@
   --mdc-shape-small: 8px;
 }
 body {
-
   background: aliceblue url(/images/loginbackground.svg) no-repeat 50% 50%;
   background-size: cover;
   height: 100vh;
@@ -19,7 +18,7 @@ h1 {
 }
 .mdc-button {
   height: 50px;
-  border-radius: 50px;
+
 }
 .mdc-fab--extended {
   background: #d55a5a;
@@ -41,4 +40,30 @@ h1 {
   line-height: 2em;
   margin: 0 auto;
   margin-top: 4em;
+}
+/*--RESPONSIVE--*/
+@media screen and (min-device-width: 320px) and (max-device-width: 767px) {
+  h1 {
+    font-weight: 200;
+    font-size: 1em;
+    height: 1em;
+    width: 1em;
+    text-align: center;
+    margin-bottom: 0.3em;
+  }
+  button {
+    margin-bottom: 2em;
+  }
+  .mdc-typography {
+    width: 65%;
+  }
+  .avatar {
+    margin-top: 2em;
+  }
+
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .mdc-typography {
+    width: 50%;
+  }
 }
