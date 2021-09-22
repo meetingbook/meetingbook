@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { sum } from './app.js';
+import { sum } from './registration-script';
 
 describe('App Suite', () => {
   it('should add 2 + 2', () => {
