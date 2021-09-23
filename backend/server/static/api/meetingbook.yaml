@@ -116,7 +116,7 @@ paths:
         "200":
           description: "Successful operation"
           schema:
-            $ref: "#/definitions/Schedule"
+            $ref: "#/definitions/Slot"
         "400":
           description: "Bad Request"
         "401":
