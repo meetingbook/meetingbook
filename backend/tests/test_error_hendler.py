@@ -7,7 +7,7 @@ from tools.create_db_for_tests import create_test_app_with_db
                                   ("/schedule/week=2021-05-40&filter=booking"),
                                   ("/schedule/day=2021-15-25&filter=booking"),
                                   ("/schedule/day=2021-05-40&filter=available")])
-def test_status_500(date):
+def test_status_400(date):
     app.app.config['TESTING'] = True
     test_app = app.app.test_client()
     response = test_app.get(date)
