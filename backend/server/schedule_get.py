@@ -30,3 +30,8 @@ def slot_in_week_by_filter(date, filter):
         Return JSON of <filter> slots for the week starting from <date>.
     """
     return jsonify(get_slots_from_db_for_schedule(date, filter, 7))
+
+
+@schedule_get.errorhandler(Exception)
+def internal_server_error(e):
+    return jsonify({'msg': 'Bad Request'}), 400
