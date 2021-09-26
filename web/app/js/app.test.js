@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { sum } from './app.js';
 
 describe('App Suite', () => {

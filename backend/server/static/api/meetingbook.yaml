@@ -108,6 +108,31 @@ paths:
       responses:
         "200":
           description: "Successful operation"
+        - basic_auth: []
+    post:
+      summary: Add a new interval
+      description: |
+            request to add a new free interval for the admin. Format:
+            `/schedule/start=2021-02-02T10:00&end=2021-02-02T14:00`
+           
+      parameters:
+        - in: query
+          name: start
+          type: string
+          required: true
+          description: |
+            Start interval in format: `start=2021-02-02T10:00`
+        - in: query
+          name: end
+          type: string
+          required: true
+          description: |
+            End interval in format: `end=2021-02-02T10:00`
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/Slot"
         "400":
           description: "Bad Request"
         "401":
