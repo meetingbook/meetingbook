@@ -1,4 +1,5 @@
-from flask import Blueprint, request, redirect
+import sqlalchemy
+from flask import Blueprint, request, redirect, jsonify
 
 from domain.use_cases.admin_usecases import AdminRegister
 
@@ -9,5 +10,8 @@ register_blueprint = Blueprint('register_blueprint', __name__)
 def registration():
     email = request.form['email']
     psw = request.form['psw']
-    AdminRegister(email, psw).admin_register()
-    return redirect('/login/', code=401)
+    try:
+        AdminRegister(email, psw).admin_register()
+        return redirect('/login/', code=401)
+    except sqlalchemy.exc.IntegrityError:
+        return jsonify({'error': 'such user already exists'})

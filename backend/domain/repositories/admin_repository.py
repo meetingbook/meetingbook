@@ -8,6 +8,6 @@ class AdminDbRepository:
         return psw_from_db
 
     def add_admin(self, admin):
-        admin_model = self._models.AdminInfo(email=admin.get_email, psw=admin.get_password)
+        admin_model = self._models.AdminInfo(email=admin.get_email(), psw=admin.get_password())
         self._models.db.session.add(admin_model)
         self._models.db.session.commit()
