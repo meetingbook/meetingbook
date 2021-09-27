@@ -172,7 +172,6 @@ definitions:
       - id
       - start
       - end
-      - status
       - booking_id
     properties:
       id:
@@ -186,12 +185,6 @@ definitions:
         type: "string"
         format: "date-time"
         description: "End of the slot. Defined as Datetime string in ISO 8601 https://en.wikipedia.org/wiki/ISO_8601"
-      status:
-        type: "string"
-        enum:
-        - "booked"
-        - "available"
-        description: "Status of a slot"
       booking_id: 
         type: "integer"
         format: "int64"
