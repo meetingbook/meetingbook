@@ -165,14 +165,14 @@ paths:
           description: "Unauthorized"
       security:
         - basic_auth: []
-  /calendars/{id}:
+  /calendars/{link_id}:
     get:
       summary: |
-        Returns a calendar according to the shareable link id.
+        Returns a calendar according to the shareable link id. This is an endpoint for Guest.
         Unprotected endpoint.
       parameters:
         - in: path
-          name: id
+          name: link_id
           type: string
           required: true
           description: |
@@ -244,24 +244,86 @@ paths:
             $ref: "#/definitions/Problem"
       security:
         - basic_auth: []
-
-  /bookings/{booking_id}:
-    get:
+  /calendars/{link_id}/bookings/:
+    post:
+      summary: Create a new booking
       parameters:
+        - in: path
+          name: link_id
+          type: string
+          required: true
+          description: |
+            identifier of the shareable link (public calendar). See  "#/definitions/CalendarLink" for the format details.
+        - in: body
+          name: booking_request
+          description: Booking to create
+          schema:
+            $ref: '#/definitions/BookingRequest'
+      responses:
+        "200":
+          description: "Successfully booked"
+          schema:
+            $ref: "#/definitions/Booking"
+        "401":
+          description: "Unauthorized - link id is invalid"
+          schema:
+            $ref: "#/definitions/Problem"
+        "400":
+          description: "Bad request - parameters are invalid"
+          schema:
+            $ref: "#/definitions/Problem"
+        "409":
+          description: "Conflict - unable to book (already booked or deleted)"
+          schema:
+            $ref: "#/definitions/Problem"
+  /calendars/{link_id}/bookings/{booking_id}:
+    get:
+      summary: returns information about a given booking
+      parameters:
+        - in: path
+          name: link_id
+          type: string
+          required: true
+          description: |
+            identifier of the shareable link (public calendar). See  "#/definitions/CalendarLink" for the format details.
         - in: path
           name: booking_id
           type: string
           description: |
-            Receives the `"booking_id"` of the booked slot, and sends a response with information about users booked this slot(name, email, topic)
-              `/booking/{booking_id}`
+            booking id
           required: true  
       responses:
         "200":
           description: "Successful request"
           schema:
             $ref: "#/definitions/Booking"
+        "401":
+          description: "Unauthorized - link id is invalid"
+          schema:
+            $ref: "#/definitions/Problem"
+    delete:
+      summary: cancels booking (guest cancels booking)
+      parameters:
+        - in: path
+          name: link_id
+          type: string
+          required: true
+          description: |
+            identifier of the shareable link (public calendar). See  "#/definitions/CalendarLink" for the format details.
+        - in: path
+          name: booking_id
+          type: string
+          description: |
+            booking id
+          required: true
+      responses:
+        "200":
+          description: "Successful request"
+        "401":
+          description: "Unauthorized - link id is invalid"
+          schema:
+            $ref: "#/definitions/Problem"
 definitions:
-
   RegistrationBody:
     type: "object"
     required:
@@ -322,7 +384,25 @@ definitions:
         type: "integer"
         format: "int64"
         description: "ID reference to booking"
-
+  BookingRequest:
+    type: "object"
+    required:
+      - guest_name
+      - guest_email
+      - link_id
+    properties:
+      guest_name:
+        type: "string"
+        description: "Guest name who makes a booking"
+      guest_email:
+        type: "string"
+        description: "Guest email who makes a booking"
+      topic:
+        type: "string"
+        description: "Topic to discuss"
+      link_id:
+        type: "string"
+        description: "Shareable link id used for booking"
   Booking:
     type: "object"
     required:
