@@ -3,14 +3,13 @@ class InvalidEmailException(Exception):
 
 
 class Email:
-    def __init__(self, value: str, *args):
+    def __init__(self, value: str):
         if '@' and '.' in value:
             self._email = value
         else:
             raise InvalidEmailException(f'email ({value}) must contain @ and .')
-        super().__init__(*args)
 
-    def get_mail(self):
+    def get_value(self):
         return self._email
 
 
