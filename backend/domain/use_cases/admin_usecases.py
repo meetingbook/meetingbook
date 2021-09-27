@@ -17,4 +17,3 @@ class AdminRegister:
         hashed_password = checked_password.get_hashed_password()
         admin = Admin(checked_email.get_value(), hashed_password)
         AdminDbRepository(models).add_admin(admin)
-

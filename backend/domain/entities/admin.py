@@ -12,7 +12,3 @@ class Admin:
 
     def get_id(self):
         return self.id
-
-
-a = Admin('mail@.', 'hvj@.hkj')
-print(a.get_email(), a.get_password(), a.get_id())
