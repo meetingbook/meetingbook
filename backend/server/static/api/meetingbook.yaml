@@ -133,6 +133,7 @@ paths:
       responses:
         "200":
           description: "Successful operation"
+      security:
         - basic_auth: []
     post:
       summary: Add a new interval
@@ -163,7 +164,7 @@ paths:
         "401":
           description: "Unauthorized"
       security:
-        - basic_auth: []    
+        - basic_auth: []
   /bookings/{booking_id}:
     get:
       parameters:
