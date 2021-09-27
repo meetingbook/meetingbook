@@ -165,6 +165,71 @@ paths:
           description: "Unauthorized"
       security:
         - basic_auth: []
+  /booking_settings:
+    summary: endpoint for the settings of the booking, controlled by admin.
+    get:
+      summary: get current settings
+      parameters:
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/BookingSettings"
+        "400":
+          description: "Bad Request"
+        "401":
+          description: "Unauthorized"
+      security:
+        - basic_auth: []
+    put:
+      summary: Update booking settings
+      parameters:
+        - in: body
+          name: interval_id
+          summary: description of the new booking settings
+          schema:
+            $ref: "#/definitions/BookingSettings"
+      responses:
+        "200":
+          description: "Successfully updated"
+          schema:
+            $ref: "#/definitions/BookingSettings"
+        "400":
+          description: "Bad Request"
+        "401":
+          description: "Unauthorized"
+      security:
+        - basic_auth: []
+    post:
+      summary: Add a new interval
+      description: |
+            request to add a new free interval for the admin. Format:
+            `/schedule/start=2021-02-02T10:00&end=2021-02-02T14:00`
+
+      parameters:
+        - in: query
+          name: start
+          type: string
+          required: true
+          description: |
+            Start interval in format: `start=2021-02-02T10:00`
+        - in: query
+          name: end
+          type: string
+          required: true
+          description: |
+            End interval in format: `end=2021-02-02T10:00`
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/Slot"
+        "400":
+          description: "Bad Request"
+        "401":
+          description: "Unauthorized"
+      security:
+        - basic_auth: []
   /calendars/{link_id}:
     get:
       summary: |
@@ -228,7 +293,7 @@ paths:
       security:
         - basic_auth: [ ]
     post:
-      summary: creates a new shareable link (or public calendar)
+      summary: creates a new shareable link (or public calendar). Endpoint for admin.
       description: |
         Creates a new shareable link (calendar) to the schedule of the current admin.
         Available only for admins.
@@ -389,7 +454,8 @@ definitions:
     required:
       - guest_name
       - guest_email
-      - link_id
+      - start
+      - end
     properties:
       guest_name:
         type: "string"
@@ -400,9 +466,14 @@ definitions:
       topic:
         type: "string"
         description: "Topic to discuss"
-      link_id:
+      start:
         type: "string"
-        description: "Shareable link id used for booking"
+        format: "date-time"
+        description: "Start of the slot. Defined as Datetime string in ISO 8601 https://en.wikipedia.org/wiki/ISO_8601"
+      end:
+        type: "string"
+        format: "date-time"
+        description: "End of the slot. Defined as Datetime string in ISO 8601 https://en.wikipedia.org/wiki/ISO_8601"
   Booking:
     type: "object"
     required:
@@ -422,6 +493,14 @@ definitions:
       topic:
         type: "string"
         description: "Topic to discuss"
+      start:
+        type: "string"
+        format: "date-time"
+        description: "Start of the slot. Defined as Datetime string in ISO 8601 https://en.wikipedia.org/wiki/ISO_8601"
+      end:
+        type: "string"
+        format: "date-time"
+        description: "End of the slot. Defined as Datetime string in ISO 8601 https://en.wikipedia.org/wiki/ISO_8601"
   Problem:
     type: object
     properties:
@@ -485,3 +564,35 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/Slot"
+  BookingSettings:
+    description: "settings of the booking. When the guest sends a booking request, his request is checked against these settings"
+    type: "object"
+    properties:
+      duration:
+        type: "object"
+        description: "Duration settings"
+        schema:
+          $ref: "#/definitions/DurationSettings"
+      start_time:
+        type: "object"
+        description: "Start time settings"
+        schema:
+          $ref: "#/definitions/StartTimeSettings"
+  DurationSettings:
+    description: "settings for the booking duration"
+    type: "object"
+    properties:
+      allowed_values:
+        description: "list of allowed time values"
+        type: array
+        items:
+          type: int
+  StartTimeSettings:
+    description: "settings for the booking start time"
+    type: "object"
+    properties:
+      allowed_values:
+        description: "list of allowed values (amount of minutes for each hour). For example values of [15, 45] means that the user can book only time slots starting at XX:15 and XX:45, but not at XX:30."
+        type: array
+        it<ems:
+          type: int
