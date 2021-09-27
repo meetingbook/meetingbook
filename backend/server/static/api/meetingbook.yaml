@@ -92,6 +92,22 @@ paths:
         "401":
           description: "Unauthorized"
       security:
+        - basic_auth: []  
+    delete:
+      summary: Delete interval for the admin
+      description: |
+            Request to delete interval for the admin.
+            `/schedule/interval_id=34`
+      parameters:
+        - in: query
+          name: interval_id
+          type: string
+          required: true
+          description: |
+            Delete interval in format: `/interval_id=34`
+      responses:
+        "200":
+          description: "Successful operation"
         - basic_auth: []
     post:
       summary: Add a new interval
@@ -122,7 +138,7 @@ paths:
         "401":
           description: "Unauthorized"
       security:
-        - basic_auth: []      
+        - basic_auth: []    
   /bookings/{booking_id}:
     get:
       parameters:
