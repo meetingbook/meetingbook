@@ -24,7 +24,7 @@ def test_admin_register(app_for_test):
     response5 = app_for_test.post('/register')
     response6 = app_for_test.post('/register', data=dict(email=incorrect_email, password=correct_password))
     response7 = app_for_test.post('/register', data=dict(email=correct_email, password=incorrect_password))
-    assert response1.status == '401 UNAUTHORIZED'
+    assert response1.status == '200 OK'
     assert response2.status == '409 CONFLICT'
     assert response3.status == '400 BAD REQUEST'
     assert response4.status == '400 BAD REQUEST'
