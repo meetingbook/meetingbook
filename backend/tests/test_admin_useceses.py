@@ -19,6 +19,6 @@ def test_admin_register(app_for_test):
     email = 'mail@.com'
     password = 'Password'
     AdminRegister(email, password).admin_register()
-    psw_from_db = AdminDbRepository(models).get_psw_from_db(email)
+    psw_from_db = AdminDbRepository().get_psw_from_db(email)
 
     assert check_psw(password, psw_from_db)

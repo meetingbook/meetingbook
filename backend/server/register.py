@@ -1,4 +1,5 @@
 import sqlalchemy
+from domain.value_objects.password import InvalidPasswordException
 from flask import Blueprint, request, redirect, jsonify
 
 from domain.use_cases.admin_usecases import AdminRegister
@@ -15,3 +16,5 @@ def registration():
         return redirect('/login/', code=401)
     except sqlalchemy.exc.IntegrityError:
         return jsonify({'error': 'such user already exists'})
+    except InvalidPasswordException:
+        return "exception"
