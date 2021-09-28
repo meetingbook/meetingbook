@@ -61,4 +61,3 @@ class SlotsShema(ma.SQLAlchemyAutoSchema):
     start_interval = ma.auto_field()
     end_interval = ma.auto_field()
     booking_id = ma.auto_field()
-    admin_id = ma.auto_field()
