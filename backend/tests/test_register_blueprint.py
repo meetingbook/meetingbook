@@ -13,7 +13,21 @@ def app_for_test():
 
 
 def test_admin_register(app_for_test):
-    email = 'mail@.com'
-    password = 'Password'
-    response = app_for_test.post('/register', data=dict(email=email, psw=password))
-    assert response.status == '401 UNAUTHORIZED'
+    correct_email = 'mail@.com'
+    incorrect_email = 'mail@com'
+    correct_password = 'Password'
+    incorrect_password = 'psw'
+    response1 = app_for_test.post('/register', data=dict(email=correct_email, password=correct_password))
+    response2 = app_for_test.post('/register', data=dict(email=correct_email, password=correct_password))
+    response3 = app_for_test.post('/register', data=dict(email=correct_email))
+    response4 = app_for_test.post('/register', data=dict(password=correct_password))
+    response5 = app_for_test.post('/register')
+    response6 = app_for_test.post('/register', data=dict(email=incorrect_email, password=correct_password))
+    response7 = app_for_test.post('/register', data=dict(email=correct_email, password=incorrect_password))
+    assert response1.status == '401 UNAUTHORIZED'
+    assert response2.status == '409 CONFLICT'
+    assert response3.status == '400 BAD REQUEST'
+    assert response4.status == '400 BAD REQUEST'
+    assert response5.status == '400 BAD REQUEST'
+    assert response6.status == '400 BAD REQUEST'
+    assert response7.status == '400 BAD REQUEST'
