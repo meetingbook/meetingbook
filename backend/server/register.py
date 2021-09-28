@@ -20,4 +20,4 @@ def registration():
         return make_response(jsonify({"detail": "Bad request. This is not a valid email or password is not specified"}),
                              400)
     else:
-        return redirect('/login/', code=401)
+        return redirect('/login/', code=200)
