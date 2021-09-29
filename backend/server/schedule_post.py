@@ -10,4 +10,4 @@ def new_free_slots_for_admin(start, end):
         Return JSON with <filter> slots.
     """
     add_slot = add_slot_from_db_for_schedule_admin(start, end)
-    return jsonify({'msg': 'failed adding'}) if add_slot == 1 else jsonify(add_slot)
+    return jsonify(add_slot)
