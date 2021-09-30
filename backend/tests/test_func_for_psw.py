@@ -1,4 +1,5 @@
-from tools.func_for_psw import check_psw, get_log_psw_from_header, prepare_psw_for_db
+from domain.value_objects.password import Password
+from tools.func_for_psw import check_psw, get_log_psw_from_header
 
 
 def test_get_psw_from_header():
@@ -12,8 +13,8 @@ def test_get_psw_from_header():
 def test_prepare_and_check_psw():
     psw = 'Pyth0n'
     psw_2 = 'psw_2'
-    hashed_psw = prepare_psw_for_db(psw)
-    hashed_psw2 = prepare_psw_for_db(psw_2)
+    hashed_psw = Password(psw).get_hashed_password()
+    hashed_psw2 = Password(psw_2).get_hashed_password()
     assert check_psw(psw, hashed_psw) is True
     assert check_psw(psw_2, hashed_psw2) is True
     assert check_psw(psw_2, hashed_psw) is False

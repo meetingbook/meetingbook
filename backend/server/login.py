@@ -1,7 +1,8 @@
 from flask import Blueprint, make_response, jsonify
 from flask_httpauth import HTTPBasicAuth
+
+from domain.repositories.admin_repository import AdminDbRepository
 from tools.func_for_psw import check_psw
-from tools.work_with_db import get_psw_from_db
 auth = HTTPBasicAuth()
 login_page = Blueprint('login_page', __name__)
 
@@ -15,7 +16,7 @@ def login():
 @auth.verify_password
 def verify_password(username, password):
     try:
-        if check_psw(password, get_psw_from_db(username)):
+        if check_psw(password, AdminDbRepository().get_psw_from_db(username)):
             return username
     except AttributeError:
         # user with this email does not exist
