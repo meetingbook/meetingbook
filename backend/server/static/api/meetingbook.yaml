@@ -17,9 +17,22 @@ schemes:
 securityDefinitions:
   basic_auth:
     type: basic
+tags:
+  - name: sign in / sign up
+    description: endpoints for Admin.
+  - name: booking settings endpoint
+    description: endpoint for Admin. All operations for the settings of the booking.
+  - name: schedule endpoint
+    description: endpoint for Admin. All operations on schedule.
+  - name: calendars endpoint
+    description: endpoint for Admin. All operations on calendars.
+  - name: guest calendars endpoint
+    description: endpoint for Guest. All operations on calendars.
 paths:
   /admin:
     get:
+      tags:
+        - sign in / sign up
       description: Test API endpoint
       parameters:
         - in: header
@@ -37,8 +50,12 @@ paths:
       responses:
         "200":
           description: "Successful admin request"
+          schema:
+            $ref: "#/definitions/AdminResponse"
   /registration:
     post:
+      tags:
+        - sign in / sign up
       summary: Register a new Admin
       description: Requires a new email (not yet registered in MeetingBook), password and the second input of this password to confirm the registration of a new Admin.
       consumes:
@@ -48,7 +65,7 @@ paths:
           name: data
           required: true
           schema:
-            $ref: '#/definitions/RegistrationBody'
+            $ref: '#/definitions/AdminRequest'
       produces:
         - "application/json"
       responses:
@@ -64,6 +81,8 @@ paths:
             $ref: '#/definitions/Problem'
   /login:
     get:
+      tags:
+        - sign in / sign up
       parameters:
         - in: header
           name: Authorization
@@ -80,33 +99,38 @@ paths:
         "200":
           description: "Successful login"
         "401":
+          schema:
+            $ref: '#/definitions/Problem'
           description: "Unauthorized"
   /schedule:
     get:
+      tags:
+        - schedule endpoint
       parameters:
         - in: query
-          name: filter
+          name: status
           type: string
+          enum: ["free", "booking"]
           description: |
             Filter "free or booking". 
-            To get **free** slots: `/schedule/filter=status="free"` 
+            To get **free** slots: `/schedule?status="free"` 
             
-            To get **booked** slots: `/schedule/filter=status="booking"`
+            To get **booked** slots: `/schedule?status="booking"`
         - in: query
           name: week
           type: string
           description: |
             To get slots for a given week.
-            `/schedule/week=2021-01-01`
+            `/schedule?week=2021-01-01`
             
             To get booking slots for a given week.
-            `/schedule/week=2021-01-01&filter=status="booking"`
+            `/schedule?week=2021-01-01&status="booking"`
         - in: query
           name: day
           type: string
           description: |
             To get slots for a given day.
-            `/schedule/day=2021-01-01`
+            `/schedule?day=2021-01-01`
       responses:
         "200":
           description: "Successful operation"
@@ -114,11 +138,17 @@ paths:
             $ref: "#/definitions/Schedule"
         "400":
           description: "Bad Request"
+          schema:
+            $ref: '#/definitions/Problem'
         "401":
           description: "Unauthorized"
+          schema:
+            $ref: '#/definitions/Problem'
       security:
         - basic_auth: []  
     delete:
+      tags:
+        - schedule endpoint
       summary: Delete interval for the admin
       description: |
             Request to delete interval for the admin.
@@ -136,6 +166,8 @@ paths:
       security:
         - basic_auth: []
     post:
+      tags:
+        - schedule endpoint
       summary: Add a new interval
       description: |
             request to add a new free interval for the admin. Format:
@@ -166,10 +198,10 @@ paths:
       security:
         - basic_auth: []
   /booking_settings:
-    summary: endpoint for the settings of the booking, controlled by admin.
     get:
       summary: get current settings
-      parameters:
+      tags:
+        - booking settings endpoint
       responses:
         "200":
           description: "Successful operation"
@@ -177,16 +209,22 @@ paths:
             $ref: "#/definitions/BookingSettings"
         "400":
           description: "Bad Request"
+          schema:
+            $ref: '#/definitions/Problem'
         "401":
           description: "Unauthorized"
+          schema:
+            $ref: '#/definitions/Problem'
       security:
         - basic_auth: []
     put:
       summary: Update booking settings
+      tags:
+        - booking settings endpoint
       parameters:
         - in: body
-          name: interval_id
-          summary: description of the new booking settings
+          name: booking_settings
+          description: description of the new booking settings
           schema:
             $ref: "#/definitions/BookingSettings"
       responses:
@@ -196,42 +234,18 @@ paths:
             $ref: "#/definitions/BookingSettings"
         "400":
           description: "Bad Request"
-        "401":
-          description: "Unauthorized"
-      security:
-        - basic_auth: []
-    post:
-      summary: Add a new interval
-      description: |
-            request to add a new free interval for the admin. Format:
-            `/schedule/start=2021-02-02T10:00&end=2021-02-02T14:00`
-
-      parameters:
-        - in: query
-          name: start
-          type: string
-          required: true
-          description: |
-            Start interval in format: `start=2021-02-02T10:00`
-        - in: query
-          name: end
-          type: string
-          required: true
-          description: |
-            End interval in format: `end=2021-02-02T10:00`
-      responses:
-        "200":
-          description: "Successful operation"
           schema:
-            $ref: "#/definitions/Slot"
-        "400":
-          description: "Bad Request"
+            $ref: '#/definitions/Problem'
         "401":
           description: "Unauthorized"
+          schema:
+            $ref: '#/definitions/Problem'
       security:
         - basic_auth: []
   /calendars/{link_id}:
     get:
+      tags:
+        - guest calendars endpoint
       summary: |
         Returns a calendar according to the shareable link id. This is an endpoint for Guest.
         Unprotected endpoint.
@@ -260,10 +274,12 @@ paths:
           schema:
             $ref: "#/definitions/Problem"
     delete:
+      tags:
+        - calendars endpoint
       summary: Delete shareable link (public calendar) for the admin
       parameters:
         - in: path
-          name: id
+          name: link_id
           type: string
           required: true
           description: |
@@ -279,8 +295,9 @@ paths:
         - basic_auth: []
   /calendars/:
     get:
+      tags:
+        - calendars endpoint
       summary: returns all shareable links for the current admin
-      parameters:
       responses:
         "200":
           description: "Successful operation"
@@ -288,16 +305,21 @@ paths:
             $ref: "#/definitions/CalendarLinks"
         "400":
           description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Problem"
         "401":
           description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/Problem"
       security:
         - basic_auth: [ ]
     post:
+      tags:
+        - calendars endpoint
       summary: creates a new shareable link (or public calendar). Endpoint for admin.
       description: |
         Creates a new shareable link (calendar) to the schedule of the current admin.
         Available only for admins.
-      parameters:
       responses:
         "200":
           description: "Successful operation"
@@ -309,8 +331,11 @@ paths:
             $ref: "#/definitions/Problem"
       security:
         - basic_auth: []
+  
   /calendars/{link_id}/bookings/:
     post:
+      tags:
+        - guest calendars endpoint
       summary: Create a new booking
       parameters:
         - in: path
@@ -343,6 +368,8 @@ paths:
             $ref: "#/definitions/Problem"
   /calendars/{link_id}/bookings/{booking_id}:
     get:
+      tags:
+        - guest calendars endpoint
       summary: returns information about a given booking
       parameters:
         - in: path
@@ -366,7 +393,9 @@ paths:
           description: "Unauthorized - link id is invalid"
           schema:
             $ref: "#/definitions/Problem"
-    delete:
+    delete:      
+      tags:
+        - guest calendars endpoint
       summary: cancels booking (guest cancels booking)
       parameters:
         - in: path
@@ -389,16 +418,6 @@ paths:
           schema:
             $ref: "#/definitions/Problem"
 definitions:
-  RegistrationBody:
-    type: "object"
-    required:
-      - email
-      - password
-    properties:
-      email:
-        type: string
-      password:
-        type: string
   Schedule:
     type: "object"
     properties:
@@ -406,12 +425,11 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/Slot"
-  Admin:
+  AdminResponse:
     type: "object"
     required:
       - id
       - email
-      - password
       - avatar
     properties:
       id:
@@ -426,6 +444,17 @@ definitions:
         type: "string"
         format: "base64"
         description: "Admins avatar"
+  AdminRequest:
+    type: "object"
+    required:
+      - email
+      - password
+    properties:
+      email:
+        type: "string"
+      password:
+        type: "string"
+        description: "Hashed and salted password"
   Slot:
     type: "object"
     required:
@@ -571,12 +600,12 @@ definitions:
       duration:
         type: "object"
         description: "Duration settings"
-        schema:
+        items:
           $ref: "#/definitions/DurationSettings"
       start_time:
         type: "object"
         description: "Start time settings"
-        schema:
+        items:
           $ref: "#/definitions/StartTimeSettings"
   DurationSettings:
     description: "settings for the booking duration"
@@ -586,7 +615,7 @@ definitions:
         description: "list of allowed time values"
         type: array
         items:
-          type: int
+          type: integer
   StartTimeSettings:
     description: "settings for the booking start time"
     type: "object"
@@ -594,5 +623,5 @@ definitions:
       allowed_values:
         description: "list of allowed values (amount of minutes for each hour). For example values of [15, 45] means that the user can book only time slots starting at XX:15 and XX:45, but not at XX:30."
         type: array
-        it<ems:
-          type: int
+        items:
+          type: integer
