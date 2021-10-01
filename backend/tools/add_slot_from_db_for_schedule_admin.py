@@ -1,5 +1,10 @@
 import db.models as models
 from db.models import Slots, SlotsShema
+from flask import make_response, jsonify
+
+msg = {
+    'msg': "Don't added slot"
+}
 
 
 def add_slot_from_db_for_schedule_admin(start, end):
@@ -11,12 +16,10 @@ def add_slot_from_db_for_schedule_admin(start, end):
         slots = models.Slots(start_interval=start, end_interval=end)
         models.db.session.add(slots)
         models.db.session.commit()
-        return get_last_slot_id(slots.id)
+        return jsonify(get_last_slot_id(slots.id))
     except Exception:
         models.db.session.rollback()
-        return {
-            'msg': "Don't added slot"
-        }
+        return make_response('''{msg: Don't added slot}''', 500)
 
 
 def get_last_slot_id(slots_id):
