@@ -6,7 +6,7 @@ class AdminExistsException(Exception):
     pass
 
 
-class AdminDbRepository(AdminExistsException):
+class AdminDbRepository:
 
     def get_psw_from_db(self, email):
         log_psw_db = models.AdminInfo.query.filter_by(email=email).first()

@@ -13,7 +13,8 @@ def registration():
     try:
         email = request.form['email']
         psw = request.form['password']
-        AdminRegister(email, psw).admin_register()
+        repo = AdminDbRepository()
+        AdminRegister(repo).exec(email, psw)
     except AdminExistsException:
         return make_response(jsonify({'detail': 'Conflict. This email is already registered in MeetingBook'}), 409)
     except (InvalidPasswordException, InvalidEmailException, KeyError):

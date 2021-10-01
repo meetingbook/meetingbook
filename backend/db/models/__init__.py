@@ -11,6 +11,17 @@ class AdminInfo(db.Model):
     email = db.Column(db.String(50), unique=True, nullable=False)
     psw = db.Column(db.String(500), nullable=False)
     slots = db.relationship('Slots', backref='admin_slot', lazy='dynamic')
+    booking_settings = db.relationship('BookingSettings',
+                                       backref='admin_booking_settings',
+                                       lazy='dynamic')
+
+
+class BookingSettings(db.Model):
+    __tablename__ = 'BookingSettings'
+    id = db.Column(db.Integer, primary_key=True)
+    duration = db.Column(db.PickleType(db.Integer), nullable=False)
+    start_time = db.Column(db.PickleType(db.Integer), nullable=False)
+    admin_id = db.Column(db.Integer, db.ForeignKey('AdminInfo.id'))
 
 
 class BookingInfo(db.Model):
@@ -30,6 +41,15 @@ class Slots(db.Model):
     booking_id = db.Column(db.Integer, db.ForeignKey('BookingInfo.id'))
     admin_id = db.Column(db.Integer, db.ForeignKey('AdminInfo.id'))
     UniqueConstraint(start_interval, end_interval, admin_id)
+
+
+class BookingSettingsSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = BookingSettings
+        load_instance = True
+    id = ma.auto_field()
+    duration = ma.auto_field()
+    start_time = ma.auto_field()
 
 
 class AdminInfoShema(ma.SQLAlchemyAutoSchema):
