@@ -19,4 +19,4 @@ class AdminRegister(UseCase):
         checked_password = Password(password)
         hashed_password = checked_password.get_hashed_password()
         admin = Admin(checked_email.get_value(), hashed_password)
-        repo.add_admin(admin)
+        self.repo.add_admin(admin)

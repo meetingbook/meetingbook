@@ -4,6 +4,7 @@ from flask import Blueprint, request, redirect, jsonify, make_response
 from domain.entities.email import InvalidEmailException
 from domain.value_objects.password import InvalidPasswordException
 from domain.use_cases.admin_usecases import AdminRegister
+from domain.repositories.admin_repository import AdminDbRepository
 
 register_blueprint = Blueprint('register_blueprint', __name__)
 

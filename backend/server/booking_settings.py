@@ -1,4 +1,4 @@
-from flask import Blueprint, request, redirect, jsonify, make_response
+from flask import Blueprint, jsonify
 from db.models import BookingSettings, BookingSettingsSchema
 from server.auth import auth
 
