@@ -12,8 +12,3 @@ def get_log_psw_from_header(header):
 def check_psw(decoded_psw, psw_from_db):
     check = bcrypt.checkpw(decoded_psw.encode(), psw_from_db.encode())
     return check
-
-
-def prepare_psw_for_db(psw):
-    hashed_psw = bcrypt.hashpw(psw.encode(), bcrypt.gensalt()).decode('utf-8')
-    return hashed_psw

@@ -1,10 +1,10 @@
-import { Button } from ".";
+import { Button } from '.';
 
 export default {
-  title: "UI/Atoms/Button",
+  title: 'UI/Atoms/Button',
   component: Button,
   argTypes: {
-    backgroundColor: { control: "color" },
+    backgroundColor: { control: 'color' },
   },
 };
 

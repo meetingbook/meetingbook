@@ -1,7 +1,8 @@
 import pytest
 
+from domain.entities.admin import Admin
+from domain.repositories.admin_repository import AdminDbRepository
 from tools.create_db_for_tests import create_test_app_with_db
-from tools.work_with_db import get_psw_from_db, push_email_psw_to_db
 import db.models as models
 
 
@@ -12,12 +13,14 @@ def app_for_test():
     models.AdminInfo.query.delete()
 
 
-def test_get_psw_from_db(app_for_test):
+def test_admin_repo(app_for_test):
     log = 'admin'
     psw = 'Pyth0n'
+    test_admin = Admin(log, psw)
     app_for_test
-    push_email_psw_to_db(log, psw)
 
-    psw_from_db = get_psw_from_db(log)
+    AdminDbRepository().add_admin(test_admin)
+
+    psw_from_db = AdminDbRepository().get_psw_from_db(test_admin.get_email())
 
     assert psw_from_db == psw

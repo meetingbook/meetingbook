@@ -1,9 +1,9 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme } from '@mui/material/styles';
 
 export const theme = createTheme({
   palette: {
     primary: {
-      main: "#d55a5a",
+      main: '#d55a5a',
     },
   },
   components: {
@@ -12,7 +12,7 @@ export const theme = createTheme({
       styleOverrides: {
         // Name of the slot
         root: {
-          textTransform: "capitalize",
+          textTransform: 'capitalize',
         },
       },
     },

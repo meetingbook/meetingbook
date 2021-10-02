@@ -12,4 +12,4 @@ class DevelopmentConfig(Config):
 
 config_settings = {
     'development': DevelopmentConfig
-    }
+}

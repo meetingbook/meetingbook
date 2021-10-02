@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { Typography } from "../../ui/components/atoms/typography";
+import { Link } from 'react-router-dom';
+import { Typography } from '../../ui/components/atoms/typography';
 
 export const SignUp = () => {
   return (
