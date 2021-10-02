@@ -19,7 +19,7 @@ def add_slot_from_db_for_schedule_admin(start, end):
         return jsonify(get_last_slot_id(slots.id))
     except Exception:
         models.db.session.rollback()
-        return make_response('''{msg: Don't added slot}''', 500)
+        return make_response({'detail': 'Delete error', 'status': 500}, 500)
 
 
 def get_last_slot_id(slots_id):
