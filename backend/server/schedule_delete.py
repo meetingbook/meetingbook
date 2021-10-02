@@ -1,6 +1,5 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint
 from tools.delete_slot_by_id_for_schedule import delete_slot_by_id_for_schedule
-
 
 schedule_delete = Blueprint('schedule_delete', __name__)
 
@@ -10,4 +9,4 @@ def delete_slots(interval_id):
     """ Delete slots by id
     """
     delete_slot = delete_slot_by_id_for_schedule(interval_id)
-    return jsonify(delete_slot)
+    return delete_slot
