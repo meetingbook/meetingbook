@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import UniqueConstraint, ARRAY
+from sqlalchemy import UniqueConstraint
 from flask_marshmallow import Marshmallow
-from sqlalchemy.sql.sqltypes import JSON, PickleType
+from sqlalchemy.sql.sqltypes import JSON
 db = SQLAlchemy()
 ma = Marshmallow()
 

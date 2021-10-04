@@ -1,4 +1,3 @@
-from sqlalchemy.sql.sqltypes import VARBINARY
 from db.models import BookingSettings, BookingSettingsSchema
 
 
@@ -16,5 +15,5 @@ def get_booking_settings():
         slot_shema = BookingSettingsSchema(many=True)
         output = slot_shema.dump(booking_settings)
         return output
-    except:
+    except Exception:
         return {'detail': 'DB not found', 'status': 500}
