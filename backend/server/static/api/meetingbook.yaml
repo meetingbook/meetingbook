@@ -17,9 +17,22 @@ schemes:
 securityDefinitions:
   basic_auth:
     type: basic
+tags:
+  - name: sign in / sign up
+    description: endpoints for Admin.
+  - name: booking settings endpoint
+    description: endpoint for Admin. All operations for the settings of the booking.
+  - name: schedule endpoint
+    description: endpoint for Admin. All operations on schedule.
+  - name: calendars endpoint
+    description: endpoint for Admin. All operations on calendars.
+  - name: guest calendars endpoint
+    description: endpoint for Guest. All operations on calendars.
 paths:
   /admin:
     get:
+      tags:
+        - sign in / sign up
       description: Test API endpoint
       parameters:
         - in: header
@@ -37,8 +50,12 @@ paths:
       responses:
         "200":
           description: "Successful admin request"
+          schema:
+            $ref: "#/definitions/AdminResponse"
   /registration:
     post:
+      tags:
+        - sign in / sign up
       summary: Register a new Admin
       description: Requires a new email (not yet registered in MeetingBook), password and the second input of this password to confirm the registration of a new Admin.
       consumes:
@@ -48,7 +65,7 @@ paths:
           name: data
           required: true
           schema:
-            $ref: '#/definitions/RegistrationBody'
+            $ref: '#/definitions/AdminRequest'
       produces:
         - "application/json"
       responses:
@@ -64,6 +81,8 @@ paths:
             $ref: '#/definitions/Problem'
   /login:
     get:
+      tags:
+        - sign in / sign up
       parameters:
         - in: header
           name: Authorization
@@ -80,33 +99,38 @@ paths:
         "200":
           description: "Successful login"
         "401":
+          schema:
+            $ref: '#/definitions/Problem'
           description: "Unauthorized"
   /schedule:
     get:
+      tags:
+        - schedule endpoint
       parameters:
         - in: query
-          name: filter
+          name: status
           type: string
+          enum: ["free", "booking"]
           description: |
             Filter "free or booking". 
-            To get **free** slots: `/schedule/filter=status="free"` 
+            To get **free** slots: `/schedule?status="free"` 
             
-            To get **booked** slots: `/schedule/filter=status="booking"`
+            To get **booked** slots: `/schedule?status="booking"`
         - in: query
           name: week
           type: string
           description: |
             To get slots for a given week.
-            `/schedule/week=2021-01-01`
+            `/schedule?week=2021-01-01`
             
             To get booking slots for a given week.
-            `/schedule/week=2021-01-01&filter=status="booking"`
+            `/schedule?week=2021-01-01&status="booking"`
         - in: query
           name: day
           type: string
           description: |
             To get slots for a given day.
-            `/schedule/day=2021-01-01`
+            `/schedule?day=2021-01-01`
       responses:
         "200":
           description: "Successful operation"
@@ -114,11 +138,17 @@ paths:
             $ref: "#/definitions/Schedule"
         "400":
           description: "Bad Request"
+          schema:
+            $ref: '#/definitions/Problem'
         "401":
           description: "Unauthorized"
+          schema:
+            $ref: '#/definitions/Problem'
       security:
         - basic_auth: []  
     delete:
+      tags:
+        - schedule endpoint
       summary: Delete interval for the admin
       description: |
             Request to delete interval for the admin.
@@ -133,8 +163,11 @@ paths:
       responses:
         "200":
           description: "Successful operation"
+      security:
         - basic_auth: []
     post:
+      tags:
+        - schedule endpoint
       summary: Add a new interval
       description: |
             request to add a new free interval for the admin. Format:
@@ -163,33 +196,228 @@ paths:
         "401":
           description: "Unauthorized"
       security:
-        - basic_auth: []    
-  /bookings/{booking_id}:
+        - basic_auth: []
+  /booking_settings:
     get:
+      summary: get current settings
+      tags:
+        - booking settings endpoint
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/BookingSettings"
+        "400":
+          description: "Bad Request"
+          schema:
+            $ref: '#/definitions/Problem'
+        "401":
+          description: "Unauthorized"
+          schema:
+            $ref: '#/definitions/Problem'
+      security:
+        - basic_auth: []
+    put:
+      summary: Update booking settings
+      tags:
+        - booking settings endpoint
       parameters:
+        - in: body
+          name: booking_settings
+          description: description of the new booking settings
+          schema:
+            $ref: "#/definitions/BookingSettings"
+      responses:
+        "200":
+          description: "Successfully updated"
+          schema:
+            $ref: "#/definitions/BookingSettings"
+        "400":
+          description: "Bad Request"
+          schema:
+            $ref: '#/definitions/Problem'
+        "401":
+          description: "Unauthorized"
+          schema:
+            $ref: '#/definitions/Problem'
+      security:
+        - basic_auth: []
+  /calendars/{link_id}:
+    get:
+      tags:
+        - guest calendars endpoint
+      summary: |
+        Returns a calendar according to the shareable link id. This is an endpoint for Guest.
+        Unprotected endpoint.
+      parameters:
+        - in: path
+          name: link_id
+          type: string
+          required: true
+          description: |
+              identifier of the shareable link (public calendar). See  "#/definitions/CalendarLink" for the format details.
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/Calendar"
+        "400":
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Problem"
+        "401":
+          description: "Unauthorized - link has expired"
+          schema:
+            $ref: "#/definitions/Problem"
+        "404":
+          description: "Shareable link not found"
+          schema:
+            $ref: "#/definitions/Problem"
+    delete:
+      tags:
+        - calendars endpoint
+      summary: Delete shareable link (public calendar) for the admin
+      parameters:
+        - in: path
+          name: link_id
+          type: string
+          required: true
+          description: |
+            identifier of the shareable link (public calendar). See  "#/definitions/CalendarLink" for the format details.
+      responses:
+        "200":
+          description: "Deletion successful"
+        "404":
+          description: "Shareable link not found"
+          schema:
+            $ref: "#/definitions/Problem"
+      security:
+        - basic_auth: []
+  /calendars/:
+    get:
+      tags:
+        - calendars endpoint
+      summary: returns all shareable links for the current admin
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/CalendarLinks"
+        "400":
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/Problem"
+        "401":
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/Problem"
+      security:
+        - basic_auth: [ ]
+    post:
+      tags:
+        - calendars endpoint
+      summary: creates a new shareable link (or public calendar). Endpoint for admin.
+      description: |
+        Creates a new shareable link (calendar) to the schedule of the current admin.
+        Available only for admins.
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/CalendarLink"
+        "401":
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/Problem"
+      security:
+        - basic_auth: []
+  
+  /calendars/{link_id}/bookings/:
+    post:
+      tags:
+        - guest calendars endpoint
+      summary: Create a new booking
+      parameters:
+        - in: path
+          name: link_id
+          type: string
+          required: true
+          description: |
+            identifier of the shareable link (public calendar). See  "#/definitions/CalendarLink" for the format details.
+        - in: body
+          name: booking_request
+          description: Booking to create
+          schema:
+            $ref: '#/definitions/BookingRequest'
+      responses:
+        "200":
+          description: "Successfully booked"
+          schema:
+            $ref: "#/definitions/Booking"
+        "401":
+          description: "Unauthorized - link id is invalid"
+          schema:
+            $ref: "#/definitions/Problem"
+        "400":
+          description: "Bad request - parameters are invalid"
+          schema:
+            $ref: "#/definitions/Problem"
+        "409":
+          description: "Conflict - unable to book (already booked or deleted)"
+          schema:
+            $ref: "#/definitions/Problem"
+  /calendars/{link_id}/bookings/{booking_id}:
+    get:
+      tags:
+        - guest calendars endpoint
+      summary: returns information about a given booking
+      parameters:
+        - in: path
+          name: link_id
+          type: string
+          required: true
+          description: |
+            identifier of the shareable link (public calendar). See  "#/definitions/CalendarLink" for the format details.
         - in: path
           name: booking_id
           type: string
           description: |
-            Receives the `"booking_id"` of the booked slot, and sends a response with information about users booked this slot(name, email, topic)
-              `/booking/{booking_id}`
+            booking id
           required: true  
       responses:
         "200":
           description: "Successful request"
           schema:
             $ref: "#/definitions/Booking"
+        "401":
+          description: "Unauthorized - link id is invalid"
+          schema:
+            $ref: "#/definitions/Problem"
+    delete:      
+      tags:
+        - guest calendars endpoint
+      summary: cancels booking (guest cancels booking)
+      parameters:
+        - in: path
+          name: link_id
+          type: string
+          required: true
+          description: |
+            identifier of the shareable link (public calendar). See  "#/definitions/CalendarLink" for the format details.
+        - in: path
+          name: booking_id
+          type: string
+          description: |
+            booking id
+          required: true
+      responses:
+        "200":
+          description: "Successful request"
+        "401":
+          description: "Unauthorized - link id is invalid"
+          schema:
+            $ref: "#/definitions/Problem"
 definitions:
-  RegistrationBody:
-    type: "object"
-    required:
-      - email
-      - password
-    properties:
-      email:
-        type: string
-      password:
-        type: string
   Schedule:
     type: "object"
     properties:
@@ -197,12 +425,11 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/Slot"
-  Admin:
+  AdminResponse:
     type: "object"
     required:
       - id
       - email
-      - password
       - avatar
     properties:
       id:
@@ -217,6 +444,17 @@ definitions:
         type: "string"
         format: "base64"
         description: "Admins avatar"
+  AdminRequest:
+    type: "object"
+    required:
+      - email
+      - password
+    properties:
+      email:
+        type: "string"
+      password:
+        type: "string"
+        description: "Hashed and salted password"
   Slot:
     type: "object"
     required:
@@ -240,6 +478,31 @@ definitions:
         type: "integer"
         format: "int64"
         description: "ID reference to booking"
+  BookingRequest:
+    type: "object"
+    required:
+      - guest_name
+      - guest_email
+      - start
+      - end
+    properties:
+      guest_name:
+        type: "string"
+        description: "Guest name who makes a booking"
+      guest_email:
+        type: "string"
+        description: "Guest email who makes a booking"
+      topic:
+        type: "string"
+        description: "Topic to discuss"
+      start:
+        type: "string"
+        format: "date-time"
+        description: "Start of the slot. Defined as Datetime string in ISO 8601 https://en.wikipedia.org/wiki/ISO_8601"
+      end:
+        type: "string"
+        format: "date-time"
+        description: "End of the slot. Defined as Datetime string in ISO 8601 https://en.wikipedia.org/wiki/ISO_8601"
   Booking:
     type: "object"
     required:
@@ -259,6 +522,14 @@ definitions:
       topic:
         type: "string"
         description: "Topic to discuss"
+      start:
+        type: "string"
+        format: "date-time"
+        description: "Start of the slot. Defined as Datetime string in ISO 8601 https://en.wikipedia.org/wiki/ISO_8601"
+      end:
+        type: "string"
+        format: "date-time"
+        description: "End of the slot. Defined as Datetime string in ISO 8601 https://en.wikipedia.org/wiki/ISO_8601"
   Problem:
     type: object
     properties:
@@ -278,4 +549,79 @@ definitions:
           A human readable explanation specific to this occurrence of the
           problem.
         example: Connection to database timed out
-
+  CalendarLink:
+    type: "object"
+    required:
+      - id
+      - valid_until
+    properties:
+      id:
+        type: "string"
+        description: "Unique randomly generated string identifier of the calendar. Consists of digits and latin letters"
+        minLength: 10
+      valid_until:
+        type: "string"
+        format: "date-time"
+        description: "Time of link expiration. The link is not accessible after that time. Defined as Datetime string in ISO 8601 https://en.wikipedia.org/wiki/ISO_8601"
+  CalendarLinks:
+    type: "object"
+    required:
+      - links
+    properties:
+      links:
+        description: "array of shareable links"
+        type: array
+        items:
+          $ref: "#/definitions/CalendarLink"
+  Calendar:
+    type: "object"
+    required:
+      - id
+      - slots
+      - valid_until
+    properties:
+      id:
+        type: "string"
+        description: "Unique randomly generated string identifier of the calendar. Consists of digits and latin letters"
+        minLength: 10
+      valid_until:
+        type: "string"
+        format: "date-time"
+        description: "Time of link expiration. The link is not accessible after that time. Defined as Datetime string in ISO 8601 https://en.wikipedia.org/wiki/ISO_8601"
+      slots:
+        description: "Available time slots"
+        type: array
+        items:
+          $ref: "#/definitions/Slot"
+  BookingSettings:
+    description: "settings of the booking. When the guest sends a booking request, his request is checked against these settings"
+    type: "object"
+    properties:
+      duration:
+        type: "object"
+        description: "Duration settings"
+        items:
+          $ref: "#/definitions/DurationSettings"
+      start_time:
+        type: "object"
+        description: "Start time settings"
+        items:
+          $ref: "#/definitions/StartTimeSettings"
+  DurationSettings:
+    description: "settings for the booking duration"
+    type: "object"
+    properties:
+      allowed_values:
+        description: "list of allowed time values"
+        type: array
+        items:
+          type: integer
+  StartTimeSettings:
+    description: "settings for the booking start time"
+    type: "object"
+    properties:
+      allowed_values:
+        description: "list of allowed values (amount of minutes for each hour). For example values of [15, 45] means that the user can book only time slots starting at XX:15 and XX:45, but not at XX:30."
+        type: array
+        items:
+          type: integer
