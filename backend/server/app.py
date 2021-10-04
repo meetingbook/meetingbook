@@ -9,6 +9,7 @@ from server.login import login_page
 from server.swagger_ui import swaggerui_blueprint
 from server.register import register_blueprint
 from server.schedule_get import schedule_get
+from server.booking_settings import booking_settings_blueprint
 
 migrate = Migrate()
 
@@ -26,4 +27,5 @@ def create_app():
     app.register_blueprint(register_blueprint)
     app.register_blueprint(schedule_get)
     app.register_blueprint(login_page)
+    app.register_blueprint(booking_settings_blueprint)
     return app
