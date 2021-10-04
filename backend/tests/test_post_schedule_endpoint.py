@@ -8,7 +8,7 @@ def test_response_post_500():
     with serv.app.test_client() as con:
         resp = con.post('/schedule/start=2022-10-13T11:00&end=2022-15-14T13:00')
     assert resp.status_code == 500
-    assert resp.json == {'detail': 'Delete error', 'status': 500}
+    assert resp.json == {'detail': 'Creation failed', 'status': 500}
 
 
 def test_response_post_200():
