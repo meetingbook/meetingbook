@@ -57,7 +57,7 @@ paths:
       tags:
         - sign in / sign up
       summary: Register a new Admin
-      description: Requires a new email (not yet registered in MeetingBook), password and the second input of this password to confirm the registration of a new Admin.
+      description: Requires a new email (not yet registered in MeetingBook) and password to confirm the registration of a new Admin.
       consumes:
         - application/json
       parameters:
