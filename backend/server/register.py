@@ -1,9 +1,8 @@
-from domain.repositories.admin_repository import AdminExistsException
 from flask import Blueprint, request, redirect, jsonify, make_response
 
-from domain.entities.email import InvalidEmailException
-from domain.value_objects.password import InvalidPasswordException
-from domain.use_cases.admin_usecases import AdminRegister
+from tools.func_for_psw import password_hashing
+from tools.for_db.work_with_admin_info import AdminExistsException, add_admin
+from tools.validation import InvalidPasswordException, InvalidEmailException, email_validation, password_validation
 
 register_blueprint = Blueprint('register_blueprint', __name__)
 
@@ -12,12 +11,18 @@ register_blueprint = Blueprint('register_blueprint', __name__)
 def registration():
     try:
         email = request.form['email']
-        psw = request.form['password']
-        AdminRegister(email, psw).admin_register()
+        password = request.form['password']
+        checked_email = email_validation(email)
+        checked_password = password_validation(password)
+        hashed_password = password_hashing(checked_password)
+        add_admin(checked_email, hashed_password)
     except AdminExistsException:
         return make_response(jsonify({'detail': 'Conflict. This email is already registered in MeetingBook'}), 409)
-    except (InvalidPasswordException, InvalidEmailException, KeyError):
-        return make_response(jsonify({"detail": "Bad request. This is not a valid email or password is not specified"}),
+    except (InvalidPasswordException, InvalidEmailException) as e:
+        return make_response(jsonify({"detail": f"Bad request. Invalid value {e}"}),
+                             400)
+    except KeyError:
+        return make_response(jsonify({"detail": "Bad request. Missing required field"}),
                              400)
     else:
         return redirect('/login/', code=200)

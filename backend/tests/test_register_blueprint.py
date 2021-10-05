@@ -2,6 +2,8 @@ import pytest
 
 import db.models as models
 from tools.create_db_for_tests import create_test_app_with_db
+from tools.for_db.work_with_admin_info import get_psw_from_db
+from tools.func_for_psw import check_psw
 
 
 @pytest.fixture(scope='module')
@@ -12,7 +14,7 @@ def app_for_test():
     models.AdminInfo.query.delete()
 
 
-def test_admin_register(app_for_test):
+def test_admin_register_response(app_for_test):
     correct_email = 'mail@.com'
     incorrect_email = 'mail@com'
     correct_password = 'Password'
@@ -31,3 +33,11 @@ def test_admin_register(app_for_test):
     assert response5.status == '400 BAD REQUEST'
     assert response6.status == '400 BAD REQUEST'
     assert response7.status == '400 BAD REQUEST'
+
+
+def test_admin_added_to_db(app_for_test):
+    email = 'mail@.com'
+    password = 'Password'
+    psw_from_db = get_psw_from_db(email)
+
+    assert check_psw(password, psw_from_db)
