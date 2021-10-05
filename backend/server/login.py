@@ -8,4 +8,4 @@ login_page = Blueprint('login_page', __name__)
 @login_page.route('/login/', methods=['GET'])
 @auth.login_required
 def login():
-    return jsonify({'detail': 'OK'})
+    return jsonify({'detail': 'Successful login'})
