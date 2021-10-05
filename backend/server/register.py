@@ -1,4 +1,4 @@
-from domain.repositories.admin_repository import AdminExistsException
+from tools.for_db.work_with_admin_info import AdminExistsException
 from flask import Blueprint, request, redirect, jsonify, make_response
 
 from domain.entities.email import InvalidEmailException
