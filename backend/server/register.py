@@ -1,9 +1,9 @@
 from tools.for_db.work_with_admin_info import AdminExistsException
 from flask import Blueprint, request, redirect, jsonify, make_response
 
-from domain.entities.email import InvalidEmailException
-from domain.value_objects.password import InvalidPasswordException
+
 from domain.use_cases.admin_usecases import AdminRegister
+from tools.validation import InvalidPasswordException, InvalidEmailException
 
 register_blueprint = Blueprint('register_blueprint', __name__)
 
