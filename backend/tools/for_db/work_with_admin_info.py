@@ -12,9 +12,9 @@ def get_psw_from_db(email):
     return psw_from_db
 
 
-def add_admin(admin):
+def add_admin(email, password):
     try:
-        admin_model = models.AdminInfo(email=admin.get_email(), psw=admin.get_password())
+        admin_model = models.AdminInfo(email=email, psw=password)
         models.db.session.add(admin_model)
         models.db.session.commit()
     except sqlalchemy.exc.IntegrityError:
