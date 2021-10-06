@@ -1,9 +1,9 @@
 import base64
 import pytest
 
-from domain.value_objects.password import Password
 import db.models as models
 from tools.create_db_for_tests import create_test_app_with_db
+from tools.func_for_psw import password_hashing
 
 
 @pytest.fixture(scope='module')
@@ -19,7 +19,7 @@ def test_login(app_for_test):
     psw = 'Pyth0n'
     incorrect_psw = "Incorrect_psw"
     unauthorized_log = 'unknown_log'
-    prepared_psw = Password(psw).get_hashed_password()
+    prepared_psw = password_hashing(psw)
     test_admin = models.AdminInfo(email=log, psw=prepared_psw)
     models.db.session.add(test_admin)
     models.db.session.commit()
