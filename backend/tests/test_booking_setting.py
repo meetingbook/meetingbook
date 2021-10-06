@@ -9,6 +9,7 @@ admin_email = 'test@test.test'
 valid_credentials = base64.b64encode(b'test@test.test:testtest').decode('utf-8')
 admin_psw = password_hashing('testtest')
 
+
 def test_get_booking_settings_is_empty():
     create_test_app_with_db()
     admin = models.AdminInfo(email=admin_email, psw=admin_psw)
