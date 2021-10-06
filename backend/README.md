@@ -18,10 +18,14 @@ If you want to run a backend API:
 
 1. open a new terminal window
 2. go to `backend` folder
-3. activate virtual env
-4. run:
+3. activate virtual env 
+4. run command in terminal or Git bash (optional)
     ```bash
-    export FLASK_APP=server/
+    export PYTHONPATH="$PWD"
+    ```
+5. run:
+    ```bash
+    export FLASK_APP=server
     flask run
    
     ```
