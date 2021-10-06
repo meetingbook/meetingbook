@@ -2,6 +2,9 @@ from tools.add_slot_from_db_for_schedule_admin import add_slot_from_db_for_sched
 from tools.create_db_for_tests import create_test_app_with_db
 from db.models import Slots, SlotsShema
 import db.models as models
+import server as app
+from tools.add_admin_for_test import add_admin_for_test, valid_credentials
+
 json = [
     {
         'end_interval': '2021-03-04T10:00',
@@ -10,13 +13,30 @@ json = [
         'id': 1
     }
 ]
+admin_email = 'test@test.test'
 
 
 def test_add_slots_in_db():
     create_test_app_with_db()
-    add_slot_from_db_for_schedule_admin("2021-03-03T10:00", "2021-03-04T10:00")
+    add_admin_for_test(admin_email, 'testtest')
+    add_slot_from_db_for_schedule_admin("2021-03-03T10:00", "2021-03-04T10:00", admin_email)
+    req = add_slot_from_db_for_schedule_admin("2021-03-03T10", "2021-03-04T10:00", admin_email)
     id = Slots.query.order_by(Slots.id.desc()).limit(1)
     slots_shema = SlotsShema(many=True)
     output = slots_shema.dump(id)
     assert output == json
+    assert req == "400 Bad Request"
+
+
+def test_status_200():
+    with app.app.test_client() as con:
+        response = con.post('/schedule/start=2021-03-02T11:00&end=2021-04-03T12:00', headers={'Authorization': 'Basic ' + valid_credentials})
+    assert response.status == '200 OK'
+
+
+def test_resp_json():
+    with app.app.test_client() as con:
+        response = con.post('/schedule/start=2021-03-02T12:00&end=2021-04-03T12:00', headers={'Authorization': 'Basic ' + valid_credentials})
+    assert response.json == [{'booking_id': None, 'end_interval': '2021-04-03T12:00', 'id': 3, 'start_interval': '2021-03-02T12:00'}]
     models.Slots.query.delete()
+    models.AdminInfo.query.delete()
