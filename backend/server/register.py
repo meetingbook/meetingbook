@@ -7,7 +7,7 @@ from tools.validation import InvalidPasswordException, InvalidEmailException, em
 register_blueprint = Blueprint('register_blueprint', __name__)
 
 
-@register_blueprint.route('/register', methods=['POST'])
+@register_blueprint.route('/registration', methods=['POST'])
 def registration():
     try:
         request_body = request.get_json()
