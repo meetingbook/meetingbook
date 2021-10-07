@@ -13,7 +13,7 @@ def get_admin_id_by_link_id(link_id):
         return make_response(jsonify({'status': 401, 'detail': 'link id is invalid'}), 401)
 
 
-@guest_calendar_post.route('/calendar/<str:link_id>/bookings/', methods=['POST'])
+@guest_calendar_post.route('/calendar/<link_id>/bookings/', methods=['POST'])
 def booking(linked_id):
     try:
         request_body = request.get_json()
