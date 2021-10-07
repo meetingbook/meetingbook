@@ -10,4 +10,5 @@ flask-swagger-ui == 3.36.0
 bcrypt == 3.2.0
 marshmallow-sqlalchemy == 0.26.1
 flask-marshmallow == 0.14.0
-flask-cors
+flask-cors == 3.0.10
+flask-expects-json == 1.6.0

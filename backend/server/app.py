@@ -13,6 +13,7 @@ from server.schedule_get import schedule_get
 from server.schedule_post import schedule_post
 from server.booking_settings import booking_settings_blueprint
 from server.schedule_delete import schedule_delete
+from server.validation.validation_error import bad_request
 
 migrate = Migrate()
 
@@ -24,6 +25,7 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
     migrate.init_app(app, db)
+    app.register_error_handler(400, bad_request)
 
     app.register_blueprint(index_page)
     app.register_blueprint(admin_page)
