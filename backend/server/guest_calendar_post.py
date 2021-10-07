@@ -19,6 +19,6 @@ def booking(linked_id):
         request_body = request.get_json()
         admin_id = get_admin_id_by_linked_id(linked_id)
         booking_slot(request_body['guest_name'], request_body['guest_email'], request_body['topic'] or None,
-                 request_body['start'], request_body['end'], admin_id)
+                     request_body['start'], request_body['end'], admin_id)
     except BookingSlotException:
         make_response({"status": 409, "detail": "already booked or deleted"}, 409)
