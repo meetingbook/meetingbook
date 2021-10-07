@@ -1,10 +1,11 @@
+import base64
 from tools.add_slot_from_db_for_schedule_admin import add_slot_from_db_for_schedule_admin
 from tools.create_db_for_tests import create_test_app_with_db
 from db.models import Slots, SlotsShema
 import db.models as models
 import server as app
-from tools.add_admin_for_test import add_admin_for_test, valid_credentials
-
+from tools.for_db.work_with_admin_info import add_admin
+from tools.func_for_psw import password_hashing
 json = [
     {
         'end_interval': '2021-03-04T10:00',
@@ -14,11 +15,13 @@ json = [
     }
 ]
 admin_email = 'test@test.test'
+admin_psw = 'testtest'
+valid_credentials = base64.b64encode(b'test@test.test:testtest').decode('utf-8')
 
 
 def test_add_slots_in_db():
     create_test_app_with_db()
-    add_admin_for_test(admin_email, 'testtest')
+    add_admin(admin_email, password_hashing(admin_psw))
     add_slot_from_db_for_schedule_admin("2021-03-03T10:00", "2021-03-04T10:00", admin_email)
     req = add_slot_from_db_for_schedule_admin("2021-03-03T10", "2021-03-04T10:00", admin_email)
     id = Slots.query.order_by(Slots.id.desc()).limit(1)
