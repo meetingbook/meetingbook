@@ -16,9 +16,9 @@ def app_for_test():
 
 
 def test_admin_register_response(app_for_test):
-    correct_email = 'mail@.com'
+    correct_email = 'my@mail.com'
     incorrect_email = 'mail@com'
-    correct_password = 'Password'
+    correct_password = 'Passw0rd'
     incorrect_password = 'psw'
     response1 = app_for_test.post('/registration', data=json.dumps(dict(email=correct_email, password=correct_password)),
                                   content_type='application/json')
@@ -43,8 +43,8 @@ def test_admin_register_response(app_for_test):
 
 
 def test_admin_added_to_db(app_for_test):
-    email = 'mail@.com'
-    password = 'Password'
+    email = 'my@mail.com'
+    password = 'Passw0rd'
     psw_from_db = get_psw_from_db(email)
 
     assert check_psw(password, psw_from_db)
