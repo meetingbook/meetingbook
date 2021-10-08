@@ -1,5 +1,5 @@
 from db.models import BookingSettings
-from tools.get_admin_if_by_email import get_admin_id_by_email
+from tools.get_admin_id_by_email import get_admin_id_by_email
 import db.models as models
 from tools.build_response import build_response
 
