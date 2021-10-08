@@ -5,7 +5,7 @@ class BookingSlotException(Exception):
     pass
 
 
-def add_booking_info_and_get_id(name, email, topic):
+def add_booking_info_and_get_id(name, email, topic=None):
     try:
         booking_info = models.BookingInfo(name=name, email=email, topic=topic)
         models.db.session.add(booking_info)

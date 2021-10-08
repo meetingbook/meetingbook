@@ -16,7 +16,7 @@ def booking(link_id):
     try:
         booking_id = add_booking_info_and_get_id(request_body['guest_name'],
                                                  request_body['guest_email'],
-                                                 request_body['topic'] or None)
+                                                 request_body['topic'] if 'topic' in request_body else None)
         slot_id = get_id_slice_of_slot(request_body['start'], request_body['end'], admin_id)
         update_booking_id_in_slot(slot_id, booking_id)
     except Exception:
