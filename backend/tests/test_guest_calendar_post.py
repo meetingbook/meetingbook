@@ -28,10 +28,9 @@ def test_guest_calendar_post(app_for_test):
                              data=json.dumps(dict(guest_name='Name', guest_email='test@ma.c',
                                                   topic='Topic', start=start, end=end)),
                              content_type='application/json')
-    res2 = app_for_test.post(f'/calendar/asdfga/bookings/',
+    res2 = app_for_test.post('/calendar/asdfga/bookings/',
                              data=json.dumps(dict(guest_name='Name', guest_email='test@ma.c',
                                                   topic='Topic', start=start, end=end)),
                              content_type='application/json')
     assert res1.status == '200 OK'
     assert res2.status == '401 UNAUTHORIZED'
-
