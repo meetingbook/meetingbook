@@ -24,6 +24,6 @@ def booking(link_id):
                                                  request_body['topic'] or None)
         slot_id = get_id_slice_of_slot(request_body['start'], request_body['end'], admin_id)
         update_booking_id_in_slot(slot_id, booking_id)
-    except Exception as e:
-        make_response({"status": 409, "detail": 'e'}, 409)
+    except Exception:
+        make_response({"status": 409, "detail": 'already booked or deleted'}, 409)
     return make_response({"detail": "Successful booked"}, 200)
