@@ -40,5 +40,5 @@ def test_guest_calendar_post(app_for_test):
                              content_type='application/json')
     assert res1.status == '200 OK'
     assert res2.status == '401 UNAUTHORIZED'
-    assert res3.status == '200 OK'
+    assert res3.status == '409 CONFLICT'
     assert res4.status == '409 CONFLICT'
