@@ -28,18 +28,19 @@ def get_id_slice_of_slot(start, end, admin_id):
                  Slots.end_interval >= end)).first()
         start_db = slot_from_db.start_interval
         end_db = slot_from_db.end_interval
-        slot_from_db.delete()
+        models.db.session.delete(slot_from_db)
+        models.db.session.commit()
         if start_db < start:
             slot1 = Slots(start_interval=start_db, end_interval=start)
             models.db.session.add(slot1)
         if end_db > end:
             slot3 = Slots(start_interval=end, end_interval=end_db, admin_id=admin_id)
             models.db.session.add(slot3)
-        slot2 = Slots(start_inteval=start, end_interval=end, admin_id=admin_id)
+        slot2 = Slots(start_interval=start, end_interval=end, admin_id=admin_id)
         models.db.session.add(slot2)
-        slot_id = slot2.id
         models.db.session.commit()
-    except Exception:
+        slot_id = slot2.id
+    except DbSlotException:
         models.db.session.rollback()
         raise DbSlotException('Error. Unable to split slot')
     finally:
@@ -49,7 +50,7 @@ def get_id_slice_of_slot(start, end, admin_id):
 
 def update_booking_id_in_slot(slot_id, booking_id):
     try:
-        Slots.query.filter_by(id=slot_id).update(booking_id=booking_id)
+        Slots.query.filter_by(id=slot_id).update({Slots.booking_id: booking_id}, synchronize_session=False)
     except Exception:
         raise DbSlotException('Error. Unable to book slot')
     finally:

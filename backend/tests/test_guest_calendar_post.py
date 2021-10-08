@@ -24,8 +24,14 @@ def test_guest_calendar_post(app_for_test):
                       content_type='application/json')
     add_slot(start, end, admin_id)
     add_link(link_id, admin_id)
-    res = app_for_test.post(f'/calendar/{link_id}/bookings/',
-                            data=json.dumps(dict(guest_name='Name', guest_email='test@ma.c',
-                                                 topic='Topic', start=start, end=end)),
-                            content_type='application/json')
-    assert res.status == '200 OK'
+    res1 = app_for_test.post(f'/calendar/{link_id}/bookings/',
+                             data=json.dumps(dict(guest_name='Name', guest_email='test@ma.c',
+                                                  topic='Topic', start=start, end=end)),
+                             content_type='application/json')
+    res2 = app_for_test.post(f'/calendar/asdfga/bookings/',
+                             data=json.dumps(dict(guest_name='Name', guest_email='test@ma.c',
+                                                  topic='Topic', start=start, end=end)),
+                             content_type='application/json')
+    assert res1.status == '200 OK'
+    assert res2.status == '401 UNAUTHORIZED'
+
