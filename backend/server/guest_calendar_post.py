@@ -1,5 +1,8 @@
 from flask import Blueprint, request, make_response, jsonify
+from flask_expects_json import expects_json
+
 import db.models as models
+from server.validation.schemas import guest_calendar_schema
 from tools.for_db.work_with_booking_info import add_booking_info_and_get_id
 from tools.for_db.work_with_slots import get_id_slice_of_slot, update_booking_id_in_slot
 
@@ -7,6 +10,7 @@ guest_calendar_post = Blueprint('guest_calendar_post', __name__)
 
 
 @guest_calendar_post.route('/calendar/<link_id>/bookings/', methods=['POST'])
+@expects_json(guest_calendar_schema)
 def booking(link_id):
     request_body = request.get_json()
     link = models.Links.query.filter_by(link_id=link_id).first()
