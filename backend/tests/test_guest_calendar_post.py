@@ -13,6 +13,9 @@ def app_for_test():
     test_app = app_for_test.test_client()
     yield test_app
     models.AdminInfo.query.delete()
+    models.Slots.query.delete()
+    models.BookingInfo.query.delete()
+    models.Links.query.delete()
 
 
 def test_guest_calendar_post(app_for_test):
