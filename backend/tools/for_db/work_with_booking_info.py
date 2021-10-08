@@ -12,7 +12,7 @@ def add_booking_info_and_get_id(name, email, topic):
         models.db.session.commit()
     except Exception:
         models.db.session.rollback()
-        raise BookingSlotException
+        raise BookingSlotException('error adding booking info')
     finally:
         models.db.session.close()
     return booking_info.id

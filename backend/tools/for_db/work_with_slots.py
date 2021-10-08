@@ -4,12 +4,20 @@ from db import models
 from db.models import Slots
 
 
-class SplitSlotException(Exception):
+class DbSlotException(Exception):
     pass
 
 
-class BookingSlotException(Exception):
-    pass
+def add_slot(start, end, admin_id):
+    try:
+        slot = Slots(start_interval=start, end_interval=end, admin_id=admin_id)
+        models.db.session.add(slot)
+        models.db.session.commit()
+    except Exception:
+        models.db.session.rollback()
+        raise DbSlotException('Error. Unable to add slot')
+    finally:
+        models.db.session.close()
 
 
 def get_id_slice_of_slot(start, end, admin_id):
@@ -33,7 +41,7 @@ def get_id_slice_of_slot(start, end, admin_id):
         models.db.session.commit()
     except Exception:
         models.db.session.rollback()
-        raise SplitSlotException('Error. Unable to split slot')
+        raise DbSlotException('Error. Unable to split slot')
     finally:
         models.db.session.close()
     return slot_id
@@ -43,6 +51,6 @@ def update_booking_id_in_slot(slot_id, booking_id):
     try:
         Slots.query.filter_by(id=slot_id).update(booking_id=booking_id)
     except Exception:
-        raise BookingSlotException('Error. Unable to book slot')
+        raise DbSlotException('Error. Unable to book slot')
     finally:
         models.db.session.close()
