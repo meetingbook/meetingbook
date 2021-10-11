@@ -19,9 +19,7 @@ def test_put_booking_settings():
     models.db.session.add(old_booking_settings)
     models.db.session.commit()
     upd_booking_settings = put_booking_settings({'new_test': 'new_test'}, {'new_test': 'new_test'}, admin_email)
-    get_new_booking_settings = get_booking_settings(admin_email)
-    assert upd_booking_settings.json == {'detail': 'Successful', 'status': 200}
-    assert get_new_booking_settings == [{'duration': {'new_test': 'new_test'}, 'start_time': {'new_test': 'new_test'}}]
+    assert upd_booking_settings.json == [{'duration': {'new_test': 'new_test'}, 'start_time': {'new_test': 'new_test'}}]
 
 
 def test_status_401():
@@ -32,8 +30,8 @@ def test_status_401():
 
 def test_status_200():
     with app.app.test_client() as con:
-        response = con.put('/booking_settings', data=json.dumps(dict(duration={"qwer": ""}, start_time={
-                           "msf": "adf"})), headers={'Authorization': 'Basic ' + valid_credentials}, content_type='application/json')
+        response = con.put('/booking_settings', data=json.dumps(dict(duration={'allowed_values': '[80, 35]'}, start_time={
+                           'allowed_values': '[25, 45]'})), headers={'Authorization': 'Basic ' + valid_credentials}, content_type='application/json')
     assert response.status == '200 OK'
-    assert response.json == {'detail': 'Successful', 'status': 200}
+    assert response.json == [{'duration': {'allowed_values': '[80, 35]'}, 'start_time': {'allowed_values': '[25, 45]'}}]
     models.db.drop_all()
