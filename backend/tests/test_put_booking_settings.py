@@ -1,7 +1,6 @@
 import base64
 from tools.create_db_for_tests import create_test_app_with_db
 from tools.func_for_psw import password_hashing
-from tools.get_booking_settings import get_booking_settings
 from tools.put_booking_settings import put_booking_settings
 import db.models as models
 import server as app
