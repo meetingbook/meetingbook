@@ -17,3 +17,14 @@ def add_booking_info_and_get_id(name, email, topic=None):
     finally:
         models.db.session.close()
     return booking_id
+
+
+def delete_booking_info(booking_id):
+    try:
+        booking_info = models.BookingInfo.query.filter_by(id=booking_id)
+        models.db.session.delete(booking_info)
+        models.db.session.commit()
+    except:
+        models.db.session.rollback()
+    finally:
+        models.db.session.close()
