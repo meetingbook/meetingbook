@@ -24,7 +24,7 @@ def delete_booking_info(booking_id):
         booking_info = models.BookingInfo.query.filter_by(id=booking_id)
         models.db.session.delete(booking_info)
         models.db.session.commit()
-    except:
+    except Exception:
         models.db.session.rollback()
     finally:
         models.db.session.close()
