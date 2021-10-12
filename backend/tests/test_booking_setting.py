@@ -11,6 +11,7 @@ admin_psw = password_hashing('testtest')
 
 
 def test_get_booking_settings_is_empty():
+    models.db.drop_all()
     create_test_app_with_db()
     admin = models.AdminInfo(email=admin_email, psw=admin_psw)
     models.db.session.add(admin)

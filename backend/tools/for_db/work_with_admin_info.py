@@ -17,6 +17,9 @@ def add_admin(email, password):
         admin_model = models.AdminInfo(email=email, psw=password)
         models.db.session.add(admin_model)
         models.db.session.commit()
+        settings = models.BookingSettings(duration={'allowed_values': '[15]'}, start_time={'allowed_values': '[0]'}, admin_id=admin_model.id)
+        models.db.session.add(settings)
+        models.db.session.commit()
     except sqlalchemy.exc.IntegrityError:
         models.db.session.rollback()
         raise AdminExistsException('Such email already exists')
