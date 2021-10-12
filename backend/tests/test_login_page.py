@@ -11,7 +11,6 @@ def app_for_test():
     app_for_test = create_test_app_with_db()
     test_app = app_for_test.test_client()
     yield test_app
-    models.AdminInfo.query.delete()
 
 
 def test_login(app_for_test):
