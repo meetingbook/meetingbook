@@ -1,24 +1,12 @@
-import pytest
 from flask import json
 
-import db.models as models
 from tools.create_db_for_tests import create_test_app_with_db
 from tools.for_db.work_with_links import add_link
 from tools.for_db.work_with_slots import add_slot
 
 
-@pytest.fixture(scope='module')
-def app_for_test():
-    app_for_test = create_test_app_with_db()
-    test_app = app_for_test.test_client()
-    yield test_app
-    models.AdminInfo.query.delete()
-    models.Slots.query.delete()
-    models.BookingInfo.query.delete()
-    models.Links.query.delete()
-
-
-def test_guest_calendar_post(app_for_test):
+def test_guest_calendar_post():
+    app_for_test = create_test_app_with_db().test_client()
     start = '2021-10-07T15:00:56.273Z'
     end = '2021-10-07T16:00:56.273Z'
     link_id = '123456789a'
