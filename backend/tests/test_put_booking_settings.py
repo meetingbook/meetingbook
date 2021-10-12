@@ -33,4 +33,3 @@ def test_status_200():
                            'allowed_values': '[25, 45]'})), headers={'Authorization': 'Basic ' + valid_credentials}, content_type='application/json')
     assert response.status == '200 OK'
     assert response.json == [{'duration': {'allowed_values': '[80, 35]'}, 'start_time': {'allowed_values': '[25, 45]'}}]
-    models.db.drop_all()
