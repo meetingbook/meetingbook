@@ -46,8 +46,6 @@ def get_id_slice_of_slot(start, end, admin_id):
     except Exception:
         models.db.session.rollback()
         raise DbSlotException('Error. Unable to split slot')
-    finally:
-        models.db.session.close()
     return slot_id
 
 
@@ -62,5 +60,3 @@ def update_booking_id_in_slot(slot_id, book_id):
     except Exception:
         models.db.session.rollback()
         raise DbSlotException('Error. Unable to book slot')
-    finally:
-        models.db.session.close()
