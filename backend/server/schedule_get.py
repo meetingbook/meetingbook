@@ -14,7 +14,7 @@ def slot_by_filter(filter):
     """ Filter: booked or available.
         Return JSON with <filter> slots.
     """
-    return jsonify({'slots': get_slots_by_filter(admin_id, filter, admin_id)})
+    return jsonify({'slots': get_slots_by_filter(filter, admin_id)})
 
 
 @schedule_get.route("/schedule/day=<date>/", defaults={'filter': None}, methods=['GET'])

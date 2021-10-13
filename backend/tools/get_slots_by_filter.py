@@ -1,5 +1,5 @@
+from flask import make_response
 from sqlalchemy import and_
-
 from db.models import Slots, SlotsShema
 
 
@@ -16,3 +16,8 @@ def get_slots_by_filter(filter, admin_id):
         slots_shema = SlotsShema(many=True)
         output = slots_shema.dump(booking_slots)
         return output
+    else:
+        return make_response({
+            "status": 400,
+            "detail": "Invalid filter"
+        }, 400)

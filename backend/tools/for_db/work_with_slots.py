@@ -2,10 +2,11 @@ import db.models as models
 from flask import make_response
 
 
-def add_booking_settings(duration, start_time, admin_id):
+def add_slots(start_interval, end_interval, create_admin_id, booking_id=None):
     try:
-        settings = models.BookingSettings(duration=duration, start_time=start_time, admin_id=admin_id)
-        models.db.session.add(settings)
+        slots = models.Slots(start_interval=start_interval, end_interval=end_interval,
+                             booking_id=booking_id, admin_id=create_admin_id)
+        models.db.session.add(slots)
         models.db.session.commit()
     except Exception as e:
         return make_response({

@@ -1,8 +1,8 @@
 import pytest
-
 from tools.create_db_for_tests import create_test_app_with_db, get_admin_id_for_test
 from tools.get_slots_from_db_for_schedule import get_slots_from_db_for_schedule
-from db import models
+from tools.for_db.work_with_slots import add_slots
+from tools.for_db.work_with_booking_info import add_booking_info
 
 
 @pytest.fixture(scope='module')
@@ -30,14 +30,8 @@ def test_get_slots_in_week_by_booking(create_admin_id):
             "end_interval": "2021-02-03T12:00"
         }
     ]
-    booking_inf = models.BookingInfo(name=booking_inf_name, email=booking_inf_email)
-    models.db.session.add(booking_inf)
-    models.db.session.commit()
-    slots = models.Slots(start_interval=start_interval, end_interval=end_interval,
-                         booking_id=booking_id, admin_id=create_admin_id)
-    models.db.session.add(slots)
-    models.db.session.commit()
-
+    add_booking_info(booking_inf_name, booking_inf_email)
+    add_slots(start_interval, end_interval, create_admin_id, booking_id)
     booking_slots = get_slots_from_db_for_schedule(create_admin_id, "2021-02-03", "booking", 7)
     assert booking_slots == json
 
@@ -58,8 +52,6 @@ def test_get_slots_in_week_by_available(create_admin_id):
             "id": 2
         }
     ]
-    slots = models.Slots(start_interval=start_interval, end_interval=end_interval, admin_id=create_admin_id)
-    models.db.session.add(slots)
-    models.db.session.commit()
+    add_slots(start_interval, end_interval, create_admin_id)
     booking_slots = get_slots_from_db_for_schedule(create_admin_id, "2021-02-03", "available", 7)
     assert booking_slots == json
