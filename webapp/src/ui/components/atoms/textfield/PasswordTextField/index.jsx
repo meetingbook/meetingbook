@@ -1,18 +1,24 @@
+import React from 'react';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import FormControl from '@mui/material/FormControl';
 
-export default function PasswordTextField() {
+export const PasswordTextField = (props) => {
   const [values, setValues] = React.useState({
     password: '',
     showPassword: false,
   });
 
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
+  // const handleChange = (prop) => (event) => {
+  //   setValues({ ...values, [prop]: event.target.value });
+  // };
+
+  const handleChange = (event) => {
+    setValues(Object.assign({}, values, { password: event.target.value }));
   };
 
   const handleClickShowPassword = () => {
@@ -27,13 +33,15 @@ export default function PasswordTextField() {
   };
 
   return (
-    <div>
-      <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+    <FormControl variant="outlined">
+      <InputLabel htmlFor="outlined-adornment-password">
+        {props.label}
+      </InputLabel>
       <OutlinedInput
         id="outlined-adornment-password"
         type={values.showPassword ? 'text' : 'password'}
         value={values.password}
-        onChange={handleChange('password')}
+        onChange={handleChange}
         endAdornment={
           <InputAdornment position="end">
             <IconButton
@@ -46,8 +54,7 @@ export default function PasswordTextField() {
             </IconButton>
           </InputAdornment>
         }
-        label="Password"
       />
-    </div>
+    </FormControl>
   );
-}
+};

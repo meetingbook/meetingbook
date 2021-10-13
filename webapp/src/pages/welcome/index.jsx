@@ -1,13 +1,11 @@
 import { Box } from '@mui/system';
 import { Link } from 'react-router-dom';
-import { Typography } from '../../ui/components/atoms/typography';
+import { Title } from '../../ui/components/atoms/title';
 
 export const Welcome = () => {
   return (
     <>
-      <Typography variant="h3" component="h1">
-        Welcome
-      </Typography>
+      <Title>Welcome</Title>
       <Box>
         <Link to="/login">Login</Link>
       </Box>

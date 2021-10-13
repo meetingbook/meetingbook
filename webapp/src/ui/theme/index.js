@@ -5,15 +5,19 @@ export const theme = createTheme({
     primary: {
       main: '#d55a5a',
     },
+    white: {
+      main: '#fff',
+    },
+  },
+  typography: {
+    fontFamily: 'Rubik, sans-serif',
   },
   components: {
     // Name of the component
     MuiButton: {
       styleOverrides: {
         // Name of the slot
-        root: {
-          textTransform: 'capitalize',
-        },
+        root: {},
       },
     },
   },
