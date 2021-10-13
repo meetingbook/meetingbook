@@ -1,14 +1,14 @@
 import pytest
-from tools.create_db_for_tests import create_test_app_with_db, get_admin_id_for_test
+from tools.create_db_for_tests import create_test_app_with_db
 from tools.get_slots_by_filter import get_slots_by_filter
 from tools.for_db.work_with_slots import add_slots
 from tools.for_db.work_with_booking_info import add_booking_info
 
 
 @pytest.fixture(scope='module')
-def create_admin_id():
+def create_admin_id(test_admin):
     create_test_app_with_db()
-    yield get_admin_id_for_test()
+    yield test_admin.register_and_get_admin_id_for_test()
 
 
 def test_get_slots_by_booking_empty(create_admin_id):
