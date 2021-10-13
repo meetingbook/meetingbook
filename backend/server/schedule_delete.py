@@ -1,10 +1,12 @@
 from flask import Blueprint
 from tools.delete_slot_by_id_for_schedule import delete_slot_by_id_for_schedule
+from server.auth import auth
 
 schedule_delete = Blueprint('schedule_delete', __name__)
 
 
 @schedule_delete.route("/schedule/interval_id=<interval_id>", methods=['DELETE'])
+@auth.login_required
 def delete_slots(interval_id):
     """ Delete slots by id
     """

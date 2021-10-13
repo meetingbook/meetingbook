@@ -1,15 +1,22 @@
-from tools.create_db_for_tests import create_test_app_with_db
+import pytest
+from tools.create_db_for_tests import create_test_app_with_db, get_admin_id_for_test
 from tools.get_slots_from_db_for_schedule import get_slots_from_db_for_schedule
-import db.models as models
+from tools.for_db.work_with_slots import add_slots
+from tools.for_db.work_with_booking_info import add_booking_info
 
 
-def test_get_slots_in_week_empty():
+@pytest.fixture(scope='module')
+def create_admin_id():
     create_test_app_with_db()
-    slots = get_slots_from_db_for_schedule("2021-03-02", filter=None, days=7)
+    yield get_admin_id_for_test()
+
+
+def test_get_slots_in_week_empty(create_admin_id):
+    slots = get_slots_from_db_for_schedule(create_admin_id, "2021-03-02", filter=None, days=7)
     assert slots == []
 
 
-def test_get_slots_in_week():
+def test_get_slots_in_week(create_admin_id):
     first_start_interval = "2021-02-03T10:00"
     first_end_interval = "2021-02-03T12:00"
     second_start_interval = "2021-02-03T13:00"
@@ -31,14 +38,9 @@ def test_get_slots_in_week():
             "end_interval": "2021-02-03T15:00"
         }
     ]
-    booking_inf = models.BookingInfo(name=booking_inf_name, email=booking_inf_email)
-    first_slots = models.Slots(start_interval=first_start_interval, end_interval=first_end_interval, booking_id=booking_id)
-    second_slots = models.Slots(start_interval=second_start_interval, end_interval=second_end_interval)
-    models.db.session.add(booking_inf)
-    models.db.session.add(first_slots)
-    models.db.session.add(second_slots)
-    models.db.session.commit()
+    add_booking_info(booking_inf_name, booking_inf_email)
+    add_slots(first_start_interval, first_end_interval, create_admin_id, booking_id)
+    add_slots(second_start_interval, second_end_interval, create_admin_id)
 
-    booking_slots = get_slots_from_db_for_schedule("2021-02-03", filter=None, days=7)
+    booking_slots = get_slots_from_db_for_schedule(create_admin_id, "2021-02-03", filter=None, days=7)
     assert booking_slots == json
-    models.Slots.query.delete()
