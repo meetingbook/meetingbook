@@ -10,4 +10,4 @@ def guest_calendar_get(link_id):
     link = models.Links.query.filter_by(link_id=link_id).first()
     if link is None:
         return make_response(jsonify({'status': 401, 'detail': 'link id is invalid'}), 401)
-    get_slots_by_filter('available', link.admin_id)
+    jsonify({'slots': get_slots_by_filter(link.admin_id, 'available')})
