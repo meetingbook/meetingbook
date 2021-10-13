@@ -23,3 +23,9 @@ def add_admin(email, password):
     except sqlalchemy.exc.IntegrityError:
         models.db.session.rollback()
         raise AdminExistsException('Such email already exists')
+    finally:
+        models.db.session.close()
+
+
+def get_admin_id(email):
+    return models.AdminInfo.query.filter_by(email=email).first().id
