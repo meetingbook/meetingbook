@@ -40,5 +40,5 @@ def create_app():
     app.register_blueprint(booking_settings_blueprint)
     app.register_blueprint(booking_settings_put)
     app.register_blueprint(guest_calendar_post)
-    
+
     return app
