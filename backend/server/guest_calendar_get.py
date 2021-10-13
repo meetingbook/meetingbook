@@ -7,8 +7,8 @@ from tools.get_slots_by_filter import get_slots_by_filter
 guest_calendar_get = Blueprint('guest_calendar_get', __name__)
 
 
-@guest_calendar_get.route('/calendar/<link_id>', methods=['GET'])
-def guest_calendar_get(link_id):
+@guest_calendar_get.route('/calendars/<link_id>', methods=['GET'])
+def get_calendar(link_id):
     link = models.Links.query.filter_by(link_id=link_id).first()
     if link is None:
         return make_response(jsonify({'status': 404, 'detail': 'Shareable link not found'}), 404)
@@ -17,5 +17,5 @@ def guest_calendar_get(link_id):
     return jsonify({
       "id": link.id,
       "valid_until": link.valid_until,
-      "slots": get_slots_by_filter(link.admin_id, 'available')
+      "slots": get_slots_by_filter('available', link.admin_id)
     })
