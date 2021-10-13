@@ -49,6 +49,7 @@ class Links(db.Model):
     __tablename__ = 'Links'
     id = db.Column(db.Integer, primary_key=True)
     link_id = db.Column(db.String(100), nullable=False)
+    valid_until = db.Column(db.String(50), nullable=False)
     admin_id = db.Column(db.Integer, db.ForeignKey('AdminInfo.id'))
 
 
