@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, make_response
 from flask_expects_json import expects_json
 from server.validation.schemas import register_schema
-
+from tools.for_db.work_with_booking_settings import AdminDefaulSettings
 from tools.func_for_psw import password_hashing
 from tools.for_db.work_with_admin_info import AdminExistsException, add_admin
 
@@ -18,4 +18,7 @@ def registration():
     except AdminExistsException:
         return make_response(jsonify({"status": 409,
                                       'detail': 'Conflict. This email is already registered in MeetingBook'}), 409)
+    except AdminDefaulSettings as e:
+        return make_response(jsonify({"status": 500,
+                                      'detail': f'{e}'}), 500)
     return jsonify({'detail': 'Successful registration'})
