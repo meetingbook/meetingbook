@@ -22,3 +22,7 @@ def add_admin(email, password):
         raise AdminExistsException('Such email already exists')
     finally:
         models.db.session.close()
+
+
+def get_admin_id(email):
+    return models.AdminInfo.query.filter_by(email=email).first().id

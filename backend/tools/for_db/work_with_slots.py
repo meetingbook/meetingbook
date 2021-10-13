@@ -1,5 +1,4 @@
 from sqlalchemy import and_
-
 from db import models
 from db.models import Slots
 
@@ -8,10 +7,11 @@ class DbSlotException(Exception):
     pass
 
 
-def add_slot(start, end, admin_id):
+def add_slots(start_interval, end_interval, create_admin_id, booking_id=None):
     try:
-        slot = Slots(start_interval=start, end_interval=end, admin_id=admin_id)
-        models.db.session.add(slot)
+        slots = models.Slots(start_interval=start_interval, end_interval=end_interval,
+                             booking_id=booking_id, admin_id=create_admin_id)
+        models.db.session.add(slots)
         models.db.session.commit()
     except Exception:
         models.db.session.rollback()
