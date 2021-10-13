@@ -13,6 +13,7 @@ from server.schedule_get import schedule_get
 from server.schedule_post import schedule_post
 from server.booking_settings import booking_settings_blueprint
 from server.schedule_delete import schedule_delete
+from server.guest_calendar_post import guest_calendar_post
 from server.validation.validation_error import bad_request
 
 migrate = Migrate()
@@ -36,4 +37,5 @@ def create_app():
     app.register_blueprint(schedule_delete)
     app.register_blueprint(login_page)
     app.register_blueprint(booking_settings_blueprint)
+    app.register_blueprint(guest_calendar_post)
     return app
