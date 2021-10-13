@@ -1,5 +1,5 @@
 from db import models
-from db.models import Links
+from db.models import Links, LinksSchema
 from datetime import datetime, timedelta
 
 
@@ -20,4 +20,6 @@ def add_link(link_id, admin_id, valid_until=(datetime.utcnow()+timedelta(days=7)
 
 
 def query_links(admin_id):
-    links =
+    links = Links.query.filter_by(admin_id=admin_id).all()
+    links_schema = LinksSchema(many=True)
+    return links_schema.dump(links)
