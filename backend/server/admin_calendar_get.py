@@ -9,6 +9,6 @@ admin_calendar_get = Blueprint('admin_calendar_get', __name__)
 
 @admin_calendar_get.route('/calendars/', methods=['GET'])
 @auth.login_required
-def admin_calendar_get():
+def get_calendar():
     admin_id = get_admin_id(auth.current_user())
     return jsonify({'links': query_links(admin_id)})
