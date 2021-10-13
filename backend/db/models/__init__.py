@@ -15,6 +15,7 @@ class AdminInfo(db.Model):
     booking_settings = db.relationship('BookingSettings',
                                        backref='admin_booking_settings',
                                        lazy='dynamic')
+    links = db.relationship('Links', backref='admin_link')
 
 
 class BookingInfo(db.Model):
@@ -41,6 +42,14 @@ class BookingSettings(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     duration = db.Column(JSON(), nullable=False)
     start_time = db.Column(JSON(), nullable=False)
+    admin_id = db.Column(db.Integer, db.ForeignKey('AdminInfo.id'))
+
+
+class Links(db.Model):
+    __tablename__ = 'Links'
+    id = db.Column(db.Integer, primary_key=True)
+    link_id = db.Column(db.String(100), unique=True, nullable=False)
+    valid_until = db.Column(db.String(50), nullable=False)
     admin_id = db.Column(db.Integer, db.ForeignKey('AdminInfo.id'))
 
 
