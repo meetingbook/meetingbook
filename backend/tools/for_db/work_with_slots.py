@@ -34,7 +34,7 @@ def get_id_slice_of_slot(start, end, admin_id):
             return slot_from_db.id
         models.db.session.delete(slot_from_db)
         if start_db < start:
-            slot1 = Slots(start_interval=start_db, end_interval=start)
+            slot1 = Slots(start_interval=start_db, end_interval=start, admin_id=admin_id)
             models.db.session.add(slot1)
         if end_db > end:
             slot3 = Slots(start_interval=end, end_interval=end_db, admin_id=admin_id)
