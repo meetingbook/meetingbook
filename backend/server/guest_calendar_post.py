@@ -8,7 +8,7 @@ from tools.for_db.work_with_booking_info import add_booking_info_and_get_id
 guest_calendar_post = Blueprint('guest_calendar_post', __name__)
 
 
-@guest_calendar_post.route('/calendar/<link_id>/bookings/', methods=['POST'])
+@guest_calendar_post.route('/calendars/<link_id>/bookings/', methods=['POST'])
 @expects_json(guest_calendar_schema)
 def booking(link_id):
     request_body = request.get_json()
