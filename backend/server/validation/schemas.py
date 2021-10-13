@@ -25,6 +25,7 @@ booking_settings_schema = {
     'required': ['duration', 'start_time']
 }
 
+
 guest_calendar_schema = {
     'type': 'object',
     'properties': {
