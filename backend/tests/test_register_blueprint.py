@@ -1,6 +1,5 @@
 import pytest
 
-import db.models as models
 from flask import json
 from tools.create_db_for_tests import create_test_app_with_db
 from tools.for_db.work_with_admin_info import get_psw_from_db
@@ -12,7 +11,6 @@ def app_for_test():
     app_for_test = create_test_app_with_db()
     test_app = app_for_test.test_client()
     yield test_app
-    models.AdminInfo.query.delete()
 
 
 def test_admin_register_response(app_for_test):

@@ -2,14 +2,12 @@ import pytest
 
 from tools.for_db.work_with_admin_info import get_psw_from_db, add_admin
 from tools.create_db_for_tests import create_test_app_with_db
-import db.models as models
 
 
 @pytest.fixture(scope='module')
 def app_for_test():
     create_test_app_with_db()
     yield
-    models.AdminInfo.query.delete()
 
 
 def test_admin_repo(app_for_test):
