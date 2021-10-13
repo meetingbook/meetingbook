@@ -6,7 +6,7 @@ from tools.for_db.work_with_slots import get_id_slice_of_slot, update_booking_id
 class BookingSlotException(Exception):
     pass
 
- 
+
 def add_booking_info(booking_inf_name, booking_inf_email):
     try:
         booking_inf = models.BookingInfo(name=booking_inf_name, email=booking_inf_email)

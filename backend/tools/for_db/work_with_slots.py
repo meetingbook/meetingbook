@@ -1,5 +1,4 @@
 from sqlalchemy import and_
-
 from db import models
 from db.models import Slots
 
