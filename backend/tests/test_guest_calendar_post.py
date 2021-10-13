@@ -2,7 +2,7 @@ from flask import json
 
 from tools.create_db_for_tests import create_test_app_with_db
 from tools.for_db.work_with_links import add_link
-from tools.for_db.work_with_slots import add_slot
+from tools.for_db.work_with_slots import add_slots
 
 
 def test_guest_calendar_post():
@@ -13,7 +13,7 @@ def test_guest_calendar_post():
     admin_id = 1
     app_for_test.post('/registration', data=json.dumps(dict(email='my@mail.com', password='Passw0rd')),
                       content_type='application/json')
-    add_slot(start, end, admin_id)
+    add_slots(start, end, admin_id)
     add_link(link_id, admin_id)
     res1 = app_for_test.post(f'/calendar/{link_id}/bookings/',
                              data=json.dumps(dict(guest_name='Name', guest_email='test@ma.c',
