@@ -91,3 +91,12 @@ class BookingSettingsSchema(ma.SQLAlchemyAutoSchema):
     id = ma.auto_field()
     start_time = ma.auto_field()
     duration = ma.auto_field()
+
+
+class LinksSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Links
+        load_instance = True
+    id = ma.auto_field()
+    link_id = ma.auto_field()
+    valid_until = ma.auto_field()
