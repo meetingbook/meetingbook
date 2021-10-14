@@ -10,7 +10,8 @@ def app_for_test():
 
 
 def test_calendars_id_delete_200(app_for_test, test_admin, link_id):
-    admin_id = test_admin.register_and_get_admin_id_for_test()
+    test_admin.register_admin()
+    admin_id = test_admin.get_id()
     add_link(link_id, admin_id)
     response = app_for_test.delete(f'/calendars/{link_id}', headers=test_admin.get_valid_header())
     assert response.status == '200 OK'

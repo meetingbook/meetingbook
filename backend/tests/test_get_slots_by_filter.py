@@ -8,7 +8,8 @@ from tools.for_db.work_with_booking_info import add_booking_info
 @pytest.fixture(scope='module')
 def create_admin_id(test_admin):
     create_test_app_with_db()
-    yield test_admin.register_and_get_admin_id_for_test()
+    test_admin.register_admin()
+    yield test_admin.get_id()
 
 
 def test_get_slots_by_booking_empty(create_admin_id):
