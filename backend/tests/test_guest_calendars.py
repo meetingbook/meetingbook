@@ -2,6 +2,7 @@ import pytest
 from flask import json
 
 from tools.create_db_for_tests import create_test_app_with_db
+from tools.datetime_convertations import DateTime
 from tools.for_db.work_with_links import add_link
 from tools.for_db.work_with_slots import add_slots
 
@@ -15,13 +16,14 @@ start = '2021-10-07T15:00:56.273Z'
 end = '2021-10-07T16:00:56.273Z'
 link_id = '123456789a'
 admin_id = 1
+dt_for_link = DateTime().get_dt_for_link()
 
 
 def test_guest_calendar_post(app_for_test):
     app_for_test.post('/registration', data=json.dumps(dict(email='my@mail.com', password='Passw0rd')),
                       content_type='application/json')
     add_slots(start, end, admin_id)
-    add_link(link_id, admin_id, '2021-10-21T17:34:59.603Z')
+    add_link(link_id, admin_id, dt_for_link)
     res1 = app_for_test.post(f'/calendars/{link_id}/bookings/',
                              data=json.dumps(dict(guest_name='Name', guest_email='test@ma.c',
                                                   topic='Topic', start=start, end=end)),
@@ -50,7 +52,7 @@ def test_guest_calendar_post(app_for_test):
 def test_guest_calendar_get_200(app_for_test):
     res = app_for_test.get(f'/calendars/{link_id}')
     assert res.status == '200 OK'
-    assert res.json == {'id': 1, 'slots': [], 'valid_until': '2021-10-21T17:34:59.603Z'}
+    assert res.json == {'id': 1, 'slots': [], 'valid_until': dt_for_link}
 
 
 def test_guest_calendar_get_404(app_for_test):
