@@ -4,6 +4,7 @@ import db.models as models
 from db.models import Slots, SlotsShema, AdminInfo
 from flask import make_response, jsonify
 from cli.parser import regular_start_end
+from tools.for_db.work_with_admin_info import get_admin_id
 
 
 def add_slot_from_db_for_schedule_admin(start, end, email_admin):
@@ -14,9 +15,9 @@ def add_slot_from_db_for_schedule_admin(start, end, email_admin):
     if (regular_start_end(start) and regular_start_end(end) and start < end
             and datetime.fromisoformat(start) > datetime.utcnow()):
         try:
-            query_get_id_admin = AdminInfo.query.with_entities(AdminInfo.id).filter(AdminInfo.email == email_admin)
-            id_admin = query_get_id_admin[0]["id"]
-            slots = models.Slots(start_interval=start, end_interval=end, admin_id=id_admin)
+            id_admin = get_admin_id(email_admin)
+            slots = models.Slots(start_interval=(start + ':00.000Z'), end_interval=(end + ':00.000Z'),
+                                 admin_id=id_admin)
             models.db.session.add(slots)
             models.db.session.commit()
             return jsonify(get_last_slot_id(slots.id))
@@ -28,7 +29,7 @@ def add_slot_from_db_for_schedule_admin(start, end, email_admin):
 
 
 def get_last_slot_id(slots_id):
-    id_added_slots = Slots.query.filter(Slots.id == slots_id)
-    slots_shema = SlotsShema(many=True)
+    id_added_slots = Slots.query.filter_by(id=slots_id).first()
+    slots_shema = SlotsShema(many=False)
     output = slots_shema.dump(id_added_slots)
     return output

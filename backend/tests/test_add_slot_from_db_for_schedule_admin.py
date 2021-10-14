@@ -22,9 +22,9 @@ start = dt(1)
 end = dt(2)
 json = [
     {
-        'end_interval': end,
+        'end_interval': end + ':00.000Z',
         'booking_id': None,
-        'start_interval': start,
+        'start_interval': start + ':00.000Z',
         'id': 1
     }
 ]
@@ -57,4 +57,5 @@ def test_resp_json(app):
     end = dt(5)
     with app.test_client() as con:
         response = con.post(f'/schedule/start={start}&end={end}', headers={'Authorization': 'Basic ' + valid_credentials})
-    assert response.json == [{'booking_id': None, 'end_interval': end, 'id': 3, 'start_interval': start}]
+    assert response.json == {'id': 3, 'booking_id': None,
+                             'end_interval': end + ':00.000Z', 'start_interval': start + ':00.000Z'}
