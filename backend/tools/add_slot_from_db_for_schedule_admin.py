@@ -1,7 +1,7 @@
 from datetime import datetime
 
 import db.models as models
-from db.models import Slots, SlotsShema, AdminInfo
+from db.models import Slots, SlotsShema
 from flask import make_response, jsonify
 from cli.parser import regular_start_end
 from tools.for_db.work_with_admin_info import get_admin_id

@@ -21,10 +21,8 @@ def test_response_post_200():
     with app.app.test_client() as con:
         resp = con.post('/schedule/start=2022-10-13T11:00&end=2022-10-14T13:00', headers={'Authorization': 'Basic ' + valid_credentials})
     assert resp.status_code == 200
-    assert resp.json == {'booking_id': None,
-                          'end_interval': '2022-10-14T13:00:00.000Z',
-                          'id': 1,
-                          'start_interval': '2022-10-13T11:00:00.000Z'}
+    assert resp.json == {'id': 1, 'booking_id': None,
+                         'end_interval': '2022-10-14T13:00:00.000Z', 'start_interval': '2022-10-13T11:00:00.000Z'}
 
 
 def test_response_post_404():
