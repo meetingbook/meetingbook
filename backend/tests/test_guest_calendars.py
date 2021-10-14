@@ -21,7 +21,7 @@ def test_guest_calendar_post(app_for_test):
     app_for_test.post('/registration', data=json.dumps(dict(email='my@mail.com', password='Passw0rd')),
                       content_type='application/json')
     add_slots(start, end, admin_id)
-    add_link(link_id, admin_id, valid_until='2021-10-20 18:14:21.506393')
+    add_link(link_id, admin_id, '2021-10-21T17:34:59.603Z')
     res1 = app_for_test.post(f'/calendars/{link_id}/bookings/',
                              data=json.dumps(dict(guest_name='Name', guest_email='test@ma.c',
                                                   topic='Topic', start=start, end=end)),
@@ -50,7 +50,7 @@ def test_guest_calendar_post(app_for_test):
 def test_guest_calendar_get_200(app_for_test):
     res = app_for_test.get(f'/calendars/{link_id}')
     assert res.status == '200 OK'
-    assert res.json == {'id': 1, 'slots': [], 'valid_until': '2021-10-20 18:14:21.506393'}
+    assert res.json == {'id': 1, 'slots': [], 'valid_until': '2021-10-21T17:34:59.603Z'}
 
 
 def test_guest_calendar_get_404(app_for_test):
@@ -59,6 +59,6 @@ def test_guest_calendar_get_404(app_for_test):
 
 
 def test_guest_calendar_get_401(app_for_test):
-    add_link('abc', admin_id, valid_until='2021-10-10 18:14:21.506393')
+    add_link('abc', admin_id, valid_until='2021-10-12T17:34:59.603Z')
     res = app_for_test.get('/calendars/abc')
     assert res.status == '401 UNAUTHORIZED'
