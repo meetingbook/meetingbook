@@ -22,21 +22,21 @@ def test_guest_calendar_post(app_for_test):
                       content_type='application/json')
     add_slots(start, end, admin_id)
     add_link(link_id, admin_id, valid_until='2021-10-20 18:14:21.506393')
-    res1 = app_for_test.post(f'/calendar/{link_id}/bookings/',
+    res1 = app_for_test.post(f'/calendars/{link_id}/bookings/',
                              data=json.dumps(dict(guest_name='Name', guest_email='test@ma.c',
                                                   topic='Topic', start=start, end=end)),
                              content_type='application/json')
-    res2 = app_for_test.post('/calendar/asdfga/bookings/',
+    res2 = app_for_test.post('/calendars/asdfga/bookings/',
                              data=json.dumps(dict(guest_name='Name', guest_email='test@ma.c',
                                                   topic='Topic', start=start, end=end)),
                              content_type='application/json')
-    res3 = app_for_test.post(f'/calendar/{link_id}/bookings/',
+    res3 = app_for_test.post(f'/calendars/{link_id}/bookings/',
                              data=json.dumps(dict(guest_name='Name', guest_email='test@ma.c', start=start, end=end)),
                              content_type='application/json')
-    res4 = app_for_test.post(f'/calendar/{link_id}/bookings/',
+    res4 = app_for_test.post(f'/calendars/{link_id}/bookings/',
                              data=json.dumps(dict(guest_email='test@ma.c', start=start, end=end)),
                              content_type='application/json')
-    res5 = app_for_test.post(f'/calendar/{link_id}/bookings/',
+    res5 = app_for_test.post(f'/calendars/{link_id}/bookings/',
                              data=json.dumps(dict(guest_name='Name', guest_email='test.c',
                                                   topic='Topic', start=start, end=end)),
                              content_type='application/json')
