@@ -18,5 +18,5 @@ def get_calendar(link_id):
     return jsonify({
       "id": link.id,
       "valid_until": link.valid_until,
-      "slots": get_slots_by_filter('available', link.admin_id)
+      "slots": get_slots_by_filter('available', link.admin_id, datetime.utcnow())
     })

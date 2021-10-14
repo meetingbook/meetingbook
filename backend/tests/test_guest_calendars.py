@@ -17,12 +17,15 @@ end = '2021-10-07T16:00:56.273Z'
 link_id = '123456789a'
 admin_id = 1
 dt_for_link = DateTime().get_dt_for_link()
+end_interval = DateTime().get_dt_for_link(validity_days=10)
 
 
 def test_guest_calendar_post(app_for_test):
     app_for_test.post('/registration', data=json.dumps(dict(email='my@mail.com', password='Passw0rd')),
                       content_type='application/json')
     add_slots(start, end, admin_id)
+    add_slots('2020-09-01T15:00:56.273Z', '2020-09-01T16:00:56.273Z', admin_id)
+    add_slots(dt_for_link, end_interval, admin_id)
     add_link(link_id, admin_id, dt_for_link)
     res1 = app_for_test.post(f'/calendars/{link_id}/bookings/',
                              data=json.dumps(dict(guest_name='Name', guest_email='test@ma.c',
@@ -52,7 +55,8 @@ def test_guest_calendar_post(app_for_test):
 def test_guest_calendar_get_200(app_for_test):
     res = app_for_test.get(f'/calendars/{link_id}')
     assert res.status == '200 OK'
-    assert res.json == {'id': 1, 'slots': [], 'valid_until': dt_for_link}
+    assert res.json == {'id': 1, 'slots': [{'id': 3, 'start_interval': dt_for_link, 'end_interval': end_interval,
+                                            'booking_id': None}], 'valid_until': dt_for_link}
 
 
 def test_guest_calendar_get_404(app_for_test):
