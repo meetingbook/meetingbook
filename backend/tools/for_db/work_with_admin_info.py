@@ -1,5 +1,6 @@
 import db.models as models
 import sqlalchemy
+from tools.for_db.work_with_booking_settings import add_booking_settings
 
 
 class AdminExistsException(Exception):
@@ -16,6 +17,8 @@ def add_admin(email, password):
     try:
         admin_model = models.AdminInfo(email=email, psw=password)
         models.db.session.add(admin_model)
+        models.db.session.flush()
+        add_booking_settings({'allowed_values': '[15]'}, {'allowed_values': '[0]'}, admin_model.id)
         models.db.session.commit()
     except sqlalchemy.exc.IntegrityError:
         models.db.session.rollback()
