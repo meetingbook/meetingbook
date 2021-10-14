@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import db.models as models
 from db.models import Slots, SlotsShema, AdminInfo
 from flask import make_response, jsonify
@@ -9,7 +11,8 @@ def add_slot_from_db_for_schedule_admin(start, end, email_admin):
     If the slot is added - return json with this slots.
     If the slot is don't added - return error msg
     """
-    if regular_start_end(start) and regular_start_end(end):
+    if (regular_start_end(start) and regular_start_end(end) and start < end
+            and datetime.fromisoformat(start) > datetime.utcnow()):
         try:
             query_get_id_admin = AdminInfo.query.with_entities(AdminInfo.id).filter(AdminInfo.email == email_admin)
             id_admin = query_get_id_admin[0]["id"]
@@ -21,7 +24,7 @@ def add_slot_from_db_for_schedule_admin(start, end, email_admin):
             models.db.session.rollback()
             return make_response({'detail': 'Creation failed', 'status': 500}, 500)
     else:
-        return "400 Bad Request"
+        return make_response({'detail': "400 Bad Request", 'status': 400}, 400)
 
 
 def get_last_slot_id(slots_id):

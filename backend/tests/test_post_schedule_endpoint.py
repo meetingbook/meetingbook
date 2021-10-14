@@ -36,4 +36,5 @@ def test_response_post_404():
 def test_status_400():
     with app.app.test_client() as con:
         resp = con.post('/schedule/start=2022-15-13T11:00&end=2022-10-14T13:00', headers={'Authorization': 'Basic ' + valid_credentials})
-    assert resp.data == b'400 Bad Request'
+    assert resp.json == {'detail': "400 Bad Request", 'status': 400}
+    assert resp.status_code == 400
