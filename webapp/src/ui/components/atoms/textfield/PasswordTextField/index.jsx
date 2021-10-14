@@ -29,7 +29,7 @@ export const PasswordTextField = (props) => {
   };
 
   return (
-    <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+    <FormControl sx={{ width: '100%' }} variant="outlined">
       <InputLabel htmlFor="outlined-adornment-password">
         {props.label}
       </InputLabel>
@@ -50,7 +50,7 @@ export const PasswordTextField = (props) => {
             </IconButton>
           </InputAdornment>
         }
-        {...props}
+        label={props.label}
       />
     </FormControl>
   );
