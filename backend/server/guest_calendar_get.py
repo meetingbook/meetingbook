@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from db.models import Slots
 from flask import Blueprint, make_response, jsonify
 from db import models
 from tools.datetime_convertations import DateTime
@@ -18,5 +19,5 @@ def get_calendar(link_id):
     return jsonify({
       "id": link.id,
       "valid_until": link.valid_until,
-      "slots": get_slots_by_filter('available', link.admin_id, datetime.utcnow())
+      "slots": get_slots_by_filter('available', link.admin_id, Slots.end_interval > datetime.utcnow())
     })
