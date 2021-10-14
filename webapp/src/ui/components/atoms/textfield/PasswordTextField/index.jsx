@@ -3,9 +3,9 @@ import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import FormControl from '@mui/material/FormControl';
 
 export const PasswordTextField = (props) => {
   const [values, setValues] = React.useState({
@@ -13,12 +13,8 @@ export const PasswordTextField = (props) => {
     showPassword: false,
   });
 
-  // const handleChange = (prop) => (event) => {
-  //   setValues({ ...values, [prop]: event.target.value });
-  // };
-
-  const handleChange = (event) => {
-    setValues(Object.assign({}, values, { password: event.target.value }));
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
   };
 
   const handleClickShowPassword = () => {
@@ -33,7 +29,7 @@ export const PasswordTextField = (props) => {
   };
 
   return (
-    <FormControl variant="outlined">
+    <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
       <InputLabel htmlFor="outlined-adornment-password">
         {props.label}
       </InputLabel>
@@ -41,7 +37,7 @@ export const PasswordTextField = (props) => {
         id="outlined-adornment-password"
         type={values.showPassword ? 'text' : 'password'}
         value={values.password}
-        onChange={handleChange}
+        onChange={handleChange('password')}
         endAdornment={
           <InputAdornment position="end">
             <IconButton
@@ -54,6 +50,7 @@ export const PasswordTextField = (props) => {
             </IconButton>
           </InputAdornment>
         }
+        {...props}
       />
     </FormControl>
   );
