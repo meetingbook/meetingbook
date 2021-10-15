@@ -1,12 +1,4 @@
-import pytest
-from tools.create_db_for_tests import create_test_app_with_db
 from tools.for_db.work_with_links import add_link
-
-
-@pytest.fixture(scope='module')
-def app_for_test():
-    app = create_test_app_with_db().test_client()
-    yield app
 
 
 def test_calendars_id_delete_200(app_for_test, test_admin, link_id):
