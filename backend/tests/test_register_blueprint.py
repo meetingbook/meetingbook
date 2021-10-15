@@ -1,16 +1,6 @@
-import pytest
-
 from flask import json
-from tools.create_db_for_tests import create_test_app_with_db
 from tools.for_db.work_with_admin_info import get_psw_from_db
 from tools.func_for_psw import check_psw
-
-
-@pytest.fixture(scope='module')
-def app_for_test():
-    app_for_test = create_test_app_with_db()
-    test_app = app_for_test.test_client()
-    yield test_app
 
 
 def test_admin_register_response(app_for_test):

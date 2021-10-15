@@ -1,13 +1,13 @@
 from db import models
+from tools.datetime_convertations import DateTime
 from db.models import Links, LinksSchema, db
-from datetime import datetime, timedelta
 
 
 class LinkException(Exception):
     pass
 
 
-def add_link(link_id, admin_id, valid_until=(datetime.utcnow()+timedelta(days=7))):
+def add_link(link_id, admin_id, valid_until=DateTime().utc_plus_delta(days=7)):
     try:
         link = Links(link_id=link_id, admin_id=admin_id, valid_until=valid_until)
         models.db.session.add(link)
