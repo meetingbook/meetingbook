@@ -320,6 +320,11 @@ paths:
       description: |
         Creates a new shareable link (calendar) to the schedule of the current admin.
         Available only for admins.
+      parameters:
+        - name: data
+          in: body
+          schema:
+            $ref: '#/definitions/NewCalendarLink'
       responses:
         "200":
           description: "Successful operation"
@@ -549,6 +554,13 @@ definitions:
           A human readable explanation specific to this occurrence of the
           problem.
         example: Connection to database timed out
+  NewCalendarLink:
+    type: "object"
+    properties:
+      valid_until:
+        type: "string"
+        format: "date-time"
+        description: "Time of link expiration. The link is not accessible after that time. Defined as Datetime string in ISO 8601 https://en.wikipedia.org/wiki/ISO_8601"
   CalendarLink:
     type: "object"
     required:

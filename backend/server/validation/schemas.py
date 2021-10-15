@@ -1,7 +1,7 @@
 email_schema = {'type': 'string', "pattern": r"[^@]+@[^@]+\.[^@]"}
 datetime_schema = {'type': 'string', 'format': 'date-time', "pattern":
-                   r'^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])'
-                   r'T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\.[0-9]+)?(Z|[+-](?:2[0-3]|[01][0-9]):[0-5][0-9])?$'}
+    r'^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])'
+    r'T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\.[0-9]+)?(Z|[+-](?:2[0-3]|[01][0-9]):[0-5][0-9])?$'}
 register_schema = {
     'type': 'object',
     'properties': {
@@ -25,7 +25,6 @@ booking_settings_schema = {
     'required': ['duration', 'start_time']
 }
 
-
 guest_calendar_schema = {
     'type': 'object',
     'properties': {
@@ -40,9 +39,8 @@ guest_calendar_schema = {
 
 calendar_link_schema = {
     'type': 'object',
-    'required': ['calendars_id', 'valid_until'],
     'properties':
-        {'id': {'type': 'string', 'minLength': 10},
-         'valid_until': {'type': 'string', 'format': 'date-time'}
-         }
+        {
+            'valid_until': {'type': 'string', 'format': 'date-time'}
+        }
 }
