@@ -1,5 +1,4 @@
 import base64
-import server as app
 from tools.create_db_for_tests import create_test_app_with_db
 from tools.for_db.work_with_admin_info import add_admin
 from tools.func_for_psw import password_hashing
