@@ -5,6 +5,7 @@ from db.models import Slots, SlotsShema
 from flask import make_response, jsonify
 from cli.parser import regular_start_end
 from tools.for_db.work_with_admin_info import get_admin_id
+from tools.for_db.work_with_slots import add_slots
 
 
 def add_slot_from_db_for_schedule_admin(start, end, email_admin):
@@ -16,11 +17,8 @@ def add_slot_from_db_for_schedule_admin(start, end, email_admin):
             and datetime.fromisoformat(start) > datetime.utcnow()):
         try:
             id_admin = get_admin_id(email_admin)
-            slots = models.Slots(start_interval=(start + ':00.000Z'), end_interval=(end + ':00.000Z'),
-                                 admin_id=id_admin)
-            models.db.session.add(slots)
-            models.db.session.commit()
-            return jsonify(get_last_slot_id(slots.id))
+            slots = add_slots(start + ':00.000Z', end + ':00.000Z', id_admin)
+            return jsonify(get_last_slot_id(slots))
         except Exception:
             models.db.session.rollback()
             return make_response({'detail': 'Creation failed', 'status': 500}, 500)

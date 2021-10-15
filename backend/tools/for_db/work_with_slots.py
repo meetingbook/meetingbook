@@ -13,6 +13,7 @@ def add_slots(start_interval, end_interval, create_admin_id, booking_id=None):
                              booking_id=booking_id, admin_id=create_admin_id)
         models.db.session.add(slots)
         models.db.session.commit()
+        return slots.id
     except Exception:
         models.db.session.rollback()
         raise DbSlotException('Error. Unable to add slot')
