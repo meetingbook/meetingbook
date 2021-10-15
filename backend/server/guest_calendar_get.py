@@ -14,7 +14,7 @@ def get_calendar(link_id):
     link = models.Links.query.filter_by(link_id=link_id).first()
     if link is None:
         return make_response(jsonify({'status': 404, 'detail': 'Shareable link not found'}), 404)
-    elif DateTime(link.valid_until).convert_to_datetime() < datetime.utcnow():
+    elif DateTime().convert_to_datetime(link.valid_until) < datetime.utcnow():
         return make_response(jsonify({'status': 401, 'detail': 'Unauthorized - link has expired'}), 401)
     return jsonify({
       "id": link.id,

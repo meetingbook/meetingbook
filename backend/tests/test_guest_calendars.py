@@ -16,8 +16,8 @@ start = '2021-10-07T15:00:56.273Z'
 end = '2021-10-07T16:00:56.273Z'
 link_id = '123456789a'
 admin_id = 1
-dt_for_link = DateTime().get_dt_for_link()
-end_interval = DateTime().get_dt_for_link(validity_days=10)
+dt_for_link = DateTime().utc_plus_delta(days=7)
+end_interval = DateTime().utc_plus_delta(days=10)
 
 
 def test_guest_calendar_post(app_for_test):

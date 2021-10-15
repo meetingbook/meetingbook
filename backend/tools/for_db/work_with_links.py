@@ -7,7 +7,7 @@ class AddLinkException(Exception):
     pass
 
 
-def add_link(link_id, admin_id, valid_until=DateTime().get_dt_for_link()):
+def add_link(link_id, admin_id, valid_until=DateTime().utc_plus_delta(days=7)):
     try:
         link = Links(link_id=link_id, admin_id=admin_id, valid_until=valid_until)
         models.db.session.add(link)
