@@ -3,6 +3,7 @@ from flask import json
 
 from tools.create_db_for_tests import create_test_app_with_db
 from tools.datetime_convertations import DateTime
+from tools.for_db.work_with_admin_info import add_admin
 from tools.for_db.work_with_links import add_link
 from tools.for_db.work_with_slots import add_slots
 
@@ -21,8 +22,7 @@ end_interval = DateTime().utc_plus_delta(days=10)
 
 
 def test_guest_calendar_post(app_for_test):
-    app_for_test.post('/registration', data=json.dumps(dict(email='my@mail.com', password='Passw0rd')),
-                      content_type='application/json')
+    add_admin('my@mail.com', 'Passw0rd')
     add_slots(start, end, admin_id)
     add_slots('2020-09-01T15:00:56.273Z', '2020-09-01T16:00:56.273Z', admin_id)
     add_slots(dt_for_link, end_interval, admin_id)
