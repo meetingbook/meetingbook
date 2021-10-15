@@ -1,8 +1,6 @@
 from db import models
-from db.models import Links, LinksSchema
 from tools.datetime_convertations import DateTime
 from db.models import Links, LinksSchema, db
-from datetime import datetime, timedelta
 
 
 class LinkException(Exception):

@@ -1,6 +1,5 @@
 import base64
 
-from flask import json
 from server import app
 from db.models import db
 from tools.for_db.work_with_admin_info import get_admin_id, add_admin

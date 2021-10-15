@@ -3,7 +3,6 @@ from flask import json
 
 from tools.create_db_for_tests import create_test_app_with_db
 from tools.datetime_convertations import DateTime
-from tools.for_db.work_with_admin_info import add_admin
 from tools.for_db.work_with_links import add_link
 from tools.for_db.work_with_slots import add_slots
 
