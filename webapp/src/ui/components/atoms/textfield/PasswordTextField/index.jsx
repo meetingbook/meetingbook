@@ -51,6 +51,7 @@ export const PasswordTextField = (props) => {
           </InputAdornment>
         }
         label={props.label}
+        required={props.required}
       />
     </FormControl>
   );

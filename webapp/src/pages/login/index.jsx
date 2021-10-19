@@ -34,6 +34,12 @@ const WhiteAvatar = styled(Avatar)(({ theme }) => ({
 }));
 
 export const Login = () => {
+  // TODO
+  // 1. validate form
+  // 2. convert email & password to base64 using toBase64()
+  // 3. send authRequest to /login using credentials
+  // 4. if response 200, save credentials in storage
+  // 5. navigate to /calendar
   return (
     <Box
       sx={{
