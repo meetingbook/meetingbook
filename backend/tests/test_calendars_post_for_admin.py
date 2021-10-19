@@ -1,3 +1,5 @@
-import pytest
+from server.calendars_post_for_admin import get_expiry_date
 
-#curl -i -H "Content-Type: application/json" -X POST -d '{"userId":"1", "username": "fizz bizz"}' http://localhost:5000/foo
+
+def test_expiry_date_30():
+    print(get_expiry_date())
