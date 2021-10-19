@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from server.calendars_post_for_admin import get_expiry_date, generate_link_id
+from server.calendars_post_for_admin import get_expiry_date
 from flask import json
 
 ISO8601 = "%Y-%m-%dT%H:%M:%S%z"
@@ -35,4 +35,3 @@ def test_generate_calendar_link_with_valid_until(app_for_test, test_admin):
     assert response.status == '200 OK'
     assert response.json["valid_until"] != ""
     assert response.json["id"] != ""
-
