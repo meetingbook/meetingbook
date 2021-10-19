@@ -1,6 +1,7 @@
 import db.models as models
-from flask import make_response
 from tools.for_db.work_with_slots import get_id_slice_of_slot, update_booking_id_in_slot
+from tools.for_db.work_with_slots import BookingNotFound
+from tools.build_response import build_response
 
 
 class BookingSlotException(Exception):
@@ -13,10 +14,7 @@ def add_booking_info(booking_inf_name, booking_inf_email):
         models.db.session.add(booking_inf)
         models.db.session.commit()
     except Exception as e:
-        return make_response({
-            "status": 500,
-            "detail": f"{e}"
-        }, 500)
+        return build_response(f"{e}", 500)
 
 
 def add_booking_info_and_get_id(start, end, admin_id, name, email, topic=None):
@@ -46,3 +44,10 @@ def delete_booking_info(booking_id):
 
     finally:
         models.db.session.close()
+
+
+def get_booking_info(booking_id):
+    booking_info = models.BookingInfo.query.filter_by(id=booking_id).first()
+    if booking_info is None:
+        raise BookingNotFound('Booking not found')
+    return booking_info

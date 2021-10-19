@@ -1,6 +1,5 @@
-from flask import make_response, jsonify
 from flask_httpauth import HTTPBasicAuth
-
+from tools.build_response import build_response
 from tools.func_for_psw import check_psw
 from tools.for_db.work_with_admin_info import get_psw_from_db
 
@@ -19,4 +18,4 @@ def verify_password(username, password):
 
 @auth.error_handler
 def unauthorized():
-    return make_response(jsonify({'status': 401, 'detail': 'Unauthorized'}), 401)
+    return build_response('Unauthorized', 401)
