@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  flask-app:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - SQLALCHEMY_DATABASE_URI=postgresql://postgres:hello@postgres_db:5432/postgres
+  postgres_db:
+    container_name: postgres_con
+    restart: always
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "hello"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+volumes:
+  postgres:
