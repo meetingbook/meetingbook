@@ -8,6 +8,7 @@ import Avatar from '@mui/material/Avatar';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import { styled } from '@mui/system';
 import bg from '../../assets/images/loginbackground.svg';
+import { AdaptiveContainer } from '../../ui/components/atoms/templates';
 
 const inputGlobalStyles = (
   <GlobalStyles
@@ -15,7 +16,7 @@ const inputGlobalStyles = (
       body: {
         background: `url(${bg}) no-repeat 50% 50%`,
         backgroundSize: 'cover',
-        width: '50%',
+        width: '90%',
         margin: '0 auto',
       },
     }}
@@ -35,33 +36,35 @@ const WhiteAvatar = styled(Avatar)(({ theme }) => ({
 
 export const SignUp = () => {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-evenly',
-        height: '60vh',
-        marginTop: '7em',
-      }}
-    >
-      {inputGlobalStyles}
-      <WhiteAvatar>A</WhiteAvatar>
-      <WhiteTitle>Registration</WhiteTitle>
-      <Box>
-        <BasicTextField fullWidth={true} label="Email" />
+    <AdaptiveContainer>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-evenly',
+          height: '60vh',
+          marginTop: '7em',
+        }}
+      >
+        {inputGlobalStyles}
+        <WhiteAvatar>A</WhiteAvatar>
+        <WhiteTitle>Sign Up</WhiteTitle>
+        <Box>
+          <BasicTextField fullWidth={true} label="Email" />
+        </Box>
+        <Box>
+          <PasswordTextField label="Password" />
+        </Box>
+        <Box>
+          <PasswordTextField label=" Confirm Password" />
+        </Box>
+        <Box>
+          <Button fullWidth={true}>Sign Up</Button>
+        </Box>
+        <Box sx={{ textAlign: 'center' }}>
+          <Link to="/login">Login</Link>
+        </Box>
       </Box>
-      <Box>
-        <PasswordTextField label="Password" />
-      </Box>
-      <Box>
-        <PasswordTextField label=" Confirm Password" />
-      </Box>
-      <Box>
-        <Button fullWidth={true}>Sign Up</Button>
-      </Box>
-      <Box sx={{ textAlign: 'center' }}>
-        <Link to="/login">Login</Link>
-      </Box>
-    </Box>
+    </AdaptiveContainer>
   );
 };

@@ -6,7 +6,7 @@ import GlobalStyles from '@mui/material/GlobalStyles';
 import blob from '../../assets/images/pinkblob_for_welcom.svg';
 import girl from '../../assets/images/undraw_Online_calendar.svg';
 import { Paragraph } from '../../ui/components/atoms/paragraph';
-import Grid from '@mui/material/Grid';
+import { AdaptiveContainer } from '../../ui/components/atoms/templates';
 
 const inputGlobalStyles = (
   <GlobalStyles
@@ -28,41 +28,37 @@ const WhiteTitle = styled(Title)(({ theme }) => ({
 
 export const Welcome = () => {
   return (
-    <Box>
-      <Grid container sx={{ justifyContent: 'center' }}>
-        <Grid item xs={12} sm={10} md={8} lg={6} xl={6}>
-          <img src={girl} />
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-evenly',
-              height: '50vh',
-              marginTop: '2em',
-            }}
-          >
-            {inputGlobalStyles}
+    <AdaptiveContainer>
+      <img src={girl} />
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-evenly',
+          height: '50vh',
+          marginTop: '2em',
+        }}
+      >
+        {inputGlobalStyles}
 
-            <WhiteTitle>Welcome</WhiteTitle>
-            <Paragraph sx={{ textAlign: 'center' }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </Paragraph>
-            <Box>
-              <Button fullWidth={true} href="/login">
-                Login
-              </Button>
-            </Box>
-            <Box>
-              <Button fullWidth={true} href="/signup">
-                Sign up
-              </Button>
-            </Box>
-          </Box>
-        </Grid>
-      </Grid>
-    </Box>
+        <WhiteTitle>Welcome</WhiteTitle>
+        <Paragraph sx={{ textAlign: 'center' }}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat.
+        </Paragraph>
+        <Box>
+          <Button fullWidth={true} href="/login">
+            Login
+          </Button>
+        </Box>
+        <Box>
+          <Button fullWidth={true} href="/signup">
+            Sign up
+          </Button>
+        </Box>
+      </Box>
+    </AdaptiveContainer>
   );
 };
