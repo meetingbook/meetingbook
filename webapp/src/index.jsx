@@ -6,6 +6,7 @@ import { theme } from './ui/theme';
 import { SignUp } from './pages/signup';
 import { Login } from './pages/login';
 import { Welcome } from './pages/welcome';
+import { Calendar } from './pages/calendar';
 
 const reportWebVitals = (onPerfEntry) => {
   if (onPerfEntry && onPerfEntry instanceof Function) {
@@ -30,6 +31,9 @@ ReactDOM.render(
           </Route>
           <Route path="/signup">
             <SignUp />
+          </Route>
+          <Route path="/calendar">
+            <Calendar />
           </Route>
           <Route path="/">
             <Welcome />
