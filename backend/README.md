@@ -3,9 +3,11 @@
 ## Prerequisites
 
 - We use Python 3
-- Install [virtualenv](https://virtualenv.pypa.io/en/latest/index.html) using 
-either `venv` or `.venv` folder name.
-- Go to `backend` folder Install all dependencies
+- Install [virtualenv](https://virtualenv.pypa.io/en/latest/index.html) `pip3 install virtualenv`
+- Go to `backend` folder
+- Initialise virtualenv using either `venv` or `.venv` folder name: `virtualenv .venv`
+- Activate virtualenv: `source .venv/bin/activate`
+- Install all dependencies
     ```bash
     pip3 install -r requirements.txt   
     ```

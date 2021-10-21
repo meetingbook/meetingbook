@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Title } from '../../ui/components/atoms/title';
 import { BasicTextField } from '../../ui/components/atoms/textfield/BasicTextField';
 import { PasswordTextField } from '../../ui/components/atoms/textfield/PasswordTextField';
@@ -9,6 +9,7 @@ import GlobalStyles from '@mui/material/GlobalStyles';
 import { styled } from '@mui/system';
 import bg from '../../assets/images/loginbackground.svg';
 import { AdaptiveContainer } from '../../ui/components/atoms/templates';
+import { request } from '../../infra/webservice';
 
 const inputGlobalStyles = (
   <GlobalStyles
@@ -35,36 +36,67 @@ const WhiteAvatar = styled(Avatar)(({ theme }) => ({
 }));
 
 export const SignUp = () => {
+  const history = useHistory();
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+
+    const body = {
+      email: e.target[0].value,
+      password: e.target[2].value,
+    };
+
+    request('/registration', 'POST', JSON.stringify(body))
+      .then((res) => {
+        if (res.status === 409) {
+          alert('Please try another email');
+          return;
+        }
+
+        history.push('/login');
+      })
+      .catch((e) => alert(e.message));
+  };
+
   return (
     <AdaptiveContainer>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-evenly',
-          height: '60vh',
-          marginTop: '7em',
-        }}
-      >
-        {inputGlobalStyles}
-        <WhiteAvatar>A</WhiteAvatar>
-        <WhiteTitle>Sign Up</WhiteTitle>
-        <Box>
-          <BasicTextField fullWidth={true} label="Email" />
-        </Box>
-        <Box>
-          <PasswordTextField label="Password" />
-        </Box>
-        <Box>
-          <PasswordTextField label=" Confirm Password" />
-        </Box>
-        <Box>
-          <Button fullWidth={true}>Sign Up</Button>
-        </Box>
-        <Box sx={{ textAlign: 'center' }}>
-          <Link to="/login">Login</Link>
-        </Box>
+    <Box
+      onSubmit={handleOnSubmit}
+      component="form"
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-evenly',
+        height: '60vh',
+        marginTop: '7em',
+      }}
+    >
+      {inputGlobalStyles}
+      <WhiteAvatar>A</WhiteAvatar>
+      <WhiteTitle>Registration</WhiteTitle>
+      <Box>
+        <BasicTextField
+          type="email"
+          requried="true"
+          fullWidth={true}
+          label="Email"
+        />
       </Box>
+      <Box>
+        <PasswordTextField requried="true" label="Password" />
+      </Box>
+      <Box>
+        <PasswordTextField requried="true" label=" Confirm Password" />
+      </Box>
+      <Box>
+        <Button type="submit" fullWidth={true}>
+          Sign Up
+        </Button>
+      </Box>
+      <Box sx={{ textAlign: 'center' }}>
+        <Link to="/login">Login</Link>
+      </Box>
+    </Box>
     </AdaptiveContainer>
   );
 };
