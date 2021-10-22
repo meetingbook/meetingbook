@@ -91,3 +91,9 @@ def query_slots(admin_id, date, end_interval, none_or_not=None):
         )
     )
     return list_of_slots
+
+
+def marshmallow_for_query_slots(qury_slots):
+    slots_shema = SlotsShema(many=True)
+    output = slots_shema.dump(qury_slots.all())
+    return output
