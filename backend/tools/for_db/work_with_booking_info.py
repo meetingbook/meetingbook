@@ -39,10 +39,7 @@ def delete_booking_info(booking_id):
     try:
         booking_info = models.BookingInfo.query.filter_by(id=booking_id)
         models.db.session.delete(booking_info)
-        models.db.session.commit()
+        models.db.session.flush()
     except Exception:
         models.db.session.rollback()
         raise BookingSlotException('Unable to delete booking info')
-
-    finally:
-        models.db.session.close()
