@@ -11,11 +11,12 @@ from tools.for_db.work_with_admin_info import get_admin_id
 calendars_post = Blueprint('calendars_post', __name__)
 
 
-def get_expiry_date(expiry_date: str = None) -> date:
+def get_expiry_date(data: object = {}) -> date:
     """Sets expiry date for link_for_calendar"""
-    if expiry_date == "":
-        return DateTime().utc_plus_delta(days=30)
-    return expiry_date
+    if 'data' in data and 'valid_until' in data['data']:
+        return data['data']['valid_until']
+
+    return DateTime().utc_plus_delta(days=30)
 
 
 def generate_link_id() -> str:
@@ -27,10 +28,10 @@ def generate_link_id() -> str:
 @expects_json(calendar_link_schema, check_formats=True)
 @auth.login_required
 def add_info_to_links_table():
-    expiry_date = request.json['valid_until']
+    data = request.get_json('data')
     admin_id = get_admin_id(auth.current_user())
     link_id = generate_link_id()
-    valid_until = get_expiry_date(expiry_date)
+    valid_until = get_expiry_date(data)
 
     try:
         add_link(link_id, admin_id, valid_until)

@@ -41,6 +41,8 @@ calendar_link_schema = {
     'type': 'object',
     'properties':
         {
-            'valid_until': {'type': 'string', 'format': 'date-time'}
+            'data': {
+                'valid_until': datetime_schema
+            }
         }
 }
