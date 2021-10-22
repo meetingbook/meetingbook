@@ -1,6 +1,7 @@
+import traceback
 from datetime import datetime
 
-from flask import Blueprint
+from flask import Blueprint, make_response, jsonify
 from db.models import db
 from tools.build_response import build_response
 from tools.datetime_convertations import DateTime
@@ -24,7 +25,7 @@ def canceling_booking(link_id, booking_id):
         db.session.commit()
         return build_response('Successful request', 200)
     except (DbSlotException, BookingSlotException) as e:
-        build_response(e, 409)
         db.session.rollback()
+        return build_response(f'{e}', 409)
     finally:
         db.session.close()

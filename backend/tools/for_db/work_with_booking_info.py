@@ -35,10 +35,13 @@ def add_booking_info_and_get_id(start, end, admin_id, name, email, topic=None):
     return booking_id
 
 
+def query_booking_info_by_id(booking_id):
+    return models.BookingInfo.query.filter_by(id=booking_id).first()
+
+
 def delete_booking_info(booking_id):
     try:
-        booking_info = models.BookingInfo.query.filter_by(id=booking_id)
-        models.db.session.delete(booking_info)
+        models.db.session.delete(query_booking_info_by_id(booking_id))
         models.db.session.flush()
     except Exception:
         models.db.session.rollback()

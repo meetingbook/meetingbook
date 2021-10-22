@@ -58,3 +58,28 @@ def test_guest_calendar_get_401(app_for_test, test_admin):
     add_link('abc', test_admin.get_id(), valid_until='2021-10-12T17:34:59.603Z')
     res = app_for_test.get('/calendars/abc')
     assert res.status == '401 UNAUTHORIZED'
+
+
+def test_guest_calendar_delete_200(app_for_test, link_id):
+    res = app_for_test.delete(f'/calendars/{link_id}/bookings/1')
+    assert res.status == '200 OK'
+    assert res.json == {'detail': 'Successful request', 'status': 200}
+
+
+def test_guest_calendar_delete_409(app_for_test, link_id):
+    res = app_for_test.delete(f'/calendars/{link_id}/bookings/1')
+    assert res.status == '409 CONFLICT'
+    assert res.json == {'detail': 'Unable to delete booking info', 'status': 409}
+
+
+def test_guest_calendar_delete_404(app_for_test):
+    res = app_for_test.delete(f'/calendars/wrong_link/bookings/1')
+    assert res.status == '404 NOT FOUND'
+    assert res.json == {'detail': 'Shareable link not found', 'status': 404}
+
+
+def test_guest_calendar_delete_401(test_admin, app_for_test, link_id):
+    add_link('expired_link', test_admin.get_id(), DateTime().utc_plus_delta(days=-1))
+    res = app_for_test.delete(f'/calendars/expired_link/bookings/1')
+    assert res.status == '401 UNAUTHORIZED'
+    assert res.json == {'detail': 'Unauthorized - link has expired', 'status': 401}
