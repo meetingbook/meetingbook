@@ -46,7 +46,11 @@ export const SignUp = () => {
       password: e.target[2].value,
     };
 
-    request('/registration', 'POST', JSON.stringify(body))
+    request({
+      path: '/registration',
+      method: 'POST',
+      body: JSON.stringify(body),
+    })
       .then((res) => {
         if (res.status === 409) {
           alert('Please try another email');
@@ -60,43 +64,43 @@ export const SignUp = () => {
 
   return (
     <AdaptiveContainer>
-    <Box
-      onSubmit={handleOnSubmit}
-      component="form"
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-evenly',
-        height: '60vh',
-        marginTop: '7em',
-      }}
-    >
-      {inputGlobalStyles}
-      <WhiteAvatar>A</WhiteAvatar>
-      <WhiteTitle>Registration</WhiteTitle>
-      <Box>
-        <BasicTextField
-          type="email"
-          requried="true"
-          fullWidth={true}
-          label="Email"
-        />
+      <Box
+        onSubmit={handleOnSubmit}
+        component="form"
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-evenly',
+          height: '60vh',
+          marginTop: '7em',
+        }}
+      >
+        {inputGlobalStyles}
+        <WhiteAvatar>A</WhiteAvatar>
+        <WhiteTitle>Registration</WhiteTitle>
+        <Box>
+          <BasicTextField
+            type="email"
+            requried="true"
+            fullWidth={true}
+            label="Email"
+          />
+        </Box>
+        <Box>
+          <PasswordTextField requried="true" label="Password" />
+        </Box>
+        <Box>
+          <PasswordTextField requried="true" label=" Confirm Password" />
+        </Box>
+        <Box>
+          <Button type="submit" fullWidth={true}>
+            Sign Up
+          </Button>
+        </Box>
+        <Box sx={{ textAlign: 'center' }}>
+          <Link to="/login">Login</Link>
+        </Box>
       </Box>
-      <Box>
-        <PasswordTextField requried="true" label="Password" />
-      </Box>
-      <Box>
-        <PasswordTextField requried="true" label=" Confirm Password" />
-      </Box>
-      <Box>
-        <Button type="submit" fullWidth={true}>
-          Sign Up
-        </Button>
-      </Box>
-      <Box sx={{ textAlign: 'center' }}>
-        <Link to="/login">Login</Link>
-      </Box>
-    </Box>
     </AdaptiveContainer>
   );
 };

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Title } from '../../ui/components/atoms/title';
 import { BasicTextField } from '../../ui/components/atoms/textfield/BasicTextField';
 import { PasswordTextField } from '../../ui/components/atoms/textfield/PasswordTextField';
@@ -9,6 +9,7 @@ import GlobalStyles from '@mui/material/GlobalStyles';
 import { styled } from '@mui/system';
 import bg from '../../assets/images/loginbackground.svg';
 import { AdaptiveContainer } from '../../ui/components/atoms/templates';
+import { request, toBase64, createAuthHeader } from '../../infra/webservice';
 
 const inputGlobalStyles = (
   <GlobalStyles
@@ -35,6 +36,28 @@ const WhiteAvatar = styled(Avatar)(({ theme }) => ({
 }));
 
 export const Login = () => {
+  const history = useHistory();
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    const email = e.target[0].value;
+    const password = e.target[2].value;
+
+    const credentials = toBase64(email, password);
+    request({
+      path: '/login',
+      method: 'GET',
+      headers: createAuthHeader(credentials),
+    })
+      .then((res) => {
+        if (res.status === 401) {
+          alert('Please try another email');
+          return;
+        }
+
+        history.push('/calendar');
+      })
+      .catch((e) => alert(e.message));
+  };
   // TODO
   // 1. validate form
   // 2. convert email & password to base64 using toBase64()
@@ -44,6 +67,8 @@ export const Login = () => {
   return (
     <AdaptiveContainer>
       <Box
+        onSubmit={handleOnSubmit}
+        component="form"
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -56,13 +81,20 @@ export const Login = () => {
         <WhiteAvatar>A</WhiteAvatar>
         <WhiteTitle>Login</WhiteTitle>
         <Box>
-          <BasicTextField fullWidth={true} label="Email" />
+          <BasicTextField
+            type="email"
+            requried="true"
+            fullWidth={true}
+            label="Email"
+          />
         </Box>
         <Box>
-          <PasswordTextField label="Password" />
+          <PasswordTextField requried="true" label="Password" />
         </Box>
         <Box>
-          <Button fullWidth={true}>Login</Button>
+          <Button type="submit" fullWidth={true}>
+            Login
+          </Button>
         </Box>
         <Box sx={{ textAlign: 'center' }}>
           <Link to="/signup">Sign Up</Link>
