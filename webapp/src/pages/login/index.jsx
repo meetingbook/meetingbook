@@ -41,8 +41,8 @@ export const Login = () => {
     e.preventDefault();
     const email = e.target[0].value;
     const password = e.target[2].value;
-
     const credentials = toBase64(email, password);
+
     request({
       path: '/login',
       method: 'GET',
