@@ -28,12 +28,12 @@ def test_get_slots_in_day_by_booking(test_admin):
     assert booking_slots == json
 
 
-def test_get_slots_in_day_by_available_empty(create_admin_id):
-    available_slots = get_slots_from_db_for_schedule(create_admin_id, "2021-02-03", "available", 1)
+def test_get_slots_in_day_by_available_empty(test_admin):
+    available_slots = get_slots_from_db_for_schedule(test_admin.get_id(), "2021-02-03", "available", 1)
     assert available_slots == []
 
 
-def test_get_slots_in_day_by_available(create_admin_id):
+def test_get_slots_in_day_by_available(test_admin):
     start_interval = "2021-02-03T13:00"
     end_interval = "2021-02-03T15:00"
     json = [
@@ -44,6 +44,6 @@ def test_get_slots_in_day_by_available(create_admin_id):
             "id": 2
         }
     ]
-    add_slot_and_get_id(start_interval, end_interval, create_admin_id)
-    booking_slots = get_slots_from_db_for_schedule(create_admin_id, "2021-02-03", "available", 1)
+    add_slot_and_get_id(start_interval, end_interval, test_admin.get_id())
+    booking_slots = get_slots_from_db_for_schedule(test_admin.get_id(), "2021-02-03", "available", 1)
     assert booking_slots == json
