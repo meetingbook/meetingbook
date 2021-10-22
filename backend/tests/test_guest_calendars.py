@@ -2,7 +2,7 @@ from flask import json
 
 from tools.datetime_convertations import DateTime
 from tools.for_db.work_with_links import add_link
-from tools.for_db.work_with_slots import add_slots
+from tools.for_db.work_with_slots import add_slot_and_get_id
 
 
 start = '2021-10-07T15:00:56.273Z'
@@ -12,11 +12,10 @@ end_interval = DateTime().utc_plus_delta(days=10)
 
 
 def test_guest_calendar_post(app_for_test, test_admin, link_id):
-    test_admin.register_admin()
     admin_id = test_admin.get_id()
-    add_slots(start, end, admin_id)
-    add_slots('2020-09-01T15:00:56.273Z', '2020-09-01T16:00:56.273Z', admin_id)
-    add_slots(dt_for_link, end_interval, admin_id)
+    add_slot_and_get_id(start, end, admin_id)
+    add_slot_and_get_id('2020-09-01T15:00:56.273Z', '2020-09-01T16:00:56.273Z', admin_id)
+    add_slot_and_get_id(dt_for_link, end_interval, admin_id)
     add_link(link_id, admin_id, dt_for_link)
     res1 = app_for_test.post(f'/calendars/{link_id}/bookings/',
                              data=json.dumps(dict(guest_name='Name', guest_email='test@ma.c',
