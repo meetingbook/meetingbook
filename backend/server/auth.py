@@ -9,8 +9,12 @@ auth = HTTPBasicAuth()
 
 @auth.verify_password
 def verify_password(username, password):
-    if check_psw(password, get_psw_from_db(username)):
-        return username
+    try:
+        if check_psw(password, get_psw_from_db(username)):
+            return username
+    except AttributeError:
+        # user with this email does not exist
+        return None
 
 
 @auth.error_handler
