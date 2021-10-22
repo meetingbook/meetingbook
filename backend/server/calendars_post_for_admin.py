@@ -13,7 +13,7 @@ calendars_post = Blueprint('calendars_post', __name__)
 
 def get_expiry_date(expiry_date: str = None) -> date:
     """Sets expiry date for link_for_calendar"""
-    if expiry_date is None or expiry_date == "":
+    if expiry_date == "":
         return DateTime().convert_to_datetime(DateTime().utc_plus_delta(days=30))
     return expiry_date
 
