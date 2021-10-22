@@ -73,13 +73,13 @@ def test_guest_calendar_delete_409(app_for_test, link_id):
 
 
 def test_guest_calendar_delete_404(app_for_test):
-    res = app_for_test.delete(f'/calendars/wrong_link/bookings/1')
+    res = app_for_test.delete('/calendars/wrong_link/bookings/1')
     assert res.status == '404 NOT FOUND'
     assert res.json == {'detail': 'Shareable link not found', 'status': 404}
 
 
 def test_guest_calendar_delete_401(test_admin, app_for_test, link_id):
     add_link('expired_link', test_admin.get_id(), DateTime().utc_plus_delta(days=-1))
-    res = app_for_test.delete(f'/calendars/expired_link/bookings/1')
+    res = app_for_test.delete('/calendars/expired_link/bookings/1')
     assert res.status == '401 UNAUTHORIZED'
     assert res.json == {'detail': 'Unauthorized - link has expired', 'status': 401}

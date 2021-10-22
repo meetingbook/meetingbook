@@ -1,7 +1,6 @@
-import traceback
 from datetime import datetime
 
-from flask import Blueprint, make_response, jsonify
+from flask import Blueprint
 from db.models import db
 from tools.build_response import build_response
 from tools.datetime_convertations import DateTime
