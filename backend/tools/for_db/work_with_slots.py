@@ -61,3 +61,12 @@ def update_booking_id_in_slot(slot_id, book_id):
     except Exception:
         models.db.session.rollback()
         raise DbSlotException('Error. Unable to book slot')
+
+
+def canceling_booking_id_from_slot(booking_id):
+    try:
+        Slots.query.filter_by(booking_id=booking_id).update({Slots.booking_id: None}, synchronize_session=False)
+        models.db.session.flush()
+    except Exception:
+        models.db.session.rollback()
+        raise DbSlotException('Error. Unable to cancel booking id from slot')
