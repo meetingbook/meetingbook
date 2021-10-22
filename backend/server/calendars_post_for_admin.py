@@ -41,4 +41,4 @@ def add_info_to_links_table():
             "detail": "Conflict. This link exists in MeetingBook"
         }), 409)
 
-    return jsonify({"id": link_id, "valid_until": DateTime(valid_until).convert_to_iso()})
+    return jsonify({"id": link_id, "valid_until": valid_until})
