@@ -19,7 +19,7 @@ def booking(link_id):
     admin_id = link.admin_id
 
     try:
-        booking_id = add_booking_info_and_get_id(request_body['start'], request_body['end'],
+        booking_id = add_booking_info_and_get_id(request_body['start'], request_body['end'], admin_id,
                                                  request_body['guest_name'], request_body['guest_email'],
                                                  request_body['topic'] if 'topic' in request_body else None)
         request_body['id'] = booking_id
