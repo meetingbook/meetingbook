@@ -23,11 +23,10 @@ from server.booking_settings_put import booking_settings_put
 migrate = Migrate()
 
 
-def create_app():
+def create_app(config=config_settings['development']):
     app = Flask(__name__)
     CORS(app)
-    app.config.from_object(config_settings['development'])
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config.from_object(config)
     db.init_app(app)
     migrate.init_app(app, db)
     app.register_error_handler(400, bad_request)
