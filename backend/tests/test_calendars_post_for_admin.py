@@ -1,10 +1,7 @@
 from datetime import datetime, timedelta
 from server.calendars_post_for_admin import get_expiry_date
 from flask import json
-
 from tools.datetime_convertations import DateTime
-
-
 
 
 def test_expiry_date_30():
