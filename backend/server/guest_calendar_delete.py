@@ -19,7 +19,7 @@ def canceling_booking(link_id, booking_id):
     elif DateTime().convert_to_datetime(link.valid_until) < datetime.utcnow():
         return build_response('Unauthorized - link has expired', 401)
     try:
-        canceling_booking_id_from_slot(booking_id)
+        canceling_booking_id_from_slot(booking_id, link.admin_id)
         delete_booking_info(booking_id)
         db.session.commit()
         return build_response('Successful request', 200)

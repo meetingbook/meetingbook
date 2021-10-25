@@ -45,7 +45,7 @@ def test_update_booking_id_in_slot(test_admin):
 
 def test_canceling_booking_id_from_slot(test_admin):
     try:
-        canceling_booking_id_from_slot(1)
+        canceling_booking_id_from_slot(1, test_admin.get_id())
         db.session.commit()
     except DbSlotException:
         db.session.rollback()
