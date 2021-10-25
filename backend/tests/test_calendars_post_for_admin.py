@@ -2,18 +2,21 @@ from datetime import datetime, timedelta
 from server.calendars_post_for_admin import get_expiry_date
 from flask import json
 
-ISO8601 = "%Y-%m-%dT%H:%M:%S%z"
+from tools.datetime_convertations import DateTime
+
+
 
 
 def test_expiry_date_30():
     now = datetime.utcnow()
-    now += timedelta(days=30)
-    assert get_expiry_date().strftime(ISO8601) == now.strftime(ISO8601)
+    dt_after_30_days = now + timedelta(days=30)
+    assert get_expiry_date() == DateTime(dt_after_30_days).convert_to_iso()
 
 
 def test_expiry_date_1_day():
-    one_day = "2022-10-20T21:48:47.000Z"
-    assert get_expiry_date(one_day).strftime(ISO8601) == "2022-10-20T21:48:47"
+    special_expiry_date = "2022-10-20T21:48:47.000Z"
+    one_day = {'data': {'valid_until': special_expiry_date}}
+    assert get_expiry_date(one_day) == special_expiry_date
 
 
 def test_generate_calendar_link_without_valid_until(app_for_test, test_admin):
