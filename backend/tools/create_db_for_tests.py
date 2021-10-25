@@ -1,5 +1,7 @@
 import base64
 
+
+from server.app import mail
 from server import app
 from db.models import db
 from tools.for_db.work_with_admin_info import get_admin_id, add_admin
@@ -10,6 +12,7 @@ def create_test_app_with_db():
     app.app_context().push()
     app.config['TESTING'] = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
+    mail.init_app(app)
     db.drop_all()
     db.create_all()
     return app

@@ -1,10 +1,8 @@
-from flask_mail import Message, Mail
+from flask_mail import Message
 from tools.for_db.work_with_admin_info import get_admin_email_by_id
 
 
-def send_email(admin_id, request_body):
-    from server import app
-    mail_req = Mail(app)
+def send_email(admin_id, request_body, mail):
     email_admin = get_admin_email_by_id(admin_id)
     msg = Message('Hello, you have a new booking',
                   sender='booking@meetingbook.com',
@@ -17,4 +15,4 @@ def send_email(admin_id, request_body):
     msg.body = body if request_body['topic'] is None else '''{body}. User left a message for you: {topic}'''.format(
         body=body,
         topic=request_body['topic'])
-    mail_req.send(msg)
+    mail.send(msg)
