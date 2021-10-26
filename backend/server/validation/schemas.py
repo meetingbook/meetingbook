@@ -37,12 +37,11 @@ guest_calendar_schema = {
     "required": ['guest_name', 'guest_email', 'start', 'end']
 }
 
-calendar_link_schema = {
+new_calendar_link_schema = {
     'type': 'object',
-    'properties':
-        {
-            'data': {
-                'valid_until': datetime_schema
-            }
+    'properties': {
+        'data': {
+            'valid_until': datetime_schema
         }
+    }
 }

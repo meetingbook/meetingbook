@@ -560,16 +560,9 @@ definitions:
       data:
         properties:
           valid_until:
-            type: "object"
-            properties:
-              id:
-                type: "string"
-                description: "Unique randomly generated string identifier of the calendar. Consists of digits and latin letters"
-                minLength: 10
-              valid_until:
-                type: "string"
-                format: "date-time"
-                description: "Time of link expiration. The link is not accessible after that time. Defined as Datetime string in ISO 8601 https://en.wikipedia.org/wiki/ISO_8601"
+            type: "string"
+            format: "date-time"
+            description: "Time of link expiration. The link is not accessible after that time. Defined as Datetime string in ISO 8601 https://en.wikipedia.org/wiki/ISO_8601"
   CalendarLink:
     type: "object"
     required:

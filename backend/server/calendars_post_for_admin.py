@@ -3,7 +3,7 @@ from datetime import date
 from flask import jsonify, Blueprint, request
 from flask_expects_json import expects_json
 from server.auth import auth
-from server.validation.schemas import calendar_link_schema
+from server.validation.schemas import new_calendar_link_schema
 from tools.build_response import build_response
 from tools.for_db.work_with_links import add_link, LinkExistsException
 from tools.datetime_convertations import DateTime
@@ -26,10 +26,10 @@ def generate_link_id() -> str:
 
 
 @calendars_post.route('/calendars', methods=['POST'])
-@expects_json(calendar_link_schema, check_formats=True)
+@expects_json(new_calendar_link_schema, check_formats=True)
 @auth.login_required
 def add_info_to_links_table():
-    data = request.get_json('data')
+    data = request.get_json('valid_until')
     admin_id = get_admin_id(auth.current_user())
     link_id = generate_link_id()
     valid_until = get_expiry_date(data)
