@@ -1,18 +1,9 @@
 from db import models
 from tools.datetime_convertations import DateTime
 from db.models import Links, LinksSchema, db
-from datetime import datetime
 
 
 class LinkException(Exception):
-    pass
-
-
-class LinkNotFound(Exception):
-    pass
-
-
-class LinkHasExpired(Exception):
     pass
 
 
@@ -48,12 +39,3 @@ def delete_link(admin_id, link_id):
 
 def get_link(link_id):
     return Links.query.filter_by(link_id=link_id).first()
-
-
-def check_link(link_id):
-    link = models.Links.query.filter_by(link_id=link_id).first()
-    if link is None:
-        raise LinkNotFound('Shareable link not found')
-    elif DateTime().convert_to_datetime(link.valid_until) < datetime.utcnow():
-        raise LinkHasExpired('Unauthorized - link has expired')
-    return link

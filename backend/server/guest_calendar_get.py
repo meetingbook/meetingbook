@@ -1,16 +1,19 @@
 from datetime import datetime
-from tools.for_db.work_with_links import check_link, LinkNotFound, LinkHasExpired
+from tools.for_db.work_with_links import get_link
 from db.models import Slots
 from flask import Blueprint, jsonify
 from tools.get_slots_by_filter import get_slots_by_filter
 from tools.build_response import build_response
+from tools.check_link import check_link, LinkNotFound, LinkHasExpired
+
 guest_calendar_get = Blueprint('guest_calendar_get', __name__)
 
 
 @guest_calendar_get.route('/calendars/<link_id>', methods=['GET'])
 def get_calendar(link_id):
     try:
-        link = check_link(link_id)
+        link = get_link(link_id)
+        check_link(link)
     except LinkNotFound as e:
         return build_response(f'{e}', 404)
     except LinkHasExpired as e:
