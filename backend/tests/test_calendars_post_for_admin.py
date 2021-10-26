@@ -36,8 +36,7 @@ def test_generate_calendar_link_with_valid_until(app_for_test, test_admin):
     assert response.json["valid_until"] != ""
     assert response.json["id"] != ""
 
-# curl -H "Authorization: Basic YWRtaW46UHl0aDBu" -d '{"data": {"valid_until": "2022-10-26T14:22:03.049Z"}}' -H "Content-Type: application/json" -X POST http://localhost:5000/calendars
-#
+
 # for Postman
 # {
 #     "data": {
