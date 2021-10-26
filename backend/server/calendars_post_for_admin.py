@@ -36,9 +36,6 @@ def add_info_to_links_table():
     try:
         add_link(link_id, admin_id, valid_until)
     except LinkExistsException:
-        return make_response(jsonify({
-            "status": 409,
-            "detail": "Conflict. This link exists in MeetingBook"
-        }), 409)
+        return build_response('Conflict. This link exists in MeetingBook', 409)
 
     return jsonify({"id": link_id, "valid_until": valid_until})
