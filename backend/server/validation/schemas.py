@@ -25,7 +25,6 @@ booking_settings_schema = {
     'required': ['duration', 'start_time']
 }
 
-
 guest_calendar_schema = {
     'type': 'object',
     'properties': {
@@ -36,4 +35,13 @@ guest_calendar_schema = {
         'end': datetime_schema
     },
     "required": ['guest_name', 'guest_email', 'start', 'end']
+}
+
+new_calendar_link_schema = {
+    'type': 'object',
+    'properties': {
+        'data': {
+            'valid_until': datetime_schema
+        }
+    }
 }
