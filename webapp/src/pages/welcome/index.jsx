@@ -6,6 +6,7 @@ import GlobalStyles from '@mui/material/GlobalStyles';
 import blob from '../../assets/images/pinkblob_for_welcom.svg';
 import girl from '../../assets/images/undraw_Online_calendar.svg';
 import { Paragraph } from '../../ui/components/atoms/paragraph';
+import { AdaptiveContainer } from '../../ui/components/atoms/templates';
 
 const inputGlobalStyles = (
   <GlobalStyles
@@ -13,7 +14,7 @@ const inputGlobalStyles = (
       body: {
         background: `url(${blob}) no-repeat 50% 50%`,
         backgroundSize: '100%',
-        width: '50%',
+        width: '90%',
         margin: '0 auto',
       },
     }}
@@ -27,7 +28,7 @@ const WhiteTitle = styled(Title)(({ theme }) => ({
 
 export const Welcome = () => {
   return (
-    <Box>
+    <AdaptiveContainer>
       <img src={girl} />
       <Box
         sx={{
@@ -58,6 +59,6 @@ export const Welcome = () => {
           </Button>
         </Box>
       </Box>
-    </Box>
+    </AdaptiveContainer>
   );
 };
