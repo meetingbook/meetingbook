@@ -1,7 +1,7 @@
 import base64
-from tools.create_db_for_tests import create_test_app_with_db
+from tools.for_test.create_db_for_tests import create_test_app_with_db
 from tools.func_for_psw import password_hashing
-from tools.put_booking_settings import put_booking_settings
+from server.endpoints_func.put_booking_settings import put_booking_settings
 from flask import json
 from tools.for_db.work_with_admin_info import add_admin
 

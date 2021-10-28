@@ -1,5 +1,5 @@
-from tools.create_db_for_tests import create_test_app_with_db
-from tools.delete_slot_by_id_for_schedule import delete_slot_by_id_for_schedule
+from tools.for_test.create_db_for_tests import create_test_app_with_db
+from server.endpoints_func.delete_slot_by_id_for_schedule import delete_slot_by_id_for_schedule
 import db.models as models
 
 

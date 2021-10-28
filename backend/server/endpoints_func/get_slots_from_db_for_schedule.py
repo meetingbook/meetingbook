@@ -1,7 +1,7 @@
 from db.models import Slots, SlotsShema
-from tools.transform_str_to_datetime_and_back import transform_string_to_datetime, transform_datetime_to_string
+from tools.datetime.transform_str_to_datetime_and_back import transform_string_to_datetime, transform_datetime_to_string
 from datetime import timedelta
-from tools.query_slots import query_slots
+from server.endpoints_func.query_slots import query_slots
 from flask import make_response
 
 

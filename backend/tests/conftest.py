@@ -1,5 +1,5 @@
 import pytest
-from tools.create_db_for_tests import AdminForTests, create_test_app_with_db
+from tools.for_test.create_db_for_tests import AdminForTests, create_test_app_with_db
 
 
 @pytest.fixture(scope='session')

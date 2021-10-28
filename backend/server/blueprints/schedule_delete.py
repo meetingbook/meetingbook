@@ -1,5 +1,5 @@
 from flask import Blueprint
-from tools.delete_slot_by_id_for_schedule import delete_slot_by_id_for_schedule
+from server.endpoints_func.delete_slot_by_id_for_schedule import delete_slot_by_id_for_schedule
 from server.auth import auth
 
 schedule_delete = Blueprint('schedule_delete', __name__)

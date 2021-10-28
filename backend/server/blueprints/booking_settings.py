@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from tools.get_booking_settings import get_booking_settings
+from server.endpoints_func.get_booking_settings import get_booking_settings
 from server.auth import auth
 
 

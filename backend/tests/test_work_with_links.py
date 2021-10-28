@@ -1,4 +1,4 @@
-from tools.datetime_convertations import DateTime
+from tools.datetime.datetime_convertations import DateTime
 from tools.for_db.work_with_links import add_link, query_links, delete_link, get_link
 
 valid_until = DateTime().utc_plus_delta(days=7)

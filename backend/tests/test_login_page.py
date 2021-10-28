@@ -2,7 +2,7 @@ import base64
 import pytest
 
 import db.models as models
-from tools.create_db_for_tests import create_test_app_with_db
+from tools.for_test.create_db_for_tests import create_test_app_with_db
 from tools.func_for_psw import password_hashing
 
 

@@ -1,7 +1,7 @@
 import pytest
 import server as app
 from flask import json
-from server.index import msg_hello
+from server.blueprints.index import msg_hello
 
 
 @pytest.fixture(scope='module')

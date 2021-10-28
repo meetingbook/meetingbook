@@ -1,5 +1,5 @@
 from types import SimpleNamespace
-from backend.tools.func_for_test_db import clean_table_slots, create_test_table
+from backend.tools.for_test.func_for_test_db import clean_table_slots, create_test_table
 import pytest
 from backend.cli import db
 from cli.db import add_interval, get_slots

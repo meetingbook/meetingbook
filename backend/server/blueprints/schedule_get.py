@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, make_response
 from tools.for_db.work_with_admin_info import get_admin_id
-from tools.get_slots_by_filter import get_slots_by_filter
-from tools.get_slots_from_db_for_schedule import get_slots_from_db_for_schedule
+from server.endpoints_func.get_slots_by_filter import get_slots_by_filter
+from server.endpoints_func.get_slots_from_db_for_schedule import get_slots_from_db_for_schedule
 from server.auth import auth
 
 schedule_get = Blueprint('schedule_get', __name__)

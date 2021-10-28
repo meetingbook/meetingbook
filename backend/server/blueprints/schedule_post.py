@@ -1,5 +1,5 @@
 from flask import Blueprint
-from tools.add_slot_from_db_for_schedule_admin import add_slot_from_db_for_schedule_admin
+from server.endpoints_func.add_slot_from_db_for_schedule_admin import add_slot_from_db_for_schedule_admin
 from server.auth import auth
 schedule_post = Blueprint('schedule_post', __name__)
 

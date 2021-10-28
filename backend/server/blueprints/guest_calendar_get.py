@@ -3,8 +3,8 @@ from datetime import datetime
 from db.models import Slots
 from flask import Blueprint, make_response, jsonify
 from db import models
-from tools.datetime_convertations import DateTime
-from tools.get_slots_by_filter import get_slots_by_filter
+from tools.datetime.datetime_convertations import DateTime
+from server.endpoints_func.get_slots_by_filter import get_slots_by_filter
 
 guest_calendar_get = Blueprint('guest_calendar_get', __name__)
 
