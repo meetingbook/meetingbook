@@ -10,6 +10,7 @@ import { styled } from '@mui/system';
 import bg from '../../assets/images/loginbackground.svg';
 import { AdaptiveContainer } from '../../ui/components/atoms/templates';
 import { request, toBase64, createAuthHeader } from '../../infra/webservice';
+import { saveCredentials } from '../../infra/storage';
 
 const inputGlobalStyles = (
   <GlobalStyles
@@ -50,20 +51,14 @@ export const Login = () => {
     })
       .then((res) => {
         if (res.status === 401) {
-          alert('Please try another email');
+          alert('Try another email or password');
           return;
         }
-
-        history.push('/calendar');
+        saveCredentials(credentials), history.push('/calendar');
       })
       .catch((e) => alert(e.message));
   };
-  // TODO
-  // 1. validate form
-  // 2. convert email & password to base64 using toBase64()
-  // 3. send authRequest to /login using credentials
-  // 4. if response 200, save credentials in storage
-  // 5. navigate to /calendar
+
   return (
     <AdaptiveContainer>
       <Box

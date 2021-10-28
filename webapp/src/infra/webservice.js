@@ -3,7 +3,7 @@ const BASE_URL = 'http://localhost:5000';
 export const toBase64 = (email, password) => btoa(`${email}:${password}`);
 
 export const createAuthHeader = (credentials) => ({
-  Authorization: `Bearer ${credentials}`,
+  Authorization: `Basic ${credentials}`,
 });
 
 export const request = ({ path, method, body = null, headers = {} }) =>
