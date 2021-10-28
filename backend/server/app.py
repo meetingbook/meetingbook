@@ -27,7 +27,6 @@ def create_app():
     app = Flask(__name__)
     CORS(app)
     app.config.from_object(config_settings['development'])
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
     migrate.init_app(app, db)
     app.register_error_handler(400, bad_request)

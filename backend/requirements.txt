@@ -12,4 +12,6 @@ marshmallow-sqlalchemy == 0.26.1
 flask-marshmallow == 0.14.0
 flask-cors == 3.0.10
 flask-expects-json == 1.6.0
+python-dotenv==0.19.1
+psycopg2-binary==2.9.1
 uuid==1.30
