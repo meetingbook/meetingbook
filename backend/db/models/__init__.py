@@ -76,6 +76,7 @@ class BookingInfoShema(ma.SQLAlchemyAutoSchema):
     email = ma.auto_field()
     topic = ma.auto_field()
     slots_inf = ma.auto_field()
+    uuid = ma.auto_field()
 
 
 class SlotsShema(ma.SQLAlchemyAutoSchema):
