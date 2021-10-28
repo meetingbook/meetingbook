@@ -1,7 +1,9 @@
-from flask import json
+import base64
+
 from server import app
 from db.models import db
-from tools.for_db.work_with_admin_info import get_admin_id
+from tools.for_db.work_with_admin_info import get_admin_id, add_admin
+from tools.func_for_psw import password_hashing
 
 
 def create_test_app_with_db():
@@ -13,10 +15,19 @@ def create_test_app_with_db():
     return app
 
 
-def get_admin_id_for_test():
-    correct_email = 'correct@email.com'
-    with create_test_app_with_db().test_client() as con:
-        con.post('/registration',
-                 data=json.dumps(dict(email=correct_email, password='Correct_password')),
-                 content_type='application/json')
-        return get_admin_id(correct_email)
+class AdminForTests:
+    def __init__(self):
+        self.email = 'correct@email.com'
+        self.password = 'Password'
+        self.id = None
+
+    def register_admin(self):
+        add_admin(self.email, password_hashing(self.password))
+        self.id = get_admin_id(self.email)
+
+    def get_id(self):
+        return self.id
+
+    def get_valid_header(self):
+        valid_credentials = base64.b64encode(f'{self.email}:{self.password}'.encode()).decode('utf-8')
+        return {'Authorization': 'Basic ' + valid_credentials}
