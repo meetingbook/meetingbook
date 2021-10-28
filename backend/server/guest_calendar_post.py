@@ -26,6 +26,6 @@ def create_guest_calendar_post(mail):
             request_body['uuid'] = get_uuid(booking_id)
         except Exception:
             return make_response({"status": 409, "detail": 'already booked or deleted'}, 409)
-        send_email(admin_id, request_body, mail)
+        send_email(admin_id, request_body, mail, link_id)
         return make_response(request_body, 200)
     return guest_calendar_post
