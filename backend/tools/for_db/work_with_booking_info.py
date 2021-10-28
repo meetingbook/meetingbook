@@ -1,7 +1,8 @@
+from tools.generate_uid import generate_uid
+from tools.build_response import build_response
+from tools.for_db.work_with_slots import BookingNotFound
 import db.models as models
 from tools.for_db.work_with_slots import get_id_slice_of_slot, update_booking_id_in_slot
-from tools.for_db.work_with_slots import BookingNotFound
-from tools.build_response import build_response
 
 
 class BookingSlotException(Exception):
@@ -19,7 +20,8 @@ def add_booking_info(booking_inf_name, booking_inf_email):
 
 def add_booking_info_and_get_id(start, end, admin_id, name, email, topic=None):
     try:
-        booking_info = models.BookingInfo(name=name, email=email, topic=topic)
+        uuid = generate_uid()
+        booking_info = models.BookingInfo(name=name, email=email, topic=topic, uuid=uuid)
         models.db.session.add(booking_info)
         slot_id = get_id_slice_of_slot(start, end, admin_id)
         booking_id = booking_info.id
@@ -51,3 +53,7 @@ def get_booking_info(booking_id):
     if booking_info is None:
         raise BookingNotFound('Booking not found')
     return booking_info
+
+
+def get_uuid(booking_id):
+    return models.BookingInfo.query.filter_by(id=booking_id).first().uuid
