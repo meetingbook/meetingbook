@@ -4,7 +4,7 @@ from tools.build_response import build_response
 from tools.for_db.work_with_slots import get_slots_by_admin_id_and_booking_id, BookingNotFound
 from tools.for_db.work_with_booking_info import get_booking_info
 from tools.for_db.work_with_links import get_link
-from tools.check_link import check_link, LinkHasExpired, LinkNotFound
+from server.validation.check_link import check_link, LinkHasExpired, LinkNotFound
 
 calendars_bookings_get = Blueprint('calendars_bookings_get', __name__)
 

@@ -4,7 +4,7 @@ from db.models import Slots
 from flask import Blueprint, jsonify
 from tools.get_slots_by_filter import get_slots_by_filter
 from tools.build_response import build_response
-from tools.check_link import check_link, LinkNotFound, LinkHasExpired
+from server.validation.check_link import check_link, LinkNotFound, LinkHasExpired
 
 guest_calendar_get = Blueprint('guest_calendar_get', __name__)
 
