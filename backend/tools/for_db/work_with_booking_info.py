@@ -20,7 +20,7 @@ def add_booking_info(booking_inf_name, booking_inf_email):
         }, 500)
 
 
-def add_booking_info_and_get_id(start, end, admin_id, name, email, topic=None):
+def add_booking_info_and_get_uuid(start, end, admin_id, name, email, topic=None):
     try:
         uuid = generate_uid()
         booking_info = models.BookingInfo(name=name, email=email, topic=topic, uuid=uuid)
@@ -34,7 +34,7 @@ def add_booking_info_and_get_id(start, end, admin_id, name, email, topic=None):
         raise BookingSlotException('error adding booking info')
     finally:
         models.db.session.close()
-    return booking_id
+    return uuid
 
 
 def query_booking_info_by_id(booking_id):
@@ -48,7 +48,3 @@ def delete_booking_info(booking_id):
     except Exception:
         models.db.session.rollback()
         raise BookingSlotException('Unable to delete booking info')
-
-
-def get_uuid(booking_id):
-    return models.BookingInfo.query.filter_by(id=booking_id).first().uuid
