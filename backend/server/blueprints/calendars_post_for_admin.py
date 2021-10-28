@@ -6,7 +6,7 @@ from server.auth import auth
 from server.validation.schemas import new_calendar_link_schema
 from tools.build_response import build_response
 from tools.for_db.work_with_links import add_link, LinkExistsException
-from tools.datetime_convertations import DateTime
+from tools.datetime.datetime_convertations import DateTime
 from tools.for_db.work_with_admin_info import get_admin_id
 
 calendars_post = Blueprint('calendars_post', __name__)

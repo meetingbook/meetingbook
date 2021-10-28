@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from server.auth import auth
-from tools.put_booking_settings import put_booking_settings
+from server.endpoints_func.put_booking_settings import put_booking_settings
 from flask_expects_json import expects_json
 from server.validation.schemas import booking_settings_schema
 

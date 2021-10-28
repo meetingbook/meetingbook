@@ -1,7 +1,7 @@
 import base64
 from datetime import datetime, timedelta
 
-from tools.add_slot_from_db_for_schedule_admin import add_slot_from_db_for_schedule_admin
+from server.endpoints_func.add_slot_from_db_for_schedule_admin import add_slot_from_db_for_schedule_admin
 from db.models import Slots, SlotsShema
 from tools.for_db.work_with_admin_info import add_admin
 from tools.func_for_psw import password_hashing

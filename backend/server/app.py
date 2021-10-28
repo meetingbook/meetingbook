@@ -4,22 +4,22 @@ from flask_migrate import Migrate
 
 from config import config_settings
 from db.models import db
-from server.index import index_page
-from server.admin import admin_page
-from server.login import login_page
-from server.swagger_ui import swaggerui_blueprint
-from server.register import register_blueprint
-from server.schedule_get import schedule_get
-from server.schedule_post import schedule_post
-from server.booking_settings import booking_settings_blueprint
-from server.schedule_delete import schedule_delete
-from server.guest_calendar_get import guest_calendar_get
-from server.admin_calendar_get import admin_calendar_get
-from server.admin_calendars_id_delete import admin_calendars_id
-from server.guest_calendar_post import guest_calendar_post
+from server.blueprints.index import index_page
+from server.blueprints.admin import admin_page
+from server.blueprints.login import login_page
+from server.blueprints.swagger_ui import swaggerui_blueprint
+from server.blueprints.register import register_blueprint
+from server.blueprints.schedule_get import schedule_get
+from server.blueprints.schedule_post import schedule_post
+from server.blueprints.booking_settings import booking_settings_blueprint
+from server.blueprints.schedule_delete import schedule_delete
+from server.blueprints.guest_calendar_get import guest_calendar_get
+from server.blueprints.admin_calendar_get import admin_calendar_get
+from server.blueprints.admin_calendars_id_delete import admin_calendars_id
+from server.blueprints.guest_calendar_post import guest_calendar_post
 from server.validation.validation_error import bad_request
-from server.booking_settings_put import booking_settings_put
-from server.calendars_post_for_admin import calendars_post
+from server.blueprints.booking_settings_put import booking_settings_put
+from server.blueprints.calendars_post_for_admin import calendars_post
 migrate = Migrate()
 
 

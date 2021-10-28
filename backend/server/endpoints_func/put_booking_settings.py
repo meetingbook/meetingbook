@@ -3,7 +3,7 @@ from db.models import BookingSettings
 from tools.for_db.work_with_admin_info import get_admin_id
 import db.models as models
 from tools.build_response import build_response
-from tools.get_booking_settings import get_booking_settings
+from server.endpoints_func.get_booking_settings import get_booking_settings
 
 
 def put_booking_settings(duration, start_time, email_admin):

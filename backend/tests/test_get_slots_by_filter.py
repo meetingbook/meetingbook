@@ -1,6 +1,6 @@
 import pytest
-from tools.create_db_for_tests import create_test_app_with_db
-from tools.get_slots_by_filter import get_slots_by_filter
+from tools.for_test.create_db_for_tests import create_test_app_with_db
+from server.endpoints_func.get_slots_by_filter import get_slots_by_filter
 from tools.for_db.work_with_slots import add_slots
 from tools.for_db.work_with_booking_info import add_booking_info
 

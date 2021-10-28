@@ -1,7 +1,7 @@
 import base64
-from tools.create_db_for_tests import create_test_app_with_db
+from tools.for_test.create_db_for_tests import create_test_app_with_db
 from tools.func_for_psw import password_hashing
-from tools.get_booking_settings import get_booking_settings
+from server.endpoints_func.get_booking_settings import get_booking_settings
 from tools.for_db.work_with_admin_info import add_admin
 
 

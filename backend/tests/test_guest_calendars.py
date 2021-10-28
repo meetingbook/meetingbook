@@ -1,6 +1,6 @@
 from flask import json
 
-from tools.datetime_convertations import DateTime
+from tools.datetime.datetime_convertations import DateTime
 from tools.for_db.work_with_links import add_link
 from tools.for_db.work_with_slots import add_slots
 
