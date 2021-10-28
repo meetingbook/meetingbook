@@ -48,3 +48,7 @@ def delete_booking_info(booking_id):
 
     finally:
         models.db.session.close()
+
+
+def get_uuid(booking_id):
+    return models.BookingInfo.query.filter_by(id=booking_id).first().uuid
