@@ -20,6 +20,7 @@ from server.guest_calendar_post import guest_calendar_post
 from server.validation.validation_error import bad_request
 from server.booking_settings_put import booking_settings_put
 from server.calendars_bookings_get import calendars_bookings_get
+from server.calendars_post_for_admin import calendars_post
 
 migrate = Migrate()
 
@@ -48,4 +49,6 @@ def create_app():
     app.register_blueprint(guest_calendar_post)
     app.register_blueprint(guest_calendar_get)
     app.register_blueprint(calendars_bookings_get)
+    app.register_blueprint(calendars_post)
+
     return app
