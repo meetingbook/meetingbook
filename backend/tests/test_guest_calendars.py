@@ -1,6 +1,8 @@
+import re
 from flask import json
 
 from tools.datetime_convertations import DateTime
+from tools.for_db.work_with_booking_info import query_booking_info_by_id
 from tools.for_db.work_with_links import add_link
 from tools.for_db.work_with_slots import add_slot_and_get_id
 
@@ -36,6 +38,9 @@ def test_guest_calendar_post(app_for_test, test_admin, link_id):
                                                   topic='Topic', start=start, end=end)),
                              content_type='application/json')
     assert res1.status == '200 OK'
+    assert re.search(r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}', res1.json['uuid'])
+    assert res1.json['start'] == start
+    assert res1.json['end'] == end
     assert res2.status == '401 UNAUTHORIZED'
     assert res3.status == '409 CONFLICT'
     assert res4.status == '400 BAD REQUEST'
@@ -61,7 +66,8 @@ def test_guest_calendar_get_401(app_for_test, test_admin):
 
 
 def test_guest_calendar_delete_200(app_for_test, link_id):
-    res = app_for_test.delete(f'/calendars/{link_id}/bookings/1')
+    booking_uuid = query_booking_info_by_id(1).uuid
+    res = app_for_test.delete(f'/calendars/{link_id}/bookings/{booking_uuid}')
     assert res.status == '200 OK'
     assert res.json == {'detail': 'Successful request', 'status': 200}
 

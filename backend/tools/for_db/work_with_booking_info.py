@@ -41,10 +41,17 @@ def query_booking_info_by_id(booking_id):
     return models.BookingInfo.query.filter_by(id=booking_id).first()
 
 
-def delete_booking_info(booking_id):
+def query_booking_info_by_uuid(uuid):
+    return models.BookingInfo.query.filter_by(uuid=uuid).first()
+
+
+def delete_booking_info_and_get_id(uuid):
     try:
-        models.db.session.delete(query_booking_info_by_id(booking_id))
+        booking_info = query_booking_info_by_uuid(uuid)
+        booking_id = booking_info.id
+        models.db.session.delete(booking_info)
         models.db.session.flush()
     except Exception:
         models.db.session.rollback()
         raise BookingSlotException('Unable to delete booking info')
+    return booking_id
