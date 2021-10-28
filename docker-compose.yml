@@ -10,7 +10,7 @@ services:
       - "5000:5000"
     environment:
       - SQLALCHEMY_DATABASE_URI=postgresql://postgres:hello@postgres_db:5432/postgres
-    command: sh -c './wait-for postgres_db:5432 && flask db upgrade && flask run -h 0.0.0.0 -p 5000'
+    command: sh -c './wait-for.sh postgres_db:5432 && flask db upgrade && flask run -h 0.0.0.0 -p 5000'
     depends_on:
       - postgres_db
   postgres_db:
