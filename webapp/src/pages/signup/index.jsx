@@ -8,6 +8,7 @@ import Avatar from '@mui/material/Avatar';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import { styled } from '@mui/system';
 import bg from '../../assets/images/loginbackground.svg';
+import { AdaptiveContainer } from '../../ui/components/atoms/templates';
 import { request } from '../../infra/webservice';
 
 const inputGlobalStyles = (
@@ -16,7 +17,7 @@ const inputGlobalStyles = (
       body: {
         background: `url(${bg}) no-repeat 50% 50%`,
         backgroundSize: 'cover',
-        width: '50%',
+        width: '90%',
         margin: '0 auto',
       },
     }}
@@ -58,6 +59,7 @@ export const SignUp = () => {
   };
 
   return (
+    <AdaptiveContainer>
     <Box
       onSubmit={handleOnSubmit}
       component="form"
@@ -95,5 +97,6 @@ export const SignUp = () => {
         <Link to="/login">Login</Link>
       </Box>
     </Box>
+    </AdaptiveContainer>
   );
 };
