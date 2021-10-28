@@ -18,8 +18,8 @@ def booking(link_id):
     admin_id = link.admin_id
     try:
         uuid = add_booking_info_and_get_uuid(request_body['start'], request_body['end'], admin_id,
-                                                 request_body['guest_name'], request_body['guest_email'],
-                                                 request_body['topic'] if 'topic' in request_body else None)
+                                             request_body['guest_name'], request_body['guest_email'],
+                                             request_body['topic'] if 'topic' in request_body else None)
         request_body['uuid'] = uuid
     except Exception:
         return make_response({"status": 409, "detail": 'already booked or deleted'}, 409)
