@@ -6,7 +6,6 @@ json = {
     'end': '2024-12-02T10:30:47.984Z',
     'guest_email': 'test@test.by',
     'guest_name': 'vasia',
-    'id': 1,
     'start': '2024-12-02T10:00:47.984Z',
     'topic': 'testestest',
 }
@@ -28,7 +27,9 @@ def test_calendar_booking_get(app_for_test, test_admin):
 
     assert result == ('2024-12-02T10:00:47.984Z', '2024-12-02T10:30:47.984Z')
     assert res_booking_info.name == 'vasia'
-    assert req_1.json == json
+    assert req_1.json['end'] == '2024-12-02T10:30:47.984Z'
+    assert req_1.json['guest_email'] == 'test@test.by'
+    assert req_1.json['uuid'] != {}
     assert req_2.json == {'detail': 'Shareable link not found', 'status': 404}
     assert req_3.json == {'detail': 'Booking not found', 'status': 404}
     assert req_4.json == {'detail': 'Unauthorized - link has expired', 'status': 401}

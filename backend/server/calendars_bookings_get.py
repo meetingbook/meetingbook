@@ -23,7 +23,7 @@ def get_calendars_bookings(link_id, booking_id):
     except LinkHasExpired as e:
         return build_response(f'{e}', 401)
     return jsonify({
-        "id": booking_info.id,
+        "uuid": booking_info.uuid,
         "guest_name": booking_info.name,
         "guest_email": booking_info.email,
         "topic": booking_info.topic,
