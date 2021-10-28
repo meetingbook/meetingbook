@@ -515,9 +515,9 @@ definitions:
       - guest_name
       - guest_email
     properties:
-      id:
-        type: "integer"
-        format: "int64"
+      uuid:
+        type: "string"
+        description: "Guests uuid"
       guest_name:
         type: "string"
         description: "Guest name who makes a booking"
