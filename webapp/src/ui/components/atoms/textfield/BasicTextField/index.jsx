@@ -1,5 +1,9 @@
 import TextField from '@mui/material/TextField';
 
 export const BasicTextField = (props) => (
-  <TextField {...props} variant="outlined" />
+  <TextField
+    InputLabelProps={{ required: false }}
+    {...props}
+    variant="outlined"
+  />
 );

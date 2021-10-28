@@ -78,13 +78,13 @@ export const Login = () => {
         <Box>
           <BasicTextField
             type="email"
-            requried="true"
+            required
             fullWidth={true}
             label="Email"
           />
         </Box>
         <Box>
-          <PasswordTextField requried="true" label="Password" />
+          <PasswordTextField type="password" required label="Password" />
         </Box>
         <Box>
           <Button type="submit" fullWidth={true}>
