@@ -25,6 +25,7 @@ class BookingInfo(db.Model):
     name = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(500), nullable=False)
     topic = db.Column(db.String(500))
+    uuid = db.Column(db.String(500))
     slots_inf = db.relationship('Slots', backref='info', lazy='dynamic')
 
 
@@ -75,6 +76,7 @@ class BookingInfoShema(ma.SQLAlchemyAutoSchema):
     email = ma.auto_field()
     topic = ma.auto_field()
     slots_inf = ma.auto_field()
+    uuid = ma.auto_field()
 
 
 class SlotsShema(ma.SQLAlchemyAutoSchema):
