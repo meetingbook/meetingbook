@@ -3,7 +3,7 @@ from flask_expects_json import expects_json
 
 from server.validation.schemas import guest_calendar_schema
 from tools.emails import send_email
-from tools.for_db.work_with_booking_info import add_booking_info_and_get_id
+from tools.for_db.work_with_booking_info import add_booking_info_and_get_id, get_uuid
 from tools.for_db.work_with_links import get_link
 
 
@@ -23,7 +23,7 @@ def create_guest_calendar_post(mail):
             booking_id = add_booking_info_and_get_id(request_body['start'], request_body['end'], admin_id,
                                                      request_body['guest_name'], request_body['guest_email'],
                                                      request_body['topic'] if 'topic' in request_body else None)
-            request_body['id'] = booking_id
+            request_body['uuid'] = get_uuid(booking_id)
         except Exception:
             return make_response({"status": 409, "detail": 'already booked or deleted'}, 409)
         send_email(admin_id, request_body, mail)
