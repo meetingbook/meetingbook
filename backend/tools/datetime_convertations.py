@@ -37,3 +37,11 @@ class DateTime:
         self.set_utc_now()
         self.datetime += timedelta(days=days, hours=hours)
         return self.convert_to_iso()
+
+
+end = DateTime().convert_to_datetime(DateTime().utc_plus_delta(hours=1))
+print(end)
+delta = end - datetime.utcnow()
+print(delta)
+print(delta.days)
+print(delta.seconds//60)

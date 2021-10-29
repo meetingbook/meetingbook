@@ -18,6 +18,10 @@ def test_guest_calendar_post(app_for_test, test_admin, link_id):
     add_slots('2020-09-01T15:00:56.273Z', '2020-09-01T16:00:56.273Z', admin_id)
     add_slots(dt_for_link, end_interval, admin_id)
     add_link(link_id, admin_id, dt_for_link)
+    res0 = app_for_test.post(f'/calendars/{link_id}/bookings/',
+                             data=json.dumps(dict(guest_name='Name', guest_email='test@ma.c',
+                                                  topic='Topic', start=start, end='2021-10-07T15:30:56.273Z')),
+                             content_type='application/json')
     res1 = app_for_test.post(f'/calendars/{link_id}/bookings/',
                              data=json.dumps(dict(guest_name='Name', guest_email='test@ma.c',
                                                   topic='Topic', start=start, end=end)),
@@ -36,6 +40,7 @@ def test_guest_calendar_post(app_for_test, test_admin, link_id):
                              data=json.dumps(dict(guest_name='Name', guest_email='test.c',
                                                   topic='Topic', start=start, end=end)),
                              content_type='application/json')
+    assert res0.status == '409 CONFLICT'    # does not match with booking_ыуеештпы
     assert res1.status == '200 OK'
     assert res2.status == '401 UNAUTHORIZED'
     assert res3.status == '409 CONFLICT'
