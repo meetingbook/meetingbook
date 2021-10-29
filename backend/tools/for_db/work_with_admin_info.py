@@ -18,7 +18,7 @@ def add_admin(email, password):
         admin_model = models.AdminInfo(email=email, psw=password)
         models.db.session.add(admin_model)
         models.db.session.flush()
-        add_booking_settings({'allowed_values': '[15]'}, {'allowed_values': '[0]'}, admin_model.id)
+        add_booking_settings({'allowed_values': '[60]'}, {'allowed_values': '[00]'}, admin_model.id)
         models.db.session.commit()
     except sqlalchemy.exc.IntegrityError:
         models.db.session.rollback()

@@ -14,8 +14,8 @@ duration = {"msd": "testduration"}
 start_time = {"msg": "teststart_time"}
 json = [
     {
-        'duration': {'allowed_values': '[15]'},
-        'start_time': {'allowed_values': '[0]'}
+        'duration': {'allowed_values': '[60]'},
+        'start_time': {'allowed_values': '[00]'}
     }
 ]
 
@@ -33,6 +33,6 @@ def test_status_200():
         response = con.get('/booking_settings', headers={'Authorization': 'Basic ' + valid_credentials})
     assert response.status == '200 OK'
     assert response.json == [{
-        'duration': {'allowed_values': '[15]'},
-        'start_time': {'allowed_values': '[0]'}
+        'duration': {'allowed_values': '[60]'},
+        'start_time': {'allowed_values': '[00]'}
     }]
