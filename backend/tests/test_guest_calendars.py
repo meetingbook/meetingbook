@@ -40,7 +40,7 @@ def test_guest_calendar_post(app_for_test, test_admin, link_id):
                              data=json.dumps(dict(guest_name='Name', guest_email='test.c',
                                                   topic='Topic', start=start, end=end)),
                              content_type='application/json')
-    assert res0.status == '409 CONFLICT'    # does not match with booking_ыуеештпы
+    assert res0.status == '409 CONFLICT'    # does not match with booking_settings
     assert res1.status == '200 OK'
     assert res2.status == '401 UNAUTHORIZED'
     assert res3.status == '409 CONFLICT'
