@@ -287,6 +287,8 @@ paths:
       responses:
         "200":
           description: "Deletion successful"
+          schema:
+            $ref: "#/definitions/Problem"
         "404":
           description: "Shareable link not found"
           schema:
