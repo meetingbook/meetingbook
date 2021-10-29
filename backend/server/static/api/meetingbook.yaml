@@ -368,7 +368,7 @@ paths:
           schema:
             $ref: "#/definitions/Problem"
         "409":
-          description: "Conflict - unable to book (already booked or deleted)"
+          description: "Conflict - unable to book (already booked or deleted or don't match booking_settings)"
           schema:
             $ref: "#/definitions/Problem"
   /calendars/{link_id}/bookings/{booking_id}:
