@@ -1,8 +1,12 @@
 import os
+import dotenv
+
+dotenv.load_dotenv('.env')
 
 
-class Config():
+class Config:
     DEBUG = True
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class DevelopmentConfig(Config):
@@ -13,6 +17,7 @@ class DevelopmentConfig(Config):
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')  # password.
     MAIL_USE_TLS = False
     MAIL_USE_SSL = True
+
 
 
 config_settings = {
