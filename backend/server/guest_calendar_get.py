@@ -4,7 +4,7 @@ from db.models import Slots
 from flask import Blueprint, jsonify
 from tools.get_slots_by_filter import get_slots_by_filter
 from tools.build_response import build_response
-from server.validation.check_link import check_link, LinkNotFound, LinkHasExpired
+from server.validation.ensure_valid_link import ensure_valid_link, LinkNotFound, LinkHasExpired
 
 guest_calendar_get = Blueprint('guest_calendar_get', __name__)
 
@@ -13,7 +13,7 @@ guest_calendar_get = Blueprint('guest_calendar_get', __name__)
 def get_calendar(link_id):
     try:
         link = get_link(link_id)
-        check_link(link)
+        ensure_valid_link(link)
     except LinkNotFound as e:
         return build_response(f'{e}', 404)
     except LinkHasExpired as e:

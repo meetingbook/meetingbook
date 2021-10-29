@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint
 from tools.build_response import build_response
 from server.auth import auth
 from tools.for_db.work_with_admin_info import get_admin_id
@@ -17,4 +17,4 @@ def calendars_delete_link(link_id):
         delete_link(admin_id, link_id)
     except Exception:
         return build_response('Unable to delete link', 500)
-    return jsonify({'detail': 'deletion successful'})
+    return build_response('Deletion successful', 200)

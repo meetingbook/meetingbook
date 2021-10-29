@@ -10,7 +10,7 @@ class LinkHasExpired(Exception):
     pass
 
 
-def check_link(link):
+def ensure_valid_link(link):
     if link is None:
         raise LinkNotFound('Shareable link not found')
     elif DateTime().convert_to_datetime(link.valid_until) < datetime.utcnow():
