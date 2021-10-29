@@ -19,7 +19,6 @@ class DevelopmentConfig(Config):
     MAIL_USE_SSL = True
 
 
-
 config_settings = {
     'development': DevelopmentConfig
 }
