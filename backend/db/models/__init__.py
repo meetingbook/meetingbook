@@ -1,7 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import UniqueConstraint
 from flask_marshmallow import Marshmallow
-from sqlalchemy.sql.sqltypes import JSON
+from sqlalchemy.dialects.postgresql import JSON
+
 db = SQLAlchemy()
 ma = Marshmallow()
 
@@ -24,6 +25,7 @@ class BookingInfo(db.Model):
     name = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(500), nullable=False)
     topic = db.Column(db.String(500))
+    uuid = db.Column(db.String(500))
     slots_inf = db.relationship('Slots', backref='info', lazy='dynamic')
 
 
@@ -57,6 +59,7 @@ class AdminInfoShema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = AdminInfo
         load_instance = True
+
     id = ma.auto_field()
     email = ma.auto_field()
     psw = ma.auto_field()
@@ -67,17 +70,20 @@ class BookingInfoShema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = BookingInfo
         load_instance = True
+
     id = ma.auto_field()
     name = ma.auto_field()
     email = ma.auto_field()
     topic = ma.auto_field()
     slots_inf = ma.auto_field()
+    uuid = ma.auto_field()
 
 
 class SlotsShema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Slots
         load_instance = True
+
     id = ma.auto_field()
     start_interval = ma.auto_field()
     end_interval = ma.auto_field()
@@ -88,6 +94,7 @@ class BookingSettingsSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = BookingSettings
         load_instance = True
+
     id = ma.auto_field()
     start_time = ma.auto_field()
     duration = ma.auto_field()
@@ -97,6 +104,7 @@ class LinksSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Links
         load_instance = True
+
     id = ma.auto_field()
     link_id = ma.auto_field()
     valid_until = ma.auto_field()

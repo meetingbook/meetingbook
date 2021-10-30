@@ -1,4 +1,7 @@
 import os
+import dotenv
+
+dotenv.load_dotenv('.env')
 
 
 class Config:
@@ -7,8 +10,7 @@ class Config:
 
 
 class DevelopmentConfig(Config):
-    basedir = os.path.abspath(os.path.dirname(__file__)) + '/../db'
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'main_db.sqlite')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI', 'sqlite:///../db/main_db.sqlite')
 
 
 class TestConfig(Config):
