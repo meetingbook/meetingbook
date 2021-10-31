@@ -52,6 +52,7 @@ export const PasswordTextField = (props) => {
         }
         label={props.label}
         required={props.required}
+        type={props.type}
       />
     </FormControl>
   );
