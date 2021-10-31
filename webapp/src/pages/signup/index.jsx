@@ -10,6 +10,7 @@ import { styled } from '@mui/system';
 import bg from '../../assets/images/loginbackground.svg';
 import { AdaptiveContainer } from '../../ui/components/atoms/templates';
 import { request } from '../../infra/webservice';
+import { Snackbar } from '../../ui/components/atoms/snackbar';
 
 const inputGlobalStyles = (
   <GlobalStyles
@@ -53,7 +54,7 @@ export const SignUp = () => {
     })
       .then((res) => {
         if (res.status === 409) {
-          alert('Please try another email');
+          setSnackbarOpen(true);
           return;
         }
 
@@ -101,6 +102,11 @@ export const SignUp = () => {
           <Link to="/login">Login</Link>
         </Box>
       </Box>
+      <Snackbar
+        open={snackbarOpen}
+        message="Please try another email or password"
+        severity="error"
+      />
     </AdaptiveContainer>
   );
 };
