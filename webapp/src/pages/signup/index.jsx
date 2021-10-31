@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Title } from '../../ui/components/atoms/title';
 import { BasicTextField } from '../../ui/components/atoms/textfield/BasicTextField';
@@ -37,6 +38,7 @@ const WhiteAvatar = styled(Avatar)(({ theme }) => ({
 }));
 
 export const SignUp = () => {
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
   const history = useHistory();
 
   const handleOnSubmit = (e) => {
