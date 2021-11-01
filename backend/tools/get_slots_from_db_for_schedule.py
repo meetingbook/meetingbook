@@ -1,8 +1,9 @@
+from datetime import timedelta
+
 from db.models import Slots, SlotsShema
 from tools.transform_str_to_datetime_and_back import transform_string_to_datetime, transform_datetime_to_string
-from datetime import timedelta
 from tools.for_db.work_with_slots import query_slots
-from flask import make_response
+from tools.build_response import build_response
 
 
 def get_slots_from_db_for_schedule(admin_id, date, filter, days):
@@ -16,10 +17,7 @@ def get_slots_from_db_for_schedule(admin_id, date, filter, days):
     elif filter == "available":
         list_of_slots = query_slots(admin_id, date, end_interval, Slots.booking_id.is_(None))
     else:
-        return make_response({
-            "status": 400,
-            "detail": "Invalid filter"
-        }, 400)
+        return build_response("Invalid filter", 400)
     slots_shema = SlotsShema(many=True)
     output = slots_shema.dump(list_of_slots)
     return output

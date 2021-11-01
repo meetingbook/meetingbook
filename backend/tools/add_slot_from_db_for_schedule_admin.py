@@ -1,8 +1,9 @@
 from datetime import datetime
 
 import db.models as models
-from flask import make_response, jsonify
+from flask import jsonify
 from cli.parser import regular_start_end
+from tools.build_response import build_response
 from tools.for_db.work_with_admin_info import get_admin_id
 from tools.for_db.work_with_slots import add_slot_and_get_id, get_slot_by_id
 
@@ -20,6 +21,6 @@ def add_slot_from_db_for_schedule_admin(start, end, email_admin):
             return jsonify(get_slot_by_id(slots))
         except Exception:
             models.db.session.rollback()
-            return make_response({'detail': 'Creation failed', 'status': 500}, 500)
+            return build_response('Creation failed', 500)
     else:
-        return make_response({'detail': "400 Bad Request", 'status': 400}, 400)
+        return build_response("400 Bad Request", 400)

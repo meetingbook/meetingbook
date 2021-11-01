@@ -7,6 +7,10 @@ class DbSlotException(Exception):
     pass
 
 
+class BookingNotFound(Exception):
+    pass
+
+
 def add_slot_and_get_id(start_interval, end_interval, admin_id, booking_id=None):
     try:
         slots = models.Slots(start_interval=start_interval, end_interval=end_interval,
@@ -94,7 +98,16 @@ def query_slots(admin_id, date, end_interval, none_or_not=None):
     return list_of_slots
 
 
-def marshmallow_for_query_slots(qury_slots):
+def marshmallow_for_query_slots(query_slots):
     slots_shema = SlotsShema(many=True)
-    output = slots_shema.dump(qury_slots.all())
+    output = slots_shema.dump(query_slots.all())
     return output
+
+
+def get_slots_by_admin_id_and_booking_id(id_admin, id_booking):
+    slots = Slots.query.with_entities(
+        Slots.start_interval,
+        Slots.end_interval).filter_by(admin_id=id_admin, booking_id=id_booking).first()
+    if slots is None:
+        raise BookingNotFound('Booking not found')
+    return slots
