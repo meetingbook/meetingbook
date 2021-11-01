@@ -1,6 +1,6 @@
-from flask import make_response
 from sqlalchemy import and_, or_
 from db.models import Slots, SlotsShema
+from tools.build_response import build_response
 
 
 def get_slots_by_filter(filter, admin_id, start_filter=None):
@@ -13,10 +13,7 @@ def get_slots_by_filter(filter, admin_id, start_filter=None):
                                                 or_(start_filter is None, start_filter))).all()
 
     else:
-        return make_response({
-            "status": 400,
-            "detail": "Invalid filter"
-        }, 400)
+        return build_response("Invalid filter", 400)
     slots_shema = SlotsShema(many=True)
     output = slots_shema.dump(booking_slots)
     return output

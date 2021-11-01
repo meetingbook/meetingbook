@@ -7,6 +7,10 @@ class DbSlotException(Exception):
     pass
 
 
+class BookingNotFound(Exception):
+    pass
+
+
 def add_slots(start_interval, end_interval, create_admin_id, booking_id=None):
     try:
         slots = models.Slots(start_interval=start_interval, end_interval=end_interval,
@@ -61,3 +65,13 @@ def update_booking_id_in_slot(slot_id, book_id):
     except Exception:
         models.db.session.rollback()
         raise DbSlotException('Error. Unable to book slot')
+
+
+def get_slots_by_admin_id_and_booking_id(id_admin, id_booking):
+    slots = Slots.query.with_entities(
+        Slots.start_interval,
+        Slots.end_interval).filter_by(admin_id=id_admin, booking_id=id_booking).first()
+    if slots is None:
+        raise BookingNotFound('Booking not found')
+
+    return slots
