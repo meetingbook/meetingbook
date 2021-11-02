@@ -527,7 +527,7 @@ definitions:
       - guest_name
       - guest_email
     properties:
-      uuid:
+      link_id:
         type: "string"
         description: "Guests uuid"
       guest_name:
@@ -581,7 +581,7 @@ definitions:
       - id
       - valid_until
     properties:
-      id:
+      link_id:
         type: "string"
         description: "Unique randomly generated string identifier of the calendar. Consists of digits and latin letters"
         minLength: 10
@@ -606,7 +606,7 @@ definitions:
       - slots
       - valid_until
     properties:
-      id:
+      link_id:
         type: "string"
         description: "Unique randomly generated string identifier of the calendar. Consists of digits and latin letters"
         minLength: 10
