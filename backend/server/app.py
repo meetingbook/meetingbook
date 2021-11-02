@@ -20,14 +20,17 @@ from server.admin_calendars_id_delete import admin_calendars_id
 from server.guest_calendar_post import create_guest_calendar_post
 from server.validation.validation_error import bad_request
 from server.booking_settings_put import booking_settings_put
+from server.calendars_bookings_get import calendars_bookings_get
 from server.calendars_post_for_admin import calendars_post
+
 migrate = Migrate()
 mail = Mail()
 
 
 def create_app():
     app = Flask(__name__)
-    CORS(app)
+    CORS(app, supports_credentials=True)
+
     app.config.from_object(config_settings['development'])
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     mail.init_app(app)
@@ -49,5 +52,7 @@ def create_app():
     app.register_blueprint(admin_calendars_id)
     app.register_blueprint(create_guest_calendar_post(mail))
     app.register_blueprint(guest_calendar_get)
+    app.register_blueprint(calendars_bookings_get)
     app.register_blueprint(calendars_post)
+
     return app

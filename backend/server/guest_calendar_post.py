@@ -1,10 +1,12 @@
-from flask import Blueprint, request, make_response, jsonify
+from flask import Blueprint, request, make_response
 from flask_expects_json import expects_json
 
 from server.validation.schemas import guest_calendar_schema
 from tools.emails import send_email
 from tools.for_db.work_with_booking_info import add_booking_info_and_get_id, get_uuid
 from tools.for_db.work_with_links import get_link
+from tools.build_response import build_response
+guest_calendar_post = Blueprint('guest_calendar_post', __name__)
 
 
 def create_guest_calendar_post(mail):
@@ -29,3 +31,4 @@ def create_guest_calendar_post(mail):
         send_email(admin_id, request_body, mail, link_id)
         return make_response(request_body, 200)
     return guest_calendar_post
+
