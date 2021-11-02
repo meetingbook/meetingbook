@@ -1,6 +1,6 @@
-from flask import jsonify, make_response, Blueprint
+from flask import Blueprint
 from flask_httpauth import HTTPBasicAuth
-
+from tools.build_response import build_response
 admin_page = Blueprint('admin_page', __name__)
 auth = HTTPBasicAuth()
 
@@ -20,4 +20,4 @@ def get_password(username):
 
 @auth.error_handler
 def unauthorized():
-    return make_response(jsonify({'error': 'Unauthorized access'}), 401)
+    return build_response('Unauthorized access', 401)

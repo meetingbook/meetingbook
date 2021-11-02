@@ -19,7 +19,10 @@ from server.admin_calendars_id_delete import admin_calendars_id
 from server.guest_calendar_post import guest_calendar_post
 from server.validation.validation_error import bad_request
 from server.booking_settings_put import booking_settings_put
+from server.guest_calendar_delete import guest_calendar_delete
+from server.calendars_bookings_get import calendars_bookings_get
 from server.calendars_post_for_admin import calendars_post
+
 migrate = Migrate()
 
 
@@ -45,5 +48,8 @@ def create_app(config=config_settings['development']):
     app.register_blueprint(admin_calendars_id)
     app.register_blueprint(guest_calendar_post)
     app.register_blueprint(guest_calendar_get)
+    app.register_blueprint(guest_calendar_delete)
+    app.register_blueprint(calendars_bookings_get)
     app.register_blueprint(calendars_post)
+
     return app

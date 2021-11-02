@@ -1,9 +1,9 @@
 from tools.get_slots_by_filter import get_slots_by_filter
-from tools.for_db.work_with_slots import add_slots
+from tools.for_db.work_with_slots import add_slot_and_get_id
 from tools.for_db.work_with_booking_info import add_booking_info
 
 
-def test_get_slots_by_booking_empty(app_for_test, test_admin):
+def test_get_slots_by_booking_empty(test_admin):
     booking_slots = get_slots_by_filter("booking", test_admin.get_id())
     assert booking_slots == []
 
@@ -23,7 +23,7 @@ def test_get_slots_by_booking(test_admin):
         }
     ]
     add_booking_info(booking_inf_name, booking_inf_email)
-    add_slots(start_interval, end_interval, test_admin.get_id(), booking_id)
+    add_slot_and_get_id(start_interval, end_interval, test_admin.get_id(), booking_id)
     booking_slots = get_slots_by_filter("booking", test_admin.get_id())
     assert booking_slots == json
 
@@ -44,6 +44,6 @@ def test_get_slots_by_available(test_admin):
             "id": 2
         }
     ]
-    add_slots(start_interval, end_interval, test_admin.get_id())
+    add_slot_and_get_id(start_interval, end_interval, test_admin.get_id())
     booking_slots = get_slots_by_filter("available", test_admin.get_id())
     assert booking_slots == json

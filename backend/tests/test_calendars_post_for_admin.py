@@ -17,7 +17,6 @@ def test_expiry_date_1_day():
 
 
 def test_generate_calendar_link_without_valid_until(app_for_test, test_admin):
-    test_admin.register_admin()
     response = app_for_test.post("/calendars",
                                  headers=test_admin.get_valid_header(),
                                  data=json.dumps(dict(valid_until="")),
