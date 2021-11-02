@@ -26,10 +26,10 @@ def test_login(app_for_test):
     invalid_psw_credentials = base64.b64encode(f'{log}:{incorrect_psw}'.encode()).decode('utf-8')
     unauthorized_credentials = base64.b64encode(f'{unauthorized_log}:{psw}'.encode()).decode('utf-8')
 
-    response1 = app_for_test.get("/login/", headers={'Authorization': 'Basic ' + valid_credentials})
-    response2 = app_for_test.get("/login/")
-    response3 = app_for_test.get("/login/", headers={'Authorization': 'Basic ' + invalid_psw_credentials})
-    response4 = app_for_test.get("/login/", headers={'Authorization': 'Basic ' + unauthorized_credentials})
+    response1 = app_for_test.get("/login", headers={'Authorization': 'Basic ' + valid_credentials})
+    response2 = app_for_test.get("/login")
+    response3 = app_for_test.get("/login", headers={'Authorization': 'Basic ' + invalid_psw_credentials})
+    response4 = app_for_test.get("/login", headers={'Authorization': 'Basic ' + unauthorized_credentials})
 
     assert response1.status == '200 OK'
     assert response2.status == '401 UNAUTHORIZED'

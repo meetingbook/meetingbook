@@ -1,7 +1,8 @@
-import db.models as models
-from flask import make_response
-from tools.for_db.work_with_slots import get_id_slice_of_slot, update_booking_id_in_slot
 from tools.generate_uid import generate_uid
+from tools.build_response import build_response
+from tools.for_db.work_with_slots import BookingNotFound
+import db.models as models
+from tools.for_db.work_with_slots import get_id_slice_of_slot, update_booking_id_in_slot
 
 
 class BookingSlotException(Exception):
@@ -14,13 +15,10 @@ def add_booking_info(booking_inf_name, booking_inf_email):
         models.db.session.add(booking_inf)
         models.db.session.commit()
     except Exception as e:
-        return make_response({
-            "status": 500,
-            "detail": f"{e}"
-        }, 500)
+        return build_response(f"{e}", 500)
 
 
-def add_booking_info_and_get_id(start, end, admin_id, name, email, topic=None):
+def add_booking_info_and_get_uuid(start, end, admin_id, name, email, topic=None):
     try:
         uuid = generate_uid()
         booking_info = models.BookingInfo(name=name, email=email, topic=topic, uuid=uuid)
@@ -34,21 +32,31 @@ def add_booking_info_and_get_id(start, end, admin_id, name, email, topic=None):
         raise BookingSlotException('error adding booking info')
     finally:
         models.db.session.close()
-    return booking_id
+    return uuid
 
 
-def delete_booking_info(booking_id):
+def query_booking_info_by_id(booking_id):
+    return models.BookingInfo.query.filter_by(id=booking_id).first()
+
+
+def query_booking_info_by_uuid(uuid):
+    return models.BookingInfo.query.filter_by(uuid=uuid).first()
+
+
+def delete_booking_info_and_get_id(uuid):
     try:
-        booking_info = models.BookingInfo.query.filter_by(id=booking_id)
+        booking_info = query_booking_info_by_uuid(uuid)
+        booking_id = booking_info.id
         models.db.session.delete(booking_info)
-        models.db.session.commit()
+        models.db.session.flush()
     except Exception:
         models.db.session.rollback()
         raise BookingSlotException('Unable to delete booking info')
-
-    finally:
-        models.db.session.close()
+    return booking_id
 
 
-def get_uuid(booking_id):
-    return models.BookingInfo.query.filter_by(id=booking_id).first().uuid
+def get_booking_info(booking_id):
+    booking_info = models.BookingInfo.query.filter_by(id=booking_id).first()
+    if booking_info is None:
+        raise BookingNotFound('Booking not found')
+    return booking_info

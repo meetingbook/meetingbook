@@ -1,10 +1,10 @@
-from flask import Blueprint, request, jsonify, make_response
+from flask import Blueprint, request
 from flask_expects_json import expects_json
 from server.validation.schemas import register_schema
 from tools.for_db.work_with_booking_settings import AdminDefaulSettings
 from tools.func_for_psw import password_hashing
 from tools.for_db.work_with_admin_info import AdminExistsException, add_admin
-
+from tools.build_response import build_response
 register_blueprint = Blueprint('register_blueprint', __name__)
 
 
@@ -16,9 +16,7 @@ def registration():
         hashed_password = password_hashing(password)
         add_admin(email, hashed_password)
     except AdminExistsException:
-        return make_response(jsonify({"status": 409,
-                                      'detail': 'Conflict. This email is already registered in MeetingBook'}), 409)
+        return build_response('Conflict. This email is already registered in MeetingBook', 409)
     except AdminDefaulSettings as e:
-        return make_response(jsonify({"status": 500,
-                                      'detail': f'{e}'}), 500)
-    return jsonify({'detail': 'Successful registration'})
+        return build_response(f'{e}', 500)
+    return build_response('Successful registration', 200)
