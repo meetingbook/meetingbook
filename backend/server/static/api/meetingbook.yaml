@@ -421,7 +421,7 @@ paths:
           name: booking_id
           type: string
           description: |
-            booking id
+            booking info uuid
           required: true
       responses:
         "200":
