@@ -29,3 +29,7 @@ def add_admin(email, password):
 
 def get_admin_id(email):
     return models.AdminInfo.query.filter_by(email=email).first().id
+
+
+def get_admin_email_by_id(admin_id):
+    return models.AdminInfo.query.filter_by(id=admin_id).first().email

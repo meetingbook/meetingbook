@@ -80,3 +80,17 @@ For working with migrations see the README in folder: `meetingbook/backend/migra
 API documentation is available at ```.../api/docs```
 For example: 
 The server is running locally the path is: ```http://localhost:5000/api/docs/```
+
+## Settings for Flask-Mail
+
+Create .env file in the backend folder with:
+
+SMTP server. For example Google:
+    MAIL_SERVER=smtp.gmail.com
+
+Port of the SMTP server. For example Google:
+    MAIL_PORT=465
+
+Credential (email) from which the letter will be sent to the administrator:
+    MAIL_USERNAME=yourlogin@gmail.com 
+    MAIL_PASSWORD=yourpassword.
