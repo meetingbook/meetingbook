@@ -1,12 +1,11 @@
 from datetime import datetime
 
 import db.models as models
-from db.models import Slots, SlotsShema
 from flask import jsonify
 from cli.parser import regular_start_end
-from tools.for_db.work_with_admin_info import get_admin_id
-from tools.for_db.work_with_slots import add_slots
 from tools.build_response import build_response
+from tools.for_db.work_with_admin_info import get_admin_id
+from tools.for_db.work_with_slots import add_slot_and_get_id, get_slot_by_id
 
 
 def add_slot_from_db_for_schedule_admin(start, end, email_admin):
@@ -18,17 +17,10 @@ def add_slot_from_db_for_schedule_admin(start, end, email_admin):
             and datetime.fromisoformat(start) > datetime.utcnow()):
         try:
             id_admin = get_admin_id(email_admin)
-            slots = add_slots(start + ':00.000Z', end + ':00.000Z', id_admin)
-            return jsonify(get_last_slot_id(slots))
+            slots = add_slot_and_get_id(start + ':00.000Z', end + ':00.000Z', id_admin)
+            return jsonify(get_slot_by_id(slots))
         except Exception:
             models.db.session.rollback()
             return build_response('Creation failed', 500)
     else:
         return build_response("400 Bad Request", 400)
-
-
-def get_last_slot_id(slots_id):
-    id_added_slots = Slots.query.filter_by(id=slots_id).first()
-    slots_shema = SlotsShema(many=False)
-    output = slots_shema.dump(id_added_slots)
-    return output

@@ -2,7 +2,7 @@ from flask import Blueprint, request, make_response
 from flask_expects_json import expects_json
 
 from server.validation.schemas import guest_calendar_schema
-from tools.for_db.work_with_booking_info import add_booking_info_and_get_id, get_uuid
+from tools.for_db.work_with_booking_info import add_booking_info_and_get_uuid
 from tools.for_db.work_with_links import get_link
 from tools.build_response import build_response
 guest_calendar_post = Blueprint('guest_calendar_post', __name__)
@@ -17,10 +17,10 @@ def booking(link_id):
         return build_response('link id is invalid', 401)
     admin_id = link.admin_id
     try:
-        booking_id = add_booking_info_and_get_id(request_body['start'], request_body['end'], admin_id,
-                                                 request_body['guest_name'], request_body['guest_email'],
-                                                 request_body['topic'] if 'topic' in request_body else None)
-        request_body['uuid'] = get_uuid(booking_id)
+        uuid = add_booking_info_and_get_uuid(request_body['start'], request_body['end'], admin_id,
+                                             request_body['guest_name'], request_body['guest_email'],
+                                             request_body['topic'] if 'topic' in request_body else None)
+        request_body['uuid'] = uuid
     except Exception:
         return build_response('already booked or deleted', 409)
     return make_response(request_body, 200)

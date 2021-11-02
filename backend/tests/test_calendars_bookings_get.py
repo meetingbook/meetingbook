@@ -1,6 +1,6 @@
 from tools.for_db.work_with_links import add_link
-from tools.for_db.work_with_booking_info import add_booking_info_and_get_id, get_booking_info
-from tools.for_db.work_with_slots import add_slots, get_slots_by_admin_id_and_booking_id
+from tools.for_db.work_with_booking_info import add_booking_info_and_get_uuid, get_booking_info
+from tools.for_db.work_with_slots import add_slot_and_get_id, get_slots_by_admin_id_and_booking_id
 
 json = {
     'end': '2024-12-02T10:30:47.984Z',
@@ -12,16 +12,16 @@ json = {
 
 
 def test_calendar_booking_get(app_for_test, test_admin):
-    add_slots('2024-12-02T10:00:47.984Z', '2024-12-02T10:30:47.984Z', test_admin.get_id())
-    id = add_booking_info_and_get_id('2024-12-02T10:00:47.984Z', '2024-12-02T10:30:47.984Z',
-                                     test_admin.get_id(), 'vasia', 'test@test.by', 'testestest')
+    add_slot_and_get_id('2024-12-02T10:00:47.984Z', '2024-12-02T10:30:47.984Z', test_admin.get_id())
+    add_booking_info_and_get_uuid('2024-12-02T10:00:47.984Z', '2024-12-02T10:30:47.984Z',
+                                  test_admin.get_id(), 'vasia', 'test@test.by', 'testestest')
     add_link('test', test_admin.get_id())
     add_link('testfail', test_admin.get_id(), "2020-10-14T13:41:23.936Z")
 
-    result = get_slots_by_admin_id_and_booking_id(test_admin.get_id(), id)
-    res_booking_info = get_booking_info(id)
-    req_1 = app_for_test.get('/calendars/test/bookings/{}'.format(id))
-    req_2 = app_for_test.get('/calendars/fail/bookings/{}'.format(id))
+    result = get_slots_by_admin_id_and_booking_id(test_admin.get_id(), 1)
+    res_booking_info = get_booking_info(1)
+    req_1 = app_for_test.get('/calendars/test/bookings/{}'.format(1))
+    req_2 = app_for_test.get('/calendars/fail/bookings/{}'.format(1))
     req_3 = app_for_test.get('/calendars/test/bookings/5')
     req_4 = app_for_test.get('/calendars/testfail/bookings/2')
 
