@@ -5,7 +5,6 @@ valid_until = DateTime().utc_plus_delta(days=7)
 
 
 def test_links_add(app_for_test, test_admin, link_id):
-    test_admin.register_admin()
     admin_id = test_admin.get_id()
     add_link(link_id, admin_id, valid_until)
     add_link('second_link_id', admin_id, valid_until)

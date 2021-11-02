@@ -1,7 +1,8 @@
+from datetime import timedelta
+
 from db.models import Slots, SlotsShema
 from tools.transform_str_to_datetime_and_back import transform_string_to_datetime, transform_datetime_to_string
-from datetime import timedelta
-from tools.query_slots import query_slots
+from tools.for_db.work_with_slots import query_slots
 from tools.build_response import build_response
 
 
