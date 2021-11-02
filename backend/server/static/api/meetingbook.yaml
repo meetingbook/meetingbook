@@ -57,7 +57,7 @@ paths:
       tags:
         - sign in / sign up
       summary: Register a new Admin
-      description: Requires a new email (not yet registered in MeetingBook), password and the second input of this password to confirm the registration of a new Admin.
+      description: Requires a new email (not yet registered in MeetingBook) and password to confirm the registration of a new Admin.
       consumes:
         - application/json
       parameters:
@@ -240,6 +240,10 @@ paths:
           description: "Unauthorized"
           schema:
             $ref: '#/definitions/Problem'
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: '#/definitions/Problem'
       security:
         - basic_auth: []
   /calendars/{link_id}:
@@ -287,8 +291,6 @@ paths:
       responses:
         "200":
           description: "Deletion successful"
-          schema:
-            $ref: "#/definitions/Problem"
         "404":
           description: "Shareable link not found"
           schema:
@@ -305,10 +307,6 @@ paths:
           description: "Successful operation"
           schema:
             $ref: "#/definitions/CalendarLinks"
-        "400":
-          description: "Bad Request"
-          schema:
-            $ref: "#/definitions/Problem"
         "401":
           description: "Unauthorized"
           schema:
@@ -396,8 +394,16 @@ paths:
           description: "Successful request"
           schema:
             $ref: "#/definitions/Booking"
+        "400":
+          description: "BAD REQUEST"
+          schema:
+            $ref: "#/definitions/Problem"
         "401":
           description: "Unauthorized - link id is invalid"
+          schema:
+            $ref: "#/definitions/Problem"
+        "404":
+          description: "Not Found (`booking not found` or `Shareable link not found`)"
           schema:
             $ref: "#/definitions/Problem"
     delete:      
@@ -422,6 +428,10 @@ paths:
           description: "Successful request"
         "401":
           description: "Unauthorized - link id is invalid"
+          schema:
+            $ref: "#/definitions/Problem"
+        "409":
+          description: "Conflict - already booked or deleted"
           schema:
             $ref: "#/definitions/Problem"
 definitions:
