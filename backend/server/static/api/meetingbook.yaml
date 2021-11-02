@@ -427,11 +427,15 @@ paths:
         "200":
           description: "Successful request"
         "401":
-          description: "Unauthorized - link id is invalid"
+          description: "Unauthorized - link has expired"
+          schema:
+            $ref: "#/definitions/Problem"
+        "404":
+          description: "Bad Request - Shareable link not found"
           schema:
             $ref: "#/definitions/Problem"
         "409":
-          description: "Conflict - already booked or deleted"
+          description: "Conflict (`Unable to delete booking info` or `Error. Unable to book slot`)"
           schema:
             $ref: "#/definitions/Problem"
 definitions:
