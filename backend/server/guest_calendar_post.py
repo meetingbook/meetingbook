@@ -18,9 +18,8 @@ def create_guest_calendar_post(mail):
         request_body = request.get_json()
         link = get_link(link_id)
         if link is None:
-            return make_response(jsonify({'status': 401, 'detail': 'link id is invalid'}), 401)
+            return build_response('link id is invalid', 401)
         admin_id = link.admin_id
-
         try:
             booking_id = add_booking_info_and_get_id(request_body['start'], request_body['end'], admin_id,
                                                      request_body['guest_name'], request_body['guest_email'],
@@ -31,4 +30,3 @@ def create_guest_calendar_post(mail):
         send_email(admin_id, request_body, mail, link_id)
         return make_response(request_body, 200)
     return guest_calendar_post
-
