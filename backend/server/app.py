@@ -26,11 +26,10 @@ from server.calendars_post_for_admin import calendars_post
 migrate = Migrate()
 
 
-def create_app():
+def create_app(config=config_settings['development']):
     app = Flask(__name__)
+    app.config.from_object(config)
     CORS(app, supports_credentials=True)
-
-    app.config.from_object(config_settings['development'])
     db.init_app(app)
     migrate.init_app(app, db)
     app.register_error_handler(400, bad_request)
